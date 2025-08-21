@@ -86,12 +86,28 @@ header p{
 .tab-btn.active{ background:var(--accent); color:#fff; }
 
 /* ===== Sub Tabs (categories) ===== */
-#subTabs{ display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 14px; }
-.sub-tab{
-  padding:8px 14px; border-radius:9999px; border:1px solid var(--border); background:#fff;
-  font-weight:600; color:#3a454d; cursor:pointer;
+#subTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 14px;
 }
-.sub-tab.active{ background:var(--accent); color:#fff; border-color:var(--accent); }
+
+.sub-tab {
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-weight: 600;
+  color: #3a454d;
+  cursor: pointer;
+}
+
+.sub-tab.active {
+  background: var(--primary);   /* change to brand green */
+  color: #fff;
+  border-color: var(--primary); /* match green border */
+}
 
 /* ===== Menu item card ===== */
 .menu-item{
@@ -135,3 +151,4 @@ header p{
   .price{ min-width:auto; }
   .item-actions{ gap:10px; }
 }
+
