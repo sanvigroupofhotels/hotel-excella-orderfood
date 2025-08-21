@@ -69,9 +69,9 @@ main {
 .app-header::after {
   content: "";
   display: block;
-  width: 100%;
+  width: 70%;
   margin: 1px auto 0;
-  border-bottom: 5px dotted gold;
+  border-bottom: 10px dotted gold;
 }
 
 
@@ -316,6 +316,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
