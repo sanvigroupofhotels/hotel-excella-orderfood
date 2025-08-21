@@ -42,9 +42,9 @@ main {
 }
 
 .app-header .logo {
-  width: 200px;
+  width: 250px;
   height: auto;   
-  margin-bottom: 2px;
+  margin-bottom: 0px;
 }
 
 /* Tagline under hotel name */
@@ -307,6 +307,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
