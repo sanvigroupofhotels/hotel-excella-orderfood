@@ -60,9 +60,9 @@ main {
 .app-header::after {
   content: "";
   display: block;
-  width: 80%;
-  margin: 10px auto 0;
-  border-bottom: 2px dotted gold;
+  width: 100%;
+  margin: 1px auto 0;
+  border-bottom: 5px dotted gold;
 }
 
 
@@ -307,6 +307,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
