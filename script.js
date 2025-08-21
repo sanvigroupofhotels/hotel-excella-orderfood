@@ -1,234 +1,139 @@
-// ---------------------- CSV PARSER ----------------------
-function parseCSV(text) {
-  const rows = [];
-  let current = '';
-  let insideQuotes = false;
-  let row = [];
-
-  for (let char of text) {
-    if (char === '"') {
-      insideQuotes = !insideQuotes;
-    } else if (char === ',' && !insideQuotes) {
-      row.push(current.trim());
-      current = '';
-    } else if (char === '\n' && !insideQuotes) {
-      row.push(current.trim());
-      rows.push(row);
-      row = [];
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-  if (current) row.push(current.trim());
-  if (row.length) rows.push(row);
-
-  return rows;
-}
-
-let menuData = [];
-
-// ---------------------- LOAD MENU ----------------------
-fetch("menu.csv")
-  .then(res => res.text())
-  .then(text => {
-    const rows = parseCSV(text);
-    const headers = rows.shift();
-    menuData = rows.map(r => {
-      let obj = {};
-      headers.forEach((h, i) => (obj[h.trim()] = r[i] || ""));
-      return obj;
-    });
-    renderMenu("veg"); // default Veg
-  });
-
-// ---------------------- RENDER MENU ----------------------
-function renderMenu(type) {
+    document.addEventListener("DOMContentLoaded", () => {
   const menuContainer = document.getElementById("menuContainer");
-  menuContainer.innerHTML = "";
+  const orderList = document.getElementById("orderList");
+  const orderTotal = document.getElementById("orderTotal");
+  let order = {};
 
-  // normalize type for filtering
-  let items = menuData.filter(item => {
-    const normalizedType = (item.Type || "")
-      .toLowerCase()
-      .replace(/[\s-]/g, "");
-    return normalizedType === type.toLowerCase();
-  });
+  // Load menu.csv
+  fetch("menu.csv")
+    .then(res => res.text())
+    .then(data => {
+      const rows = Papa.parse(data, { header: true }).data;
+      renderMenu(rows, "Veg");
+      setupTabs(rows);
+    });
 
-  if (!items.length) {
-    menuContainer.innerHTML = "<p>No items available.</p>";
-    return;
+  // Render menu
+  function renderMenu(rows, type, subCategory = null) {
+    menuContainer.innerHTML = "";
+
+    const filtered = rows.filter(r => r.Type === type && (!subCategory || r.Category === subCategory));
+
+    // Sub Tabs
+    const categories = [...new Set(rows.filter(r => r.Type === type).map(r => r.Category))];
+    const subTabsDiv = document.createElement("div");
+    subTabsDiv.id = "subTabs";
+
+    categories.forEach((cat, i) => {
+      const btn = document.createElement("button");
+      btn.className = "sub-tab" + (i === 0 && !subCategory ? " active" : "");
+      btn.textContent = cat;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(rows, type, cat);
+      });
+      subTabsDiv.appendChild(btn);
+    });
+
+    menuContainer.appendChild(subTabsDiv);
+
+    filtered.forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "menu-item";
+
+      const left = document.createElement("div");
+      left.className = "item-info";
+      left.innerHTML = `<strong>${item.Name}</strong><br><small>${item.Description}</small>`;
+
+      const right = document.createElement("div");
+      right.className = "item-actions";
+      right.innerHTML = `<span class="price">₹${parseFloat(item.Price).toFixed(2)}</span>`;
+
+      const controls = document.createElement("div");
+      controls.className = "item-controls";
+
+      if (order[item.Name]) {
+        buildQtyControls(item.Name, controls, item.Price);
+      } else {
+        const addBtn = document.createElement("button");
+        addBtn.className = "add-btn";
+        addBtn.textContent = "Add";
+        addBtn.onclick = () => {
+          order[item.Name] = 1;
+          updateOrder(item.Name, item.Price);
+          renderMenu(rows, type, subCategory);
+        };
+        controls.appendChild(addBtn);
+      }
+
+      right.appendChild(controls);
+      itemDiv.append(left, right);
+      menuContainer.appendChild(itemDiv);
+    });
   }
 
-  // group by Category
-  const categories = {};
-  items.forEach(item => {
-    const cat = item.Category || "Other";
-    if (!categories[cat]) categories[cat] = [];
-    categories[cat].push(item);
-  });
-
-  // category tabs
-  const categoryTabs = document.createElement("div");
-  categoryTabs.className = "category-tabs";
-  menuContainer.appendChild(categoryTabs);
-
-  const categoryContainer = document.createElement("div");
-  categoryContainer.className = "category-container";
-  menuContainer.appendChild(categoryContainer);
-
-  let first = true;
-  Object.keys(categories).forEach(cat => {
-    const btn = document.createElement("button");
-    btn.textContent = cat;
-    btn.onclick = () => {
-      document
-        .querySelectorAll(".category-tabs button")
-        .forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderCategoryItems(categories[cat], categoryContainer);
+  // Build qty controls
+  function buildQtyControls(name, container, price) {
+    const minus = document.createElement("button");
+    minus.className = "qty-btn";
+    minus.textContent = "-";
+    minus.onclick = () => {
+      order[name]--;
+      if (order[name] <= 0) delete order[name];
+      updateOrder(name, price);
+      renderMenuRows();
     };
-    if (first) {
-      btn.classList.add("active"); // default highlight
-      renderCategoryItems(categories[cat], categoryContainer);
-      first = false;
-    }
-    categoryTabs.appendChild(btn);
-  });
-}
 
-// ---------------------- RENDER CATEGORY ITEMS ----------------------
-function renderCategoryItems(items, container) {
-  container.innerHTML = "";
-  items.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "menu-card";
+    const qty = document.createElement("span");
+    qty.className = "qty-display";
+    qty.textContent = order[name];
 
-    const left = document.createElement("div");
-    left.className = "menu-info";
-    left.innerHTML = `<h4>${item.Name}</h4><p>${item.Description}</p>`;
+    const plus = document.createElement("button");
+    plus.className = "qty-btn";
+    plus.textContent = "+";
+    plus.onclick = () => {
+      order[name]++;
+      updateOrder(name, price);
+      renderMenuRows();
+    };
 
-    const right = document.createElement("div");
-    right.className = "menu-action";
-    const price = document.createElement("span");
-    price.className = "price";
-    price.textContent = `₹${parseFloat(item.Price).toFixed(2)}`;
-
-    const btn = document.createElement("button");
-    btn.className = "add-btn";
-    btn.textContent = "Add";
-
-    btn.onclick = () => handleAdd(btn, item);
-
-    right.appendChild(price);
-    right.appendChild(btn);
-
-    card.appendChild(left);
-    card.appendChild(right);
-    container.appendChild(card);
-  });
-}
-
-// ---------------------- HANDLE ADD / QTY ----------------------
-function handleAdd(btn, item) {
-  btn.remove();
-
-  const qtyWrapper = document.createElement("div");
-  qtyWrapper.className = "qty-control";
-
-  const minus = document.createElement("button");
-  minus.textContent = "−";
-  const plus = document.createElement("button");
-  plus.textContent = "+";
-  const qty = document.createElement("span");
-  qty.textContent = "1";
-
-  qtyWrapper.appendChild(minus);
-  qtyWrapper.appendChild(qty);
-  qtyWrapper.appendChild(plus);
-
-  btn.parentElement.appendChild(qtyWrapper);
-
-  updateOrder(item, 1);
-
-  plus.onclick = () => {
-    let q = parseInt(qty.textContent) + 1;
-    qty.textContent = q;
-    updateOrder(item, 1);
-  };
-
-  minus.onclick = () => {
-    let q = parseInt(qty.textContent) - 1;
-    if (q <= 0) {
-      qtyWrapper.remove();
-      const newBtn = document.createElement("button");
-      newBtn.className = "add-btn";
-      newBtn.textContent = "Add";
-      newBtn.onclick = () => handleAdd(newBtn, item);
-      btn.parentElement.appendChild(newBtn);
-      updateOrder(item, -1, true);
-    } else {
-      qty.textContent = q;
-      updateOrder(item, -1);
-    }
-  };
-}
-
-// ---------------------- ORDER SUMMARY ----------------------
-let order = {};
-
-function updateOrder(item, change, removeAll = false) {
-  const key = item.Name;
-  if (!order[key]) {
-    order[key] = { ...item, qty: 0 };
+    container.append(minus, qty, plus);
   }
 
-  if (removeAll) {
-    order[key].qty = 0;
-  } else {
-    order[key].qty += change;
+  // Update order summary
+  function updateOrder(name, price) {
+    orderList.innerHTML = "";
+    let total = 0;
+    Object.entries(order).forEach(([item, qty]) => {
+      const li = document.createElement("li");
+      li.textContent = `${item} x ${qty}`;
+      orderList.appendChild(li);
+      total += qty * parseFloat(price);
+    });
+    orderTotal.textContent = total.toFixed(2);
   }
 
-  if (order[key].qty <= 0) {
-    delete order[key];
+  // Tabs
+  function setupTabs(rows) {
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(rows, btn.textContent.trim());
+      });
+    });
   }
 
-  renderOrderSummary();
-}
-
-function renderOrderSummary() {
-  const list = document.getElementById("orderList");
-  const totalEl = document.getElementById("orderTotal");
-  list.innerHTML = "";
-  let total = 0;
-
-  Object.values(order).forEach(it => {
-    const li = document.createElement("li");
-    li.textContent = `${it.Name} x ${it.qty}`;
-    list.appendChild(li);
-    total += it.qty * parseFloat(it.Price);
-  });
-
-  totalEl.textContent = total.toFixed(2);
-}
-
-// ---------------------- TAB SWITCH ----------------------
-document.getElementById("tabVeg").onclick = () => {
-  setActiveTab("tabVeg");
-  renderMenu("veg");
-};
-document.getElementById("tabNonVeg").onclick = () => {
-  setActiveTab("tabNonVeg");
-  renderMenu("nonveg");
-};
-document.getElementById("tabGeneral").onclick = () => {
-  setActiveTab("tabGeneral");
-  renderMenu("general");
-};
-
-function setActiveTab(id) {
-  document
-    .querySelectorAll("#menuTabs .tab-btn")
-    .forEach(btn => btn.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
+  // Fix re-render qty state
+  function renderMenuRows() {
+    const activeTab = document.querySelector(".tab-btn.active").textContent.trim();
+    const activeSub = document.querySelector(".sub-tab.active")?.textContent;
+    fetch("menu.csv")
+      .then(res => res.text())
+      .then(data => {
+        const rows = Papa.parse(data, { header: true }).data;
+        renderMenu(rows, activeTab, activeSub);
+      });
+  }
+});
