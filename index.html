@@ -1,63 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-	  <link rel="stylesheet" href="style.css">
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Hotel Excella - Food Ordering</title>
-   </head>
-   <body>
-      <header>
-         <img src="images/sanvigrouplogo.jpg" alt="Hotel Logo"/>
-         <h1>SANVI GROUP OF HOTELS</h1>
-         <p>MEMORABLE STAYS</p>
-      </header>
-      <div class="topbar">
-         <select id="langSelect">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="te">తెలుగు</option>
-            <option value="ta">தமிழ்</option>
-         </select>
-         <button id="faqBtn" data-translate="faq">FAQ</button>
-      </div>
-      <main>
-		<section id="guestInfo" class="card">
-		  <h2>Guest Information</h2>
-		  
-		  <label for="guestName">Guest Name: *</label>
-		  <input type="text" id="guestName" placeholder="Enter your name" required>
-		  
-		  <label for="roomNo">Room Number: *</label>
-		  <input type="text" id="roomNo" placeholder="Enter your room number" required>
-		  
-		  <label for="Whatsappnum">WhatsApp Number: *</label>
-		  <input type="tel" id="Whatsappnum" placeholder="+1234567890" required>
-		</section>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hotel Excella - Food Ordering</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="images/sanvigrouplogo.jpg" alt="Hotel Logo"/>
+    <h1>HOTEL EXCELLA</h1>
+    <p>MEMORABLE STAYS</p>
+  </header>
 
-         <section id="menuSection" class="card">
-            <h2 data-translate="menu">Menu</h2>
-            <nav id="menuTabs">
-               <button id="tabVeg" class="tab-btn active" data-translate="veg">Veg</button>
-               <button id="tabNonVeg" class="tab-btn" data-translate="nonveg">Non Veg</button>
-               <button id="tabGeneral" class="tab-btn" data-translate="general">General</button>
-            </nav>
-            <div id="menuContainer">Loading menu…</div>
-         </section>
-         <section id="orderSummary" class="card">
-            <h3 data-translate="orderSummary">Order Summary</h3>
-            <ul id="orderList"></ul>
-            <p><strong data-translate="total">Total:</strong> ₹<span id="orderTotal">0.00</span></p>
-            <button id="confirmOrder" data-translate="confirm">Confirm Order</button>
-         </section>
-      </main>
-      <div id="faqModal">
-         <div id="faqContent">
-            <h2 data-translate="faqTitle">Frequently Asked Questions</h2>
-            <div id="faqText"></div>
-            <button id="closeFaq" data-translate="close">Close</button>
-         </div>
-      </div>
-	  <script src="script.js"></script>
-   </body>
+  <main>
+    <section id="guestInfo" class="card">
+      <h2>Guest Information</h2>
+      <label for="guestName">Guest Name: *</label>
+      <input type="text" id="guestName" placeholder="Enter your name" required>
+
+      <label for="roomNo">Room Number: *</label>
+      <input type="text" id="roomNo" placeholder="Enter your room number" required>
+
+      <label for="Whatsappnum">WhatsApp Number: *</label>
+      <input type="tel" id="Whatsappnum" placeholder="+1234567890" required>
+    </section>
+
+    <section id="menuSection" class="card">
+      <h2>Menu</h2>
+      <nav id="menuTabs">
+        <button id="tabVeg" class="tab-btn active">Veg</button>
+        <button id="tabNonVeg" class="tab-btn">Non Veg</button>
+        <button id="tabGeneral" class="tab-btn">General</button>
+      </nav>
+      <div class="category-tabs" id="categoryTabs"></div>
+      <div id="menuContainer">Loading menu…</div>
+    </section>
+
+    <section id="orderSummary" class="card">
+      <h3>Order Summary</h3>
+      <ul id="orderList"></ul>
+      <p><strong>Total:</strong> ₹<span id="orderTotal">0.00</span></p>
+      <button id="confirmOrder">Confirm Order</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
