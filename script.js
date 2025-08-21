@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.text())
     .then(data => {
       menuRows = Papa.parse(data, { header: true, skipEmptyLines: true }).data;
-      renderMenu(menuRows, "veg"); // default tab
+      renderMenu(menuRows, "Veg"); // default tab
       setupTabs(menuRows);
     });
 
@@ -26,18 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Categories for this type
     const categories = [...new Set(rows.filter(r =>
       normalize(r.Type) === normalize(type)
-    ).map(r => r.Category?.trim()))];
+    ).map(r => r.Category?.trim()).filter(Boolean))];
 
-    // If no subCategory passed, pick first
-    if (!subCategory && categories.length > 0) {
-      subCategory = categories[0];
+    // If no subCategory passed
+    if (!subCategory) {
+      subCategory = categories.length > 0 ? categories[0] : null;
     }
 
     // Filter rows
     const filtered = rows.filter(r =>
       normalize(r.Type) === normalize(type) &&
-      (!subCategory || normalize(r.Category) === normalize(subCategory))
+      (!subCategory || !r.Category || normalize(r.Category) === normalize(subCategory))
     );
+
+    // Debug log
+    console.log("DEBUG → type:", type, "| subCategory:", subCategory, "| matched items:", filtered.length);
 
     // If nothing found
     if (filtered.length === 0) {
@@ -45,23 +48,25 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Build sub-tabs
-    const subTabsDiv = document.createElement("div");
-    subTabsDiv.id = "subTabs";
+    // Build sub-tabs if categories exist
+    if (categories.length > 0) {
+      const subTabsDiv = document.createElement("div");
+      subTabsDiv.id = "subTabs";
 
-    categories.forEach(cat => {
-      const btn = document.createElement("button");
-      btn.className = "sub-tab" + (normalize(cat) === normalize(subCategory) ? " active" : "");
-      btn.textContent = cat;
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderMenu(rows, type, cat);
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "sub-tab" + (normalize(cat) === normalize(subCategory) ? " active" : "");
+        btn.textContent = cat;
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderMenu(rows, type, cat);
+        });
+        subTabsDiv.appendChild(btn);
       });
-      subTabsDiv.appendChild(btn);
-    });
 
-    menuContainer.appendChild(subTabsDiv);
+      menuContainer.appendChild(subTabsDiv);
+    }
 
     // Build each menu item
     filtered.forEach(item => {
@@ -191,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Build order summary
-	const currentDate = new Date();
+    const currentDate = new Date();
     let orderMsg = `🛎️ Food Order ${currentDate.getDate()}${{one:'st',two:'nd',few:'rd',other:'th'}[new Intl.PluralRules('en-GB', { type: 'ordinal' }).select(currentDate.getDate())]} ${currentDate.toLocaleString('en-US', { month: 'short' })}'${currentDate.getFullYear().toString().slice(-2)}\n\n`;
     orderMsg += `👤 Guest: ${guestName}\n`;
     orderMsg += `🏠 Room: ${roomNo}\n`;
@@ -217,4 +222,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(whatsappURL, "_blank");
   });
 });
-
