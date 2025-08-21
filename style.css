@@ -40,8 +40,8 @@ header h1 {
 header p {
   margin: 0;
   font-size: 1rem;
-  color: #000;   /* black */
-  font-weight: 500;
+  color: #000;        /* black */
+  font-weight: 700;   /* bold */
 }
 
 .topbar {
@@ -233,3 +233,4 @@ input {
   max-height: 80%;
   overflow-y: auto;
 }
+
