@@ -56,13 +56,14 @@ main {
   margin-bottom: 0px;
 }
 
-/* Actual Header - Menu */
+/* Actual Heading - Menu */
 .header-text p {
   font-family: 'Baloo Bhai 2', cursive;
-  font-size: 1.3rem;
-  font-weight: 750;
-  color: #fff; /* white */
-  margin: 0;
+  font-size: 1.8rem;          /* bigger than hotel name */
+  font-weight: 800;           /* extra bold */
+  color: #000;                /* solid black */
+  margin-top: 8px;
+  line-height: 1.3;
 }
 
 /* Optional: add golden divider line */
@@ -316,6 +317,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
