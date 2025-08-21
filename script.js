@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let menuData = [];
   let order = {};
 
+  // Normalize strings (fix casing, trim, unify spaces/dashes)
+  function normalize(str) {
+    return str ? str.trim().toLowerCase().replace(/[-_]/g, " ") : "";
+  }
+
   // Parse CSV safely (handles commas inside quotes)
   function parseCSV(data) {
     const rows = data.trim().split(/\r?\n/);
@@ -31,13 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
         headers.forEach((h, i) => (item[h.trim()] = r[i]));
         return item;
       });
-      renderMenu();
       renderCategories();
+      renderMenu();
     });
 
   // Render categories based on current tab
   function renderCategories() {
-    const items = menuData.filter(i => i.Type === currentTab);
+    const items = menuData.filter(i => normalize(i.Type) === normalize(currentTab));
     const cats = [...new Set(items.map(i => i.Category))];
     categoryTabs.innerHTML = "";
     cats.forEach(cat => {
@@ -62,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderMenu() {
     const items = menuData.filter(
       i =>
-        i.Type === currentTab &&
-        (!currentCategory || i.Category === currentCategory)
+        normalize(i.Type) === normalize(currentTab) &&
+        (!currentCategory || normalize(i.Category) === normalize(currentCategory))
     );
     menuContainer.innerHTML = "";
     items.forEach(item => {
@@ -124,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   );
 
-  // Confirm order
+  // Confirm order (WhatsApp)
   confirmOrderBtn.addEventListener("click", () => {
     const guest = document.getElementById("guestName").value;
     const room = document.getElementById("roomNo").value;
