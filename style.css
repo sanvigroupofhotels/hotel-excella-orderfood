@@ -41,6 +41,15 @@ main {
   justify-content: center;
 }
 
+/* Text over logo */
+.header-text {
+  position: absolute;
+  top: 50%;       /* adjust vertical overlap */
+  left: 50%;
+  transform: translate(-50%, -20%); /* fine tune */
+  text-align: center;
+}
+
 .app-header .logo {
   width: 250px;
   height: auto;   
@@ -48,7 +57,7 @@ main {
 }
 
 /* Actual Header - Menu */
-.app-header p {
+.header-text p {
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 1.3rem;
   font-weight: 700;
@@ -307,6 +316,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
