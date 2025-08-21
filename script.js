@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.text())
     .then(data => {
       menuRows = Papa.parse(data, { header: true, skipEmptyLines: true }).data;
-      renderMenu(menuRows, "Veg"); // default tab
+      renderMenu(menuRows, "Veg"); // default tab with first category
       setupTabs(menuRows);
     });
 
@@ -18,17 +18,29 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderMenu(rows, type, subCategory = null) {
     menuContainer.innerHTML = "";
 
-    // Filter rows
-    const filtered = rows.filter(r => r.Type === type && (!subCategory || r.Category === subCategory));
+    // Categories for this type
+    const categories = [...new Set(rows.filter(r =>
+      r.Type && r.Type.trim().toLowerCase() === type.toLowerCase()
+    ).map(r => r.Category))];
+
+    // If no subCategory passed, pick first
+    if (!subCategory && categories.length > 0) {
+      subCategory = categories[0];
+    }
+
+    // Filter rows safely
+    const filtered = rows.filter(r =>
+      r.Type && r.Type.trim().toLowerCase() === type.toLowerCase() &&
+      r.Category && r.Category.trim() === subCategory
+    );
 
     // Build sub-tabs
-    const categories = [...new Set(rows.filter(r => r.Type === type).map(r => r.Category))];
     const subTabsDiv = document.createElement("div");
     subTabsDiv.id = "subTabs";
 
-    categories.forEach((cat, i) => {
+    categories.forEach(cat => {
       const btn = document.createElement("button");
-      btn.className = "sub-tab" + (i === 0 && !subCategory ? " active" : (subCategory === cat ? " active" : ""));
+      btn.className = "sub-tab" + (cat === subCategory ? " active" : "");
       btn.textContent = cat;
       btn.addEventListener("click", () => {
         document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
@@ -140,9 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.classList.add("active");
 
         let type = btn.id === "tabVeg" ? "Veg" :
-                   btn.id === "tabNonVeg" ? "NonVeg" : "General";
+                   btn.id === "tabNonVeg" ? "Non Veg" : "General";
 
-        renderMenu(rows, type);
+        renderMenu(rows, type); // auto-picks first category
       });
     });
   }
@@ -151,8 +163,45 @@ document.addEventListener("DOMContentLoaded", () => {
   function rerenderMenu() {
     const activeTab = document.querySelector(".tab-btn.active").id;
     let type = activeTab === "tabVeg" ? "Veg" :
-               activeTab === "tabNonVeg" ? "NonVeg" : "General";
+               activeTab === "tabNonVeg" ? "Non Veg" : "General";
     const activeSub = document.querySelector(".sub-tab.active")?.textContent;
     renderMenu(menuRows, type, activeSub);
   }
+
+  // Confirm Order → Send to WhatsApp
+  document.getElementById("confirmOrder").addEventListener("click", () => {
+    const guestName = document.getElementById("guestName").value.trim();
+    const roomNo = document.getElementById("roomNo").value.trim();
+    const whatsappNum = document.getElementById("Whatsappnum").value.trim();
+
+    if (!guestName || !roomNo || !whatsappNum || Object.keys(order).length === 0) {
+      alert("Please fill guest details and add at least one item before confirming order.");
+      return;
+    }
+
+    // Build order summary
+    let orderMsg = `🛎️ Hotel Excella - Food Order\n\n`;
+    orderMsg += `👤 Guest: ${guestName}\n`;
+    orderMsg += `🏠 Room: ${roomNo}\n`;
+    orderMsg += `📱 WhatsApp: ${whatsappNum}\n\n`;
+    orderMsg += `📝 Order Details:\n`;
+
+    let total = 0;
+    Object.entries(order).forEach(([item, data]) => {
+      const subtotal = data.qty * data.price;
+      total += subtotal;
+      orderMsg += `- ${item} x ${data.qty} = ₹${subtotal.toFixed(2)}\n`;
+    });
+
+    orderMsg += `\n💰 Total: ₹${total.toFixed(2)}\n\n`;
+    orderMsg += `✅ Please confirm and prepare the order.`;
+
+    // Encode message for WhatsApp
+    const encodedMsg = encodeURIComponent(orderMsg);
+    const receptionNumber = "9985908131";
+    const whatsappURL = `https://wa.me/${receptionNumber}?text=${encodedMsg}`;
+
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+  });
 });
