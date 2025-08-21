@@ -42,17 +42,9 @@ main {
 }
 
 .app-header .logo {
-  width: 80px;
-  height: auto;
+  height: 120px;   /* was smaller before */
+  width: auto;
   margin-bottom: 10px;
-}
-
-.app-header .hotel-name {
-  font-size: 28px;
-  font-weight: bold;
-  color: #FFA726; /* Orange */
-  margin: 0;
-  letter-spacing: 2px;
 }
 
 .app-header .tagline {
@@ -307,4 +299,5 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
