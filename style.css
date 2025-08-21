@@ -26,32 +26,53 @@ main {
   padding: 0 16px;
 }
 
-/* Header */
-header {
-  text-align: center;
+/* ===== Header Styling ===== */
+.app-header {
+  background-color: #000; /* Black background */
   padding: 20px;
-  background: var(--primary);
-  color: white;
+  text-align: center;
+  position: relative;
 }
 
-header img {
-  max-height: 80px;
+.app-header .header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header .logo {
+  width: 80px;
+  height: auto;
   margin-bottom: 10px;
 }
 
-header h1 {
+.app-header .hotel-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFA726; /* Orange */
   margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--accent); /* Orange */
+  letter-spacing: 2px;
 }
 
-header p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;  /* Bold */
-  color: black;      /* Black tagline */
+.app-header .tagline {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* White tagline text */
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
+/* Optional: add golden divider line */
+.app-header::after {
+  content: "";
+  display: block;
+  width: 80%;
+  margin: 10px auto 0;
+  border-bottom: 2px dotted gold;
+}
+
 
 /* Top bar */
 .topbar {
@@ -286,3 +307,4 @@ header p {
   transform: scale(1.05);
   background: #222;
 }
+
