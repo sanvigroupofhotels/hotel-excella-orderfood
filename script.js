@@ -1,4 +1,3 @@
-      <script>
          (() => {
            const translations = {
              en: { guestInfo:"Guest Information", name:"Name:", room:"Room Number:", whatsapp:"Whatsapp Number:", menu:"Menu", veg:"Veg", nonveg:"Non Veg", general:"General", orderSummary:"Order Summary", total:"Total:", confirm:"Confirm Order", faq:"FAQ", faqTitle:"Frequently Asked Questions", close:"Close", faqs:`<p><strong>How to order?</strong> Fill your guest details and select quantities...</p>` }
@@ -192,4 +191,3 @@
            document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
            document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
          })();
-      </script>
