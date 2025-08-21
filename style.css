@@ -28,51 +28,47 @@ main {
 
 /* ===== Header Styling ===== */
 .app-header {
-  background-color: #000; /* Black background */
-  padding: 20px;
   text-align: center;
   position: relative;
+  margin-bottom: 1.5rem;
 }
 
-.app-header .header-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Logo container */
+.logo-container {
+  position: relative;
+  display: inline-block;
 }
 
-/* Text over logo */
-.header-text {
+/* Logo image */
+.logo {
+  width: 180px;   /* increase size */
+  height: auto;
+}
+
+/* Tagline dominating on logo */
+.tagline {
   position: absolute;
-  top: 50%;       /* adjust vertical overlap */
+  bottom: 10px;    /* adjust so it sits across bottom part of logo */
   left: 50%;
-  transform: translate(-50%, -20%); /* fine tune */
-  text-align: center;
-}
-
-.app-header .logo {
-  width: 250px;
-  height: auto;   
-  margin-bottom: 0px;
-}
-
-/* Actual Heading - Menu */
-.header-text p {
+  transform: translateX(-50%);
   font-family: 'Baloo Bhai 2', cursive;
-  font-size: 1.8rem;          /* bigger than hotel name */
-  font-weight: 800;           /* extra bold */
-  color: #000;                /* solid black */
-  margin-top: 8px;
-  line-height: 1.3;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #000;     /* strong black */
+  background: rgba(255, 255, 255, 0.7); /* optional white glow for contrast */
+  padding: 2px 6px;
+  border-radius: 4px;
 }
+
 
 /* Optional: add golden divider line */
+
 .app-header::after {
   content: "";
   display: block;
   width: 50%;
   margin: 10px auto 0;
-  border-bottom: 10px dotted gold;
+  border-bottom: 2px dotted gold;
 }
 
 
@@ -317,6 +313,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
