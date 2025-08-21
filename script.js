@@ -185,9 +185,10 @@
              let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
              let total = orderTotalEl.textContent;
              let msg = `Guest: ${guestNameEl.value}, Room: ${roomNoEl.value}, WhatsApp: ${whatsappEl.value}. Order: ${orderDetails}. Total: ₹${total}`;
-             window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`);
+             window.open(`https://wa.me/7702483811?text=${encodeURIComponent(msg)}`);
            });
          
            document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
            document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
+
          })();
