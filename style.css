@@ -42,8 +42,8 @@ main {
 }
 
 .app-header .logo {
-  height: 150px;   
-  width: auto;
+  width: 200px;
+  height: auto;   
   margin-bottom: 5px;
 }
 
@@ -307,6 +307,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
