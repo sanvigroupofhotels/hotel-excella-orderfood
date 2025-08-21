@@ -1,157 +1,117 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const menuTabs = document.querySelectorAll("#menuTabs button");
   const menuContainer = document.getElementById("menuContainer");
-  const categoryTabs = document.getElementById("categoryTabs");
-  const orderList = document.getElementById("orderList");
-  const orderTotal = document.getElementById("orderTotal");
-  const confirmOrderBtn = document.getElementById("confirmOrder");
+  const tabs = document.querySelectorAll(".tab-btn");
+  let currentType = "Veg";
+  let menuData = {};
 
-  let currentTab = "Veg";
-  let currentCategory = null;
-  let menuData = [];
-  let order = {};
-
-  // Normalize strings (fix casing, trim, unify spaces/dashes)
-  function normalize(str) {
-    return str ? str.trim().toLowerCase().replace(/[-_]/g, " ") : "";
-  }
-
-  // Parse CSV safely (handles commas inside quotes)
-  function parseCSV(data) {
-    const rows = data.trim().split(/\r?\n/);
-    return rows.map(row => {
-      const regex = /(".*?"|[^",\s]+)(?=\s*,|\s*$)/g;
-      return [...row.matchAll(regex)].map(m => m[0].replace(/(^"|"$)/g, ""));
-    });
-  }
-
-  // Load menu.csv
+  // Fetch & parse CSV
   fetch("menu.csv")
     .then(res => res.text())
     .then(text => {
-      const rows = parseCSV(text);
-      const headers = rows.shift();
-      menuData = rows.map(r => {
-        let item = {};
-        headers.forEach((h, i) => (item[h.trim()] = r[i]));
-        return item;
-      });
-      renderCategories();
-      renderMenu();
+      menuData = parseCSV(text);
+      renderMenu(currentType);
     });
 
-  // Render categories based on current tab
-  function renderCategories() {
-    const items = menuData.filter(i => normalize(i.Type) === normalize(currentTab));
-    const cats = [...new Set(items.map(i => i.Category))];
-    categoryTabs.innerHTML = "";
-    cats.forEach(cat => {
-      const btn = document.createElement("button");
-      btn.textContent = cat;
+  // Parse CSV safely (handles quotes with commas)
+  function parseCSV(text) {
+    const rows = text.trim().split("\n").map(r => {
+      const regex = /(".*?"|[^",]+)(?=\s*,|\s*$)/g;
+      return [...r.matchAll(regex)].map(m => m[0].replace(/(^"|"$)/g, ""));
+    });
+    const headers = rows[0];
+    const data = {};
+    rows.slice(1).forEach(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = row[i]);
+      if (!data[obj.Type]) data[obj.Type] = {};
+      if (!data[obj.Type][obj.Category]) data[obj.Type][obj.Category] = [];
+      data[obj.Type][obj.Category].push(obj);
+    });
+    return data;
+  }
+
+  // Render Menu
+  function renderMenu(type) {
+    currentType = type;
+    tabs.forEach(t => t.classList.remove("active"));
+    document.getElementById("tab" + type.replace(" ", "")).classList.add("active");
+
+    if (!menuData[type]) {
+      menuContainer.innerHTML = "<p>No items available.</p>";
+      return;
+    }
+
+    const categories = Object.keys(menuData[type]);
+    let html = `<div class="category-tabs">`;
+    categories.forEach((cat, idx) => {
+      html += `<button class="${idx === 0 ? "active" : ""}" data-cat="${cat}">${cat}</button>`;
+    });
+    html += `</div><div id="itemsContainer"></div>`;
+    menuContainer.innerHTML = html;
+
+    const catBtns = menuContainer.querySelectorAll(".category-tabs button");
+    catBtns.forEach(btn => {
       btn.addEventListener("click", () => {
-        currentCategory = cat;
-        renderMenu();
-        highlightCategory(cat);
+        catBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderItems(type, btn.getAttribute("data-cat"));
       });
-      categoryTabs.appendChild(btn);
     });
+
+    renderItems(type, categories[0]); // default first category
   }
 
-  function highlightCategory(cat) {
-    categoryTabs.querySelectorAll("button").forEach(b =>
-      b.classList.toggle("active", b.textContent === cat)
-    );
-  }
-
-  // Render menu items
-  function renderMenu() {
-    const items = menuData.filter(
-      i =>
-        normalize(i.Type) === normalize(currentTab) &&
-        (!currentCategory || normalize(i.Category) === normalize(currentCategory))
-    );
-    menuContainer.innerHTML = "";
+  function renderItems(type, category) {
+    const items = menuData[type][category];
+    const container = document.getElementById("itemsContainer");
+    container.innerHTML = "";
     items.forEach(item => {
       const div = document.createElement("div");
       div.className = "menu-item";
-
       div.innerHTML = `
         <div class="item-info">
-          <div class="item-name">${item.Name}</div>
-          <div class="item-desc">${item.Description}</div>
+          <h4>${item.Name}</h4>
+          <p>${item.Description}</p>
         </div>
         <div class="item-price">₹${parseFloat(item.Price).toFixed(2)}</div>
+        <div class="add-btn"><button>Add</button></div>
       `;
-
-      const addBtn = document.createElement("button");
-      addBtn.className = "add-btn";
-      addBtn.textContent = "Add";
-      addBtn.addEventListener("click", () => addToOrder(item, addBtn));
-
-      div.appendChild(addBtn);
-      menuContainer.appendChild(div);
+      const addBtn = div.querySelector(".add-btn button");
+      addBtn.addEventListener("click", () => toggleQty(div, item));
+      container.appendChild(div);
     });
   }
 
-  // Add to order
-  function addToOrder(item, btn) {
-    if (!order[item.Name]) order[item.Name] = { ...item, qty: 0 };
-    order[item.Name].qty++;
-    updateOrder();
-    btn.textContent = `${order[item.Name].qty}`;
+  function toggleQty(div, item) {
+    const addDiv = div.querySelector(".add-btn");
+    addDiv.className = "qty-control";
+    addDiv.innerHTML = `
+      <button>-</button>
+      <span>1</span>
+      <button>+</button>
+    `;
+    const minus = addDiv.querySelector("button:first-child");
+    const plus = addDiv.querySelector("button:last-child");
+    const qtySpan = addDiv.querySelector("span");
+
+    let qty = 1;
+    minus.addEventListener("click", () => {
+      qty--;
+      if (qty <= 0) {
+        addDiv.className = "add-btn";
+        addDiv.innerHTML = `<button>Add</button>`;
+        addDiv.querySelector("button").addEventListener("click", () => toggleQty(div, item));
+      } else {
+        qtySpan.textContent = qty;
+      }
+    });
+    plus.addEventListener("click", () => {
+      qty++;
+      qtySpan.textContent = qty;
+    });
   }
 
-  // Update order summary
-  function updateOrder() {
-    orderList.innerHTML = "";
-    let total = 0;
-    for (let key in order) {
-      const item = order[key];
-      if (item.qty > 0) {
-        const li = document.createElement("li");
-        li.textContent = `${item.Name} x ${item.qty}`;
-        orderList.appendChild(li);
-        total += item.qty * parseFloat(item.Price);
-      }
-    }
-    orderTotal.textContent = total.toFixed(2);
-  }
-
-  // Tab switching
-  menuTabs.forEach(tab =>
-    tab.addEventListener("click", () => {
-      menuTabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      currentTab = tab.textContent;
-      currentCategory = null;
-      renderCategories();
-      renderMenu();
-    })
-  );
-
-  // Confirm order (WhatsApp)
-  confirmOrderBtn.addEventListener("click", () => {
-    const guest = document.getElementById("guestName").value;
-    const room = document.getElementById("roomNo").value;
-    const wa = document.getElementById("Whatsappnum").value;
-    if (!guest || !room || !wa) {
-      alert("Please fill guest details.");
-      return;
-    }
-    let msg = `Order from ${guest}, Room ${room}:\n`;
-    for (let key in order) {
-      const item = order[key];
-      if (item.qty > 0) {
-        msg += `${item.Name} x ${item.qty} = ₹${(
-          item.qty * parseFloat(item.Price)
-        ).toFixed(2)}\n`;
-      }
-    }
-    msg += `Total: ₹${orderTotal.textContent}`;
-    const phone = "919985908131";
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
-      "_blank"
-    );
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => renderMenu(tab.textContent.trim()));
   });
 });
