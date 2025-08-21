@@ -47,11 +47,11 @@ main {
   margin-bottom: 0px;
 }
 
-/* Tagline under hotel name */
+/* Actual Header - Menu */
 .app-header p {
   font-family: 'Baloo Bhai 2', cursive;
-  font-size: 1.5rem;
-  font-weight: 750;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: #fff; /* white */
   margin: 0;
 }
@@ -307,6 +307,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
