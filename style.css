@@ -60,7 +60,7 @@ main {
 .header-text p {
   font-family: 'Baloo Bhai 2', cursive;
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 750;
   color: #fff; /* white */
   margin: 0;
 }
@@ -69,8 +69,8 @@ main {
 .app-header::after {
   content: "";
   display: block;
-  width: 70%;
-  margin: 1px auto 0;
+  width: 50%;
+  margin: 10px auto 0;
   border-bottom: 10px dotted gold;
 }
 
@@ -316,6 +316,7 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
 
