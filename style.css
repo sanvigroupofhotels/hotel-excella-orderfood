@@ -9,14 +9,18 @@
   --text: #f5f5f5;      /* Light gray text */
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  background: url("images/header_background.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: var(--text);
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url("images/header_background6.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--text);
+}
 
 /* ===== Header ===== */
 .app-header {
@@ -53,14 +57,14 @@ body {
 
 /* ===== Cards ===== */
 .card {
-  background: rgba(0, 0, 0, 0.85);   /* dark background */
+  background: transparent;   /* no black box */
   color: var(--text);
   margin: 16px;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
   border: 2px solid var(--accent);   /* golden border */
 }
+
 
 /* Section titles */
 .card h2, .card h3 {
@@ -179,7 +183,7 @@ body {
 
 /* ===== Order Summary ===== */
 #orderSummary {
-  background: rgba(0, 0, 0, 0.85);
+  background: transparent;   /* show image behind */
   border-radius: 12px;
   padding: 20px;
   margin: 30px auto;
@@ -188,6 +192,7 @@ body {
   color: var(--text);
   border: 2px solid var(--accent);
 }
+
 
 #orderSummary h3 {
   color: var(--accent);
@@ -229,4 +234,5 @@ body {
   border-color: var(--accent);
   font-weight: bold;
 }
+
 
