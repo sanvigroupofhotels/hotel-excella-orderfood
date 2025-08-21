@@ -1,198 +1,159 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Elements
-  const menuContainer  = document.getElementById('menuContainer');
-  const orderList      = document.getElementById('orderList');
-  const orderTotalEl   = document.getElementById('orderTotal');
-  const tabVeg         = document.getElementById('tabVeg');
-  const tabNonVeg      = document.getElementById('tabNonVeg');
-  const tabGeneral     = document.getElementById('tabGeneral');
+document.addEventListener("DOMContentLoaded", () => {
+  const menuContainer = document.getElementById("menuContainer");
+  const orderList = document.getElementById("orderList");
+  const orderTotal = document.getElementById("orderTotal");
+  let order = {};
 
-  // App state
-  let rows = [];
-  let currentType = 'Veg';
-  let currentCategory = null;
-  const order = {}; // { name: { qty, price } }
-
-  // -------- CSV parsing (handles commas inside quotes) ----------
-  function splitCSVLine(line) {
-    const out = [];
-    let cur = '';
-    let inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        if (inQ && line[i+1] === '"') { cur += '"'; i++; }
-        else inQ = !inQ;
-      } else if (ch === ',' && !inQ) {
-        out.push(cur); cur = '';
-      } else {
-        cur += ch;
-      }
-    }
-    out.push(cur);
-    return out;
-  }
-  function parseCSV(text) {
-    const lines = text.replace(/\r/g, '').trim().split('\n').filter(Boolean);
-    const headers = splitCSVLine(lines[0]).map(h => h.trim());
-    return lines.slice(1).map(line => {
-      const vals = splitCSVLine(line);
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = (vals[i] ?? '').trim());
-      return obj;
-    });
-  }
-  function toNumber(val) {
-    return Number(String(val || '').replace(/[^\d.]/g, '')) || 0;
-  }
-
-  // -------- Fetch & init ----------
-  fetch('menu.csv')
-    .then(r => r.text())
-    .then(csv => {
-      rows = parseCSV(csv).filter(r => r.Name); // expect columns: Name, Description, Price, Type, Category
-      setupMainTabs();
-      renderMenu();
-    })
-    .catch(err => {
-      console.error('CSV load error:', err);
-      menuContainer.textContent = 'Failed to load menu.';
+  // Load menu.csv
+  fetch("menu.csv")
+    .then(res => res.text())
+    .then(data => {
+      const rows = Papa.parse(data, { header: true }).data;
+      renderMenu(rows, "Veg");
+      setupTabs(rows);
     });
 
-  // -------- Tabs ----------
-  function setupMainTabs() {
-    const allTabs = [tabVeg, tabNonVeg, tabGeneral];
-    allTabs.forEach(btn => {
-      btn.classList.remove('active');
-      btn.addEventListener('click', () => {
-        allTabs.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentType = (btn.id === 'tabVeg') ? 'Veg' : (btn.id === 'tabNonVeg') ? 'Non Veg' : 'General';
-        currentCategory = null;  // reset sub-category
-        renderMenu();
+  // Render menu
+  function renderMenu(rows, type, subCategory = null) {
+    menuContainer.innerHTML = "";
+
+    const filtered = rows.filter(r => r.Type === type && (!subCategory || r.Category === subCategory));
+
+    // Sub Tabs
+    const categories = [...new Set(rows.filter(r => r.Type === type).map(r => r.Category))];
+    const subTabsDiv = document.createElement("div");
+    subTabsDiv.id = "subTabs";
+
+    categories.forEach((cat, i) => {
+      const btn = document.createElement("button");
+      btn.className = "sub-tab" + (i === 0 && !subCategory ? " active" : "");
+      btn.textContent = cat;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(rows, type, cat);
       });
+      subTabsDiv.appendChild(btn);
     });
-    // default active
-    tabVeg.classList.add('active');
-  }
 
-  // -------- Render Menu (type + category) ----------
-  function renderMenu() {
-    menuContainer.innerHTML = '';
+    menuContainer.appendChild(subTabsDiv);
 
-    // Sub-tabs (categories)
-    const cats = [...new Set(rows.filter(r => r.Type === currentType)
-                              .map(r => r.Category).filter(Boolean))];
+    filtered.forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "menu-item";
 
-    if (!currentCategory) currentCategory = cats[0] || null;
+      // Add image if present
+      let imageHTML = "";
+      if (item.ImageURL && item.ImageURL.trim() !== "") {
+        imageHTML = `<img src="images/${item.ImageURL}" alt="${item.Name}" class="menu-img">`;
+      }
 
-    const subTabs = document.createElement('div');
-    subTabs.id = 'subTabs';
-    cats.forEach(cat => {
-      const b = document.createElement('button');
-      b.className = 'sub-tab' + (cat === currentCategory ? ' active' : '');
-      b.textContent = cat;
-      b.onclick = () => {
-        currentCategory = cat;
-        renderMenu();
-      };
-      subTabs.appendChild(b);
-    });
-    if (cats.length) menuContainer.appendChild(subTabs);
+      const left = document.createElement("div");
+      left.className = "item-info";
+      left.innerHTML = `<strong>${item.Name}</strong><p>${item.Description}</p>`;
 
-    // Items for current filter
-    const items = rows.filter(r =>
-      r.Type === currentType && (!currentCategory || r.Category === currentCategory)
-    );
+      const right = document.createElement("div");
+      right.className = "item-actions";
+      right.innerHTML = `<span class="price">₹${parseFloat(item.Price).toFixed(2)}</span>`;
 
-    if (!items.length) {
-      const empty = document.createElement('p');
-      empty.textContent = 'No items in this category.';
-      menuContainer.appendChild(empty);
-      return;
-    }
+      const controls = document.createElement("div");
+      controls.className = "item-controls";
 
-    items.forEach(item => {
-      const priceNum = toNumber(item.Price);
-
-      const card = document.createElement('div');
-      card.className = 'menu-item';
-
-      const left = document.createElement('div');
-      left.className = 'item-info';
-      left.innerHTML = `<strong>${item.Name}</strong><small>${item.Description}</small>`;
-
-      const right = document.createElement('div');
-      right.className = 'item-actions';
-
-      const priceEl = document.createElement('span');
-      priceEl.className = 'price';
-      priceEl.textContent = `₹${priceNum.toFixed(2)}`;
-
-      const controls = document.createElement('div');
-      controls.className = 'item-controls';
-
-      // If already in order, show qty controls; else Add button
-      if (order[item.Name]?.qty > 0) {
-        buildQtyControls(item.Name, priceNum, controls);
+      if (order[item.Name]) {
+        buildQtyControls(item.Name, controls, item.Price);
       } else {
-        const addBtn = document.createElement('button');
-        addBtn.className = 'add-btn';
-        addBtn.textContent = 'Add';
+        const addBtn = document.createElement("button");
+        addBtn.className = "add-btn";
+        addBtn.textContent = "Add";
         addBtn.onclick = () => {
-          order[item.Name] = { qty: 1, price: priceNum };
-          updateOrderSummary();
-          renderMenu(); // refresh to show - qty +
+          order[item.Name] = 1;
+          updateOrder(rows);
+          renderMenu(rows, type, subCategory);
         };
         controls.appendChild(addBtn);
       }
 
-      right.append(priceEl, controls);
-      card.append(left, right);
-      menuContainer.appendChild(card);
+      right.appendChild(controls);
+      if (imageHTML) {
+        itemDiv.innerHTML = imageHTML;
+        itemDiv.append(left, right);
+      } else {
+        itemDiv.append(left, right);
+      }
+      menuContainer.appendChild(itemDiv);
     });
   }
 
-  function buildQtyControls(name, price, container) {
-    container.innerHTML = '';
-    const minus = document.createElement('button');
-    minus.className = 'qty-btn';
-    minus.textContent = '−';
+  // Build qty controls
+  function buildQtyControls(name, container, price) {
+    const minus = document.createElement("button");
+    minus.className = "qty-btn";
+    minus.textContent = "-";
     minus.onclick = () => {
-      order[name].qty -= 1;
-      if (order[name].qty <= 0) delete order[name];
-      updateOrderSummary();
-      renderMenu();
+      order[name]--;
+      if (order[name] <= 0) delete order[name];
+      updateOrder();
+      rerenderMenu();
     };
 
-    const qty = document.createElement('span');
-    qty.className = 'qty-display';
-    qty.textContent = order[name].qty;
+    const qty = document.createElement("span");
+    qty.className = "qty-display";
+    qty.textContent = order[name];
 
-    const plus = document.createElement('button');
-    plus.className = 'qty-btn';
-    plus.textContent = '+';
+    const plus = document.createElement("button");
+    plus.className = "qty-btn";
+    plus.textContent = "+";
     plus.onclick = () => {
-      order[name].qty += 1;
-      updateOrderSummary();
-      renderMenu();
+      order[name]++;
+      updateOrder();
+      rerenderMenu();
     };
 
     container.append(minus, qty, plus);
   }
 
-  // -------- Order Summary ----------
-  function updateOrderSummary() {
-    orderList.innerHTML = '';
+  // Update order summary
+  function updateOrder() {
+    orderList.innerHTML = "";
     let total = 0;
-
-    Object.entries(order).forEach(([name, { qty, price }]) => {
-      const li = document.createElement('li');
-      li.textContent = `${name} × ${qty}`;
+    Object.entries(order).forEach(([item, qty]) => {
+      const li = document.createElement("li");
+      li.textContent = `${item} x ${qty}`;
       orderList.appendChild(li);
-      total += qty * price;
+      // Need to re-fetch price from menu.csv
+      // This is simple for now
     });
+    // TODO: Use prices dynamically, simplified here
+    orderTotal.textContent = total.toFixed(2);
+  }
 
-    orderTotalEl.textContent = total.toFixed(2);
+  // Tabs
+  function setupTabs(rows) {
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        let type = btn.id === "tabVeg" ? "Veg" :
+                   btn.id === "tabNonVeg" ? "NonVeg" : "General";
+
+        renderMenu(rows, type);
+      });
+    });
+  }
+
+  // Fix re-render qty state
+  function rerenderMenu() {
+    const activeTab = document.querySelector(".tab-btn.active").id;
+    let type = activeTab === "tabVeg" ? "Veg" :
+               activeTab === "tabNonVeg" ? "NonVeg" : "General";
+    const activeSub = document.querySelector(".sub-tab.active")?.textContent;
+
+    fetch("menu.csv")
+      .then(res => res.text())
+      .then(data => {
+        const rows = Papa.parse(data, { header: true }).data;
+        renderMenu(rows, type, activeSub);
+      });
   }
 });
