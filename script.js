@@ -191,7 +191,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Build order summary
-    let orderMsg = `🛎️ Hotel Excella - Food Order\n\n`;
+	const currentDate = new Date();
+    let const orderMsg = `🛎️ Food Order ${currentDate.getDate()}${{one:'st',two:'nd',few:'rd',other:'th'}[new Intl.PluralRules('en-GB', { type: 'ordinal' }).select(currentDate.getDate())]} ${currentDate.toLocaleString('en-US', { month: 'short' })}'${currentDate.getFullYear().toString().slice(-2)}\n\n`;
+
     orderMsg += `👤 Guest: ${guestName}\n`;
     orderMsg += `🏠 Room: ${roomNo}\n`;
     orderMsg += `📱 WhatsApp: ${whatsappNum}\n\n`;
