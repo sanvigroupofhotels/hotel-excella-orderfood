@@ -17,6 +17,7 @@ body {
   color: var(--text);
 }
 
+
 /* ===== Header ===== */
 .app-header {
   text-align: center;
@@ -98,12 +99,13 @@ body {
 }
 
 .tab-btn.active, .sub-tab.active {
-  background: #fff;
+  background: var(--accent);  /* Gold fill when selected */
   color: #000;
   font-weight: bold;
-  border-color: #fff;
-  text-shadow: none; /* active state clean, no glow */
+  border-color: var(--accent);
+  text-shadow: none;
 }
+
 
 /* ===== Menu Items ===== */
 .menu-item {
@@ -221,10 +223,10 @@ body {
                0 0 12px rgba(255, 179, 0, 0.6);
 }
 
-
 #confirmOrder:active {
-  background: #fff;
-  border-color: #fff;
+  background: var(--accent);   /* Stays golden when clicked */
   color: #000;
+  border-color: var(--accent);
   font-weight: bold;
 }
+
