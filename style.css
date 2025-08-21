@@ -42,18 +42,18 @@ main {
 }
 
 .app-header .logo {
-  height: 120px;   /* was smaller before */
+  height: 120px;   
   width: auto;
   margin-bottom: 10px;
 }
 
-.app-header .tagline {
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff; /* White tagline text */
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+/* Tagline under hotel name */
+.app-header p {
+  font-family: 'Baloo Bhai 2', cursive;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff; /* white */
+  margin: 0;
 }
 
 /* Optional: add golden divider line */
@@ -101,6 +101,14 @@ main {
   border-bottom: 3px solid var(--accent);
   padding-bottom: 6px;
   margin-bottom: 1rem;
+}
+
+/* Section titles like Menu, Guest Information */
+.section-title, .menu h2 {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #2E7D32; /* green */
 }
 
 /* Form inputs */
@@ -299,5 +307,6 @@ main {
   transform: scale(1.05);
   background: #222;
 }
+
 
 
