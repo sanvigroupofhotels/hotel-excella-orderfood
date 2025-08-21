@@ -5,12 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let order = {};
   let menuRows = [];
 
+  // Normalization helper
+  function normalize(val) {
+    return val ? val.trim().toLowerCase() : "";
+  }
+
   // Load menu.csv
   fetch("menu.csv")
     .then(res => res.text())
     .then(data => {
       menuRows = Papa.parse(data, { header: true, skipEmptyLines: true }).data;
-      renderMenu(menuRows, "Veg"); // default tab with first category
+      renderMenu(menuRows, "veg"); // default tab
       setupTabs(menuRows);
     });
 
@@ -20,19 +25,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Categories for this type
     const categories = [...new Set(rows.filter(r =>
-      r.Type && r.Type.trim().toLowerCase() === type.toLowerCase()
-    ).map(r => r.Category))];
+      normalize(r.Type) === normalize(type)
+    ).map(r => r.Category?.trim()))];
 
     // If no subCategory passed, pick first
     if (!subCategory && categories.length > 0) {
       subCategory = categories[0];
     }
 
-    // Filter rows safely
+    // Filter rows
     const filtered = rows.filter(r =>
-      r.Type && r.Type.trim().toLowerCase() === type.toLowerCase() &&
-      r.Category && r.Category.trim() === subCategory
+      normalize(r.Type) === normalize(type) &&
+      (!subCategory || normalize(r.Category) === normalize(subCategory))
     );
+
+    // If nothing found
+    if (filtered.length === 0) {
+      menuContainer.innerHTML = "<p>No items available.</p>";
+      return;
+    }
 
     // Build sub-tabs
     const subTabsDiv = document.createElement("div");
@@ -40,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     categories.forEach(cat => {
       const btn = document.createElement("button");
-      btn.className = "sub-tab" + (cat === subCategory ? " active" : "");
+      btn.className = "sub-tab" + (normalize(cat) === normalize(subCategory) ? " active" : "");
       btn.textContent = cat;
       btn.addEventListener("click", () => {
         document.querySelectorAll(".sub-tab").forEach(b => b.classList.remove("active"));
