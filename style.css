@@ -4,8 +4,8 @@
 :root {
   --primary: #00b248;   /* Bright Green */
   --accent: #ffb300;    /* Golden Yellow */
-  --bg: #333;           /* Dark background for the page */
-  --text: #f5f5f5;      /* Light gray text */
+  --bg: #fff;           /* White background */
+  --text: #333;         /* Dark text */
   --border-radius: 8px;
 }
 
@@ -19,16 +19,17 @@ body {
 
 /* ===== Header ===== */
 .app-header {
-  text-align: center;
+  text-align: left;
   padding: 30px 0;
-  background-color: var(--bg);  /* Dark background behind header */
+  background-color: var(--bg);  /* Clean background behind header */
   color: white;
   position: relative;
 }
 
 .logo {
-  width: 200px;
+  width: 180px;
   height: auto;
+  display: inline-block;
 }
 
 .tagline {
@@ -37,6 +38,10 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent);
+  text-align: right;
+  padding-left: 10px;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 /* Golden divider line */
