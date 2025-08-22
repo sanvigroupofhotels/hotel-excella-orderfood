@@ -4,84 +4,96 @@
 :root {
   --primary: #00b248;   /* Bright Green */
   --accent: #ffb300;    /* Golden Yellow */
-  --danger: #e53935;    /* Red if needed */
-  --bg: #000;           /* Black chalkboard */
-  --text: #f5f5f5;      /* Light gray text */
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
+  --bg: #fff;           /* White background */
+  --text: #333;         /* Dark text */
+  --border-radius: 8px;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: url("images/header_background6.jpg") no-repeat center center fixed;
-  background-size: cover;
-  background-attachment: fixed;
+  margin: 0;
+  background: var(--bg);  /* Clean white background */
   color: var(--text);
 }
 
 /* ===== Header ===== */
 .app-header {
-  text-align: center;
-  margin-bottom: 1rem;
-  position: relative;
-  padding-top: 15px;
+  text-align: left;
+  padding: 15px 0;
+  background-color: var(--primary);
+  color: white;
+  padding-left: 20px;
 }
 
 .logo {
-  width: 200px;
+  width: 150px;
   height: auto;
 }
 
 .tagline {
-  margin-top: 5px;
   font-family: 'Patrick Hand', cursive;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: #fff;
   font-weight: 700;
-  color: var(--accent); /* Golden */
-  text-shadow: 0 0 6px rgba(255, 179, 0, 0.8), 
-               0 0 12px rgba(255, 179, 0, 0.6);
+  margin-left: 20px;
 }
 
-
-/* Golden divider line */
-.app-header::after {
-  content: "";
-  display: block;
-  width: 50%;
-  margin: 8px auto 0;
-  border-bottom: 3px dotted var(--accent);
+.app-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 5px;
+  font-family: 'Patrick Hand', cursive;
 }
 
-/* ===== Cards ===== */
-.card {
-  background: transparent;   /* no black box */
+/* ===== Topbar (language, faq) ===== */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.topbar select, .topbar button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ===== Guest Information Section ===== */
+#guestInfo {
+  background: #fff;
   color: var(--text);
-  margin: 16px;
   padding: 20px;
-  border-radius: 12px;
-  border: 2px solid var(--accent);   /* golden border */
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-
-/* Section titles */
-.card h2, .card h3 {
+h2 {
   margin-top: 0;
   font-family: 'Patrick Hand', cursive;
   font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--accent);
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 6px;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 6px rgba(255, 179, 0, 0.8),
-               0 0 12px rgba(255, 179, 0, 0.6);
+  font-weight: 700;
+  color: var(--primary);
 }
 
+/* ===== Menu Section ===== */
+#menuSection {
+  background: #fff;
+  color: var(--text);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-/* ===== Tabs ===== */
 .tab-btn, .sub-tab {
   background: transparent;
   color: var(--accent);
@@ -98,8 +110,6 @@ body {
 .tab-btn:hover, .sub-tab:hover {
   background: var(--accent);
   color: #000;
-  text-shadow: 0 0 6px rgba(255, 179, 0, 0.8),
-               0 0 12px rgba(255, 179, 0, 0.6);
 }
 
 .tab-btn.active, .sub-tab.active {
@@ -110,129 +120,42 @@ body {
   text-shadow: none;
 }
 
-
-/* ===== Menu Items ===== */
 .menu-item {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px;
-  margin-bottom: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 12px;
   border-radius: 8px;
-}
-
-.menu-item img.menu-img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 12px;
-}
-
-.item-info {
-  flex: 1;
-}
-
-.item-info strong {
-  display: block;
-  font-size: 1rem;
-  color: var(--accent);
-}
-
-.item-info p {
-  margin: 4px 0 0;
-  font-size: 0.9rem;
-  color: var(--text);
-}
-
-.item-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-item strong {
+  font-size: 1.2rem;
+  color: var(--primary);
 }
 
 .price {
-  color: var(--accent);
   font-weight: bold;
-  margin-bottom: 6px;
+  color: var(--primary);
 }
 
-/* Add & Qty Buttons */
-.add-btn, .qty-btn {
-  background: var(--accent);
-  color: #000;
+.add-btn {
+  background-color: var(--primary);
+  color: #fff;
   border: none;
-  padding: 6px 10px;
-  margin: 0 2px;
-  border-radius: 20px;
+  padding: 6px 12px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.add-btn:hover, .qty-btn:hover {
-  transform: scale(1.05);
-}
-
-.qty-display {
-  margin: 0 6px;
-  font-weight: bold;
-}
-
-/* ===== Order Summary ===== */
+/* ===== Order Summary Section ===== */
 #orderSummary {
-  background: transparent;   /* show image behind */
-  border-radius: 12px;
+  background: #f9f9f9;
   padding: 20px;
-  margin: 30px auto;
+  margin: 20px auto;
   max-width: 500px;
   text-align: center;
-  color: var(--text);
-  border: 2px solid var(--accent);
-}
-
-
-#orderSummary h3 {
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-#orderList {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 10px;
-}
-
-#orderList li {
-  margin: 4px 0;
-}
-
-/* Confirm Order Button */
-#confirmOrder {
-  background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#confirmOrder:hover {
-  background: var(--accent);
-  color: #000;
-  text-shadow: 0 0 6px rgba(255, 179, 0, 0.8),
-               0 0 12px rgba(255, 179, 0, 0.6);
-}
-
-#confirmOrder:active {
-  background: var(--accent);   /* Stays golden when clicked */
-  color: #000;
-  border-color: var(--accent);
-  font-weight: bold;
-}
-
-
+  border-radius: var(--border-radius);
+  box-shadow:
