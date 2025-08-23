@@ -205,6 +205,55 @@
          text-align: center;
          font-weight: 600;
          }
+
+		   #orderSummary {
+         background: var(--dark-green);
+         color: var(--white);
+         border-radius: 8px;
+         padding: 1rem;
+         }
+         #orderSummary h3 {
+         margin-top: 0;
+         margin-bottom: 1rem;
+         color: var(--yellow);
+         }
+         #orderItems {
+         max-height: 200px;
+         overflow-y: auto;
+         margin-bottom: 1rem;
+         }
+         .order-item {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 0.4rem;
+         }
+         .order-item span {
+         font-size: 1.1rem;
+         }
+         #totalPrice {
+         font-size: 1.3rem;
+         font-weight: 700;
+         border-top: 2px solid var(--yellow);
+         padding-top: 0.5rem;
+         }
+         #confirmBtn {
+         width: 100%;
+         padding: 0.8rem;
+         background: var(--orange);
+         color: var(--bg-black);
+         font-weight: 700;
+         font-size: 1.3rem;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         user-select: none;
+         transition: background-color 0.3s ease;
+         }
+         #confirmBtn:disabled {
+         background: #bbb;
+         cursor: not-allowed;
+         }
+
       </style>
    </head>
    <body>
