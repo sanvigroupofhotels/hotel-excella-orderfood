@@ -47,119 +47,55 @@
          .category-tabs { display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; padding: 8px 0; margin-bottom: 0.5rem; }
          .category-tabs button { flex: 0 0 auto; border: 1px solid #aaa; background: #fff; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
 		 .category-tabs button.active {border-color: var(--accent); background: var(--accent); color: #fff;}
-		   .menu-item {
-      display: flex;
-      flex-direction: column
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px dotted var(--dark-green);
-      margin-bottom: 12px;
-      }
-      .menu-item:last-child {
-      border-bottom: none;
-      }
-      .menu-image {
-      width: 100px;
-      height: auto;
-      border-radius: 8px;
-      margin-right: 10px;
-      }
-      .menu-image.empty {
-      background-color: #f0f0f0;
-      width: 100px;
-      height: 100px;
-      }
-      
-         .qty-control {
-         display: flex;
-         align-items: center;
-         }
-         .qty-btn {
-         background-color: #eee;
-         border: none;
-         padding: 5px 10px;
-         margin: 0 5px;
-         font-size: 16px;
-         cursor: pointer;
-         }
-         .qty-count {
-         min-width: 20px;
-         text-align: center;
-         }
-       
-    .menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px dotted var(--dark-green);
-}
+		 .menu-item {
+		  display: grid;
+		  grid-template-columns: 1fr auto auto; /* name/desc | price | qty */
+		  align-items: center;
+		  gap: 10px;
+		  padding: 12px;
+		  border-radius: 10px;
+		  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+		  margin-bottom: 12px;
+		}
 
-.menu-item:last-child {
-    border-bottom: none;
-}
+		.item-info {
+		  min-width: 200px;
+		}
 
-.menu-item-details {
-    flex-grow: 1; /* Allow the item name and description to take up available space */
-    margin-right: 10px;
-}
+		.item-name {
+		  font-weight: 600;
+		  color: var(--primary);
+		  margin-bottom: 4px;
+		}
 
-.menu-item-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+		.item-price {
+		  font-weight: 600;
+		  color: var(--accent);
+		  white-space: nowrap;
+		}
 
-.item-name {
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--dark-green);
-}
+		.quantity-selector {
+		  display: flex;
+		  align-items: center;
+		  gap: 6px;
+		}
 
-.item-desc {
-    font-style: italic;
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 0.2rem;
-}
+		.quantity-selector button {
+		  padding: 4px 8px;
+		  background: var(--primary);
+		  color: #fff;
+		  border: none;
+		  border-radius: 6px;
+		  cursor: pointer;
+		  font-size: 0.85rem;
+		  font-weight: 600;
+		}
 
-.item-price {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-right: 1rem;
-    color: var(--orange);
-    min-width: 75px;
-    text-align: right;
-}
-
-.quantity-selector {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.quantity-selector button {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 6px;
-    background: #28a745; /* Green color */
-    color: #fff;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.quantity-selector button:hover {
-    background: #218838; /* Darker green on hover */
-}
-
-.quantity-selector .qty-val {
-    min-width: 20px;
-    text-align: center;
-    font-weight: 600;
-}
-
+		.quantity-selector .qty-val {
+		  min-width: 20px;
+		  text-align: center;
+		  font-weight: 600;
+		}
 
          #orderSummary { margin-top: 1rem; }
          #orderList { margin: 0; padding: 0; list-style: none; }
@@ -205,55 +141,6 @@
          text-align: center;
          font-weight: 600;
          }
-
-		   #orderSummary {
-         background: var(--dark-green);
-         color: var(--white);
-         border-radius: 8px;
-         padding: 1rem;
-         }
-         #orderSummary h3 {
-         margin-top: 0;
-         margin-bottom: 1rem;
-         color: var(--yellow);
-         }
-         #orderItems {
-         max-height: 200px;
-         overflow-y: auto;
-         margin-bottom: 1rem;
-         }
-         .order-item {
-         display: flex;
-         justify-content: space-between;
-         margin-bottom: 0.4rem;
-         }
-         .order-item span {
-         font-size: 1.1rem;
-         }
-         #totalPrice {
-         font-size: 1.3rem;
-         font-weight: 700;
-         border-top: 2px solid var(--yellow);
-         padding-top: 0.5rem;
-         }
-         #confirmBtn {
-         width: 100%;
-         padding: 0.8rem;
-         background: var(--orange);
-         color: var(--bg-black);
-         font-weight: 700;
-         font-size: 1.3rem;
-         border: none;
-         border-radius: 8px;
-         cursor: pointer;
-         user-select: none;
-         transition: background-color 0.3s ease;
-         }
-         #confirmBtn:disabled {
-         background: #bbb;
-         cursor: not-allowed;
-         }
-
       </style>
    </head>
    <body>
@@ -293,24 +180,13 @@
                <button id="tabGeneral" class="tab-btn" data-translate="general">General</button>
             </nav>
             <div id="menuContainer">Loading menu…</div>
-        
-		 
-<!-- Order Summary Section -->
-         <section aria-label="Order Summary" id="orderSection">
-            <h2 id="orderSummaryTitle">Order Summary</h2>
-            <div id="orderSummary">
-               <h3 id="selectedItemsTitle">Selected Items</h3>
-               <div aria-atomic="true" aria-live="polite" id="orderItems" tabindex="0">
-                  <p>No items selected</p>
-               </div>
-               <div aria-atomic="true" aria-live="polite" id="totalPrice" tabindex="0">Total: $0.00</div>
-               <button aria-disabled="true" aria-label="Confirm Order and Send via WhatsApp" disabled="" id="confirmBtn">Confirm Order</button>
-            </div>
          </section>
-         <!-- Order Summary Section -->
-
-
-		  
+         <section id="orderSummary" class="card">
+            <h3 data-translate="orderSummary">Order Summary</h3>
+            <ul id="orderList"></ul>
+            <p><strong data-translate="total">Total:</strong> ₹<span id="orderTotal">0.00</span></p>
+            <button id="confirmOrder" data-translate="confirm">Confirm Order</button>
+         </section>
       </main>
       <div id="faqModal">
          <div id="faqContent">
