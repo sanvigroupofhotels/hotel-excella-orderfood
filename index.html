@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -6,259 +7,468 @@
       <title>Hotel Excella - Food Ordering</title>
       <style>
          :root {
-         --primary: #2e7d32;
-         --accent: #f9a825; 
-         --light: #ffffff;
-         --dark: #333333;
+         --orange: #f9a825;
+         --dark-green: #2e7d32;
+         --yellow: #fff176;
+         --bg-black: #000000;
+         --white: #ffffff;
+         --light-gray: #f5f5f5;
+         --dark-gray: #333333;
          --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         --font-main-size: 1rem;
          }
-         body { margin: 0; font-family: var(--font-family); background: #fafafa; color: var(--dark); }
-         header { text-align: center; padding: 1rem 0; background: var(--primary); color: var(--light); }
-         header img { width: 100px; height: auto; margin-bottom: 0.5rem; }
-         header h1 { margin: 0; font-size: 2rem; font-weight: 700; color: var(--accent); }
-         header p { margin: 0; font-size: 1rem; font-weight: 500; color: var(--light); }
-         .topbar { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--light); border-bottom: 1px solid #ddd; }
-         select, button { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 0.9rem; cursor: pointer; }
-         main { max-width: 900px; margin: auto; padding: 1rem; }
-		section.card h2, section.card h3 {
-		  margin-top: 0;
-		  color: var(--primary);
-		  border-bottom: 3px solid var(--accent);
-		  padding-bottom: 6px;
-		  margin-bottom: 1rem;
-		}
-		#guestInfo label {
-		  display: block;
-		  font-weight: 600;
-		  margin-bottom: 4px;
-		  color: var(--primary);
-		}
-		#guestInfo input {
-		  width: 100%;
-		  padding: 10px;
-		  border: 2px solid var(--primary);
-		  border-radius: 6px;
-		  margin-bottom: 15px;
-		  font-size: 1rem;
-		}
-         #menuTabs { display: flex; margin-bottom: 0.5rem; border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
-         .tab-btn { flex: 1; min-width: 100px; padding: 0.6rem 0; font-weight: 600; text-align: center; cursor: pointer; background: #eee; border: none; }
-         .tab-btn.active { background: var(--accent); color: var(--light); }
-         .category-tabs { display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; padding: 8px 0; margin-bottom: 0.5rem; }
-         .category-tabs button { flex: 0 0 auto; border: 1px solid #aaa; background: #fff; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
-		 
-.category-tabs button.active {
-  border-color: green;
-  background: green;
-  color: #fff;
-}
-
-		 .menu-item {
-		  display: grid;
-		  grid-template-columns: 1fr auto auto; /* name/desc | price | qty */
-		  align-items: center;
-		  gap: 10px;
-		  padding: 12px;
-		  border-radius: 10px;
-		  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-		  margin-bottom: 12px;
-		}
-
-		.item-info {
-		  min-width: 200px;
-		}
-
-		.item-name {
-		  font-weight: 600;
-		  color: var(--primary);
-		  margin-bottom: 4px;
-		}
-
-		.item-price {
-		  font-weight: 600;
-		  color: var(--accent);
-		  white-space: nowrap;
-		}
-
-		.quantity-selector {
-		  display: flex;
-		  align-items: center;
-		  gap: 6px;
-		}
-
-		.quantity-selector button {
-		  padding: 4px 8px;
-		  background: var(--primary);
-		  color: #fff;
-		  border: none;
-		  border-radius: 6px;
-		  cursor: pointer;
-		  font-size: 0.85rem;
-		  font-weight: 600;
-		}
-
-		.quantity-selector .qty-val {
-		  min-width: 20px;
-		  text-align: center;
-		  font-weight: 600;
-		}
-
-
-
-#orderBox {
-  background: var(--primary);
-  color: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-#orderList {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}
-
-#totalBox {
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-top: 2px solid var(--accent);
-  padding-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-#confirmOrder {
-  width: 100%;
-  padding: 0.8rem;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#confirmOrder:disabled {
-  background: #bbb;
-  cursor: not-allowed;
-}
-
-
-
-         #faqModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-         #faqContent { background: #fff; padding: 1.5rem; border-radius: 10px; max-width: 600px; max-height: 80%; overflow-y: auto; }
-         #faqContent h2 { margin-top: 0; color: var(--primary); }
-         #closeFaq { margin-top: 1rem; background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
-		@media (max-width: 600px) {
-		  .menu-item {
-			grid-template-columns: 1fr auto;
-			grid-template-rows: auto auto;
-		  }
-		  .item-price {
-			grid-column: 2;
-			grid-row: 1;
-		  }
-		  .quantity-selector {
-			grid-column: 2;
-			grid-row: 2;
-		  }
-		}
-         .quantity-selector {
-         display: flex;
-         align-items: center;
-         gap: 6px;
+         body {
+         margin: 0;
+         font-family: var(--font-family);
+         background-color: var(--bg-black);
+         color: var(--white);
+         line-height: 1.6;
+         font-size: var(--font-main-size);
          }
-         .quantity-selector button {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: var(--primary);
-         color: #fff;
-         cursor: pointer;
-         font-size: 0.9rem;
-         }
-         .quantity-selector button:hover {
-         background: var(--accent);
-         }
-         .quantity-selector .qty-val {
-         min-width: 20px;
+         header {
          text-align: center;
-         font-weight: 600;
+         padding: 1rem 0;
+         background: var(--dark-green);
          }
+         header img {
+         width: 80px;
+         height: auto;
+         margin-bottom: 0.5rem;
+         }
+         header h1 {
+         margin: 0;
+         font-size: 2rem;
+         font-weight: 700;
+         color: var(--orange);
+         text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+         }
+         header p {
+         margin: 0;
+         font-size: 1.1rem;
+         font-weight: 600;
+         color: var(--yellow);
+         }
+         #langSelector {
+         position: absolute;
+         top: 1rem;
+         right: 1.2rem;
+         background: var(--orange);
+         color: var(--bg-black);
+         border-radius: 5px;
+         padding: 0.3rem 0.6rem;
+         font-weight: 700;
+         cursor: pointer;
+         user-select: none;
+         }
+         #langSelector select {
+         border: none;
+         font-weight: 700;
+         background: transparent;
+         color: var(--bg-black);
+         font-family: inherit;
+         font-size: 1rem;
+         cursor: pointer;
+         }
+         main {
+         max-width: 900px;
+         margin: 1rem auto 4rem auto;
+         background: var(--light-gray);
+         border-radius: 12px;
+         padding: 1rem 1.5rem;
+         color: var(--dark-gray);
+         position: relative;
+         }
+         section {
+         margin-bottom: 2rem;
+         }
+         h2 {
+         border-bottom: 0px solid var(--orange);
+         padding-bottom: 0 rem;
+         color: var(--dark-green);
+         }
+        form#guestInfo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      }
+      form#guestInfo label {
+      flex: 1 1 100%;
+      font-weight: 750;
+      }
+      form#guestInfo input {
+      padding: 0.5rem;
+      border: 2px solid var(--dark-green);
+      border-radius: 6px;
+      font-size: 1.1rem;
+      width: 100%;
+      box-sizing: border-box;
+      }
+
+         #menuContainer {
+         max-height: 430px;
+         overflow-y: auto;
+         border: 1px solid var(--dark-green);
+         border-radius: 8px;
+         padding: 1rem 1rem 1rem 1rem;
+         background: var(--white);
+         color: var(--dark-gray);
+         position: relative;
+         }
+         #menuTabs {
+         display: flex;
+         border-bottom: 3px solid var(--orange);
+         margin: 0 0 1rem 0;
+         }
+         #menuSubTabs {
+         display: flex;
+         border-bottom: 3px solid var(--orange);
+         margin: 0 0 1rem 0;
+         }
+         .tab-btn {
+         flex: 1;
+         padding: 0.6rem 0;
+         font-weight: 700;
+         font-size: 1.1rem;
+         text-align: center;
+         cursor: pointer;
+         background: var(--light-gray);
+         border: none;
+         border-bottom: 3px solid transparent;
+         color: var(--dark-green);
+         transition: all 0.3s ease;
+         user-select: none;
+         }
+         .tab-btn.active {
+         background: var(--white);
+         border-bottom: 3px solid var(--orange);
+         color: var(--orange);
+         }
+         .tab-btn:focus-visible {
+         outline: 3px solid var(--orange);
+         }
+         .category {
+         margin-bottom: 1.5rem;
+         }
+         .category h3 {
+         margin-top: 0;
+         margin-bottom: 0.5rem;
+         color: var(--orange);
+         border-bottom: 2px solid var(--dark-green);
+         padding-bottom: 0.2rem;
+         }
+
+      
+       
+    .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--dark-green);
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item-details {
+    flex-grow: 1; /* Allow the item name and description to take up available space */
+    margin-right: 10px;
+}
+
+.menu-item-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--dark-green);
+}
+
+.item-desc {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.2rem;
+}
+
+.item-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    color: var(--orange);
+    min-width: 75px;
+    text-align: right;
+}
+
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.quantity-selector button {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    background: #28a745; /* Green color */
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.quantity-selector button:hover {
+    background: #218838; /* Darker green on hover */
+}
+
+.quantity-selector .qty-val {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
+
+
+         #orderSummary {
+         background: var(--dark-green);
+         color: var(--white);
+         border-radius: 8px;
+         padding: 1rem;
+         }
+         #orderSummary h3 {
+         margin-top: 0;
+         margin-bottom: 1rem;
+         color: var(--yellow);
+         }
+         #orderItems {
+         max-height: 200px;
+         overflow-y: auto;
+         margin-bottom: 1rem;
+         }
+         .order-item {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 0.4rem;
+         }
+         .order-item span {
+         font-size: 1.1rem;
+         }
+         #totalPrice {
+         font-size: 1.3rem;
+         font-weight: 700;
+         border-top: 2px solid var(--yellow);
+         padding-top: 0.5rem;
+         }
+         #confirmBtn {
+         width: 100%;
+         padding: 0.8rem;
+         background: var(--orange);
+         color: var(--bg-black);
+         font-weight: 700;
+         font-size: 1.3rem;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         user-select: none;
+         transition: background-color 0.3s ease;
+         }
+         #confirmBtn:disabled {
+         background: #bbb;
+         cursor: not-allowed;
+         }
+         #faqModal {
+         display: none;
+         position: fixed;
+         z-index: 555;
+         left: 0;
+         top: 0;
+         width: 100vw;
+         height: 100vh;
+         overflow: auto;
+         background: rgba(0, 0, 0, 0.7);
+         padding: 2rem;
+         }
+         #faqModalContent {
+         background: var(--white);
+         color: var(--dark-gray);
+         margin: 1rem auto;
+         border-radius: 12px;
+         max-width: 600px;
+         padding: 1.5rem 2rem;
+         position: relative;
+         }
+         #faqModal h2 {
+         color: var(--dark-green);
+         }
+         #faqModalClose {
+         position: absolute;
+         right: 1rem;
+         top: 1rem;
+         font-size: 1.7rem;
+         font-weight: 700;
+         color: var(--dark-green);
+         background: none;
+         border: none;
+         cursor: pointer;
+         }
+         .sr-only {
+         position: absolute !important;
+         width: 1px !important;
+         height: 1px !important;
+         padding: 0 !important;
+         margin: -1px !important;
+         overflow: hidden !important;
+         clip: rect(0,0,0,0) !important;
+         border: 0 !important;
+         }
+         @media (max-width: 720px) {
+         .item-info {
+         flex-direction: column;
+         gap: 0.35rem;
+         }
+         .item-name {
+         font-size: 1rem;
+         }
+         .menu-item {
+         padding: 0.3rem 0;
+         }
+         #orderSummary {
+         padding: 0.75rem;
+         }
+         }         
       </style>
+  
 
-/* ---------- Mobile Responsive ---------- */
-<style id="mobile-responsive-overrides">
-@media (max-width: 768px) {
-  main {
-    padding: 0.5rem;
-  }
-
-  .menu-item {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    padding: 10px;
-  }
-
-  .item-price {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: 1rem;
-  }
-
-  .quantity-selector {
-    grid-column: 2;
-    grid-row: 2;
-    margin-top: 6px;
-  }
-
-  .item-info {
-    grid-column: 1 / span 2;
-    grid-row: 1;
-  }
-
-  #orderBox {
-    padding: 0.8rem;
-  }
-
-  #confirmOrder {
-    font-size: 1rem;
-    padding: 0.7rem;
-  }
-
-  #helpBtn {
-    font-size: 1rem;
-    padding: 0.5rem 0.8rem;
-  }
+<!-- below style makes this web page mobile responsive -->
+      <style id="mobile-responsive-overrides">
+         @media (max-width: 600px) {
+         /* Stack header; place language selector above logo, centered */
+         header {
+         display: flex !important;
+         flex-direction: column !important;
+         align-items: center !important;
+         text-align: center !important;
+         gap: 6px !important;
+         }
+         #langSelector {
+         order: 1 !important;
+         width: auto !important;
+         max-width: 240px !important;
+         align-self: center !important;
+         margin: 8px auto 4px auto !important;
+         }
+         #languageSelect {
+         width: 100% !important;
+         max-width: 240px !important;
+         }
+         /* Keep help/confirm stack clean (from your earlier fix) */
+         .footer-actions,
+         .cart-actions,
+         .actions,
+         #orderActions {
+         position: static !important;
+         display: flex !important;
+         flex-direction: column !important;
+         gap: 8px !important;
+         padding: 8px 10px !important;
+         width: 100% !important;
+         box-sizing: border-box;
+         }
+         #faqBtn,
+         .faq-btn,
+         .help-btn {
+         order: 1 !important;
+         position: static !important;
+         width: 100% !important;
+         }
+         #confirmBtn,
+         #confirmOrderBtn {
+         order: 2 !important;
+         width: 100% !important;
+         }
+         /* Menu item alignment left */
+         .menu-item,
+         .item,
+         .food-card {
+         display: flex !important;
+         justify-content: flex-start !important;
+         align-items: flex-start !important;
+         text-align: left !important;
+         gap: 12px !important;
+         }
+         .menu-item .item-info,
+         .item .item-info,
+         .food-card .item-info {
+         display: flex !important;
+         align-items: flex-start !important;
+         gap: 10px !important;
+         width: 100% !important;
+         }
+         .menu-item img,
+         .item img,
+         .food-card img,
+         .menu-image {
+         width: 96px !important;
+         height: 96px !important;
+         object-fit: cover !important;
+         border-radius: 10px !important;
+         margin: 0 !important;
+         }
+         }
+         /* Sticky horizontal category sub-tabs (all viewports) */
+        .category-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 9; /* higher to stay above other elements */
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 20px 12px;
+  background: linear-gradient(to right, #ffffff, #f9f9f9); /* soft gradient */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* subtle shadow */
 }
 
-@media (max-width: 480px) {
-  .item-name {
-    font-size: 1rem;
-  }
 
-  .item-desc {
-    font-size: 0.8rem;
-  }
 
-  .item-price {
-    font-size: 0.95rem;
-  }
-
-  .quantity-selector button {
-    font-size: 0.75rem;
-    padding: 3px 6px;
-  }
-
-  .quantity-selector .qty-val {
-    font-size: 0.85rem;
-  }
+.category-tabs::-webkit-scrollbar {
+  height: 6px;
 }
-    </style>
 
-/* ---------- Mobile Responsive ---------- */
+.category-tabs button {
+  flex: 0 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #f0f0f0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
 
+.category-tabs button:hover {
+  background: var(--orange);
+  transform: scale(1.05);
+}
+
+.category-tabs button.active {
+  background: #ff6f00; /* orange highlight */
+  color: #fff;
+  border-color: #ff6f00;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
+}
+
+      </style>
+      <!-- mobile responsiveness code styling ends -->
    </head>
    <body>
       <header>
@@ -268,78 +478,66 @@
 <h1 style="margin: 0;">HOTEL EXCELLA</h1>
          <p style="margin: 0; color: black; font-weight: 900;">IN-HOUSE ROOM SERVICE MENU</p>
       </header>
-      <div class="topbar">
-         <select id="langSelect">
-            <option value="en">English</option>
+      </div>
+      <!-- Language Selector Section -->
+      <div aria-label="Select language" id="langSelector">
+         <label class="sr-only" for="languageSelect">Language</label>
+         <select aria-label="Language selection" aria-live="polite" id="languageSelect">
+            <option selected="" value="en">English</option>
             <option value="hi">हिन्दी</option>
             <option value="te">తెలుగు</option>
             <option value="ta">தமிழ்</option>
          </select>
-         <button id="faqBtn" data-translate="faq">FAQ</button>
       </div>
+      <!-- Language Selector Section -->
+<button aria-controls="faqModal" aria-expanded="false" aria-haspopup="dialog" id="helpBtn" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 600; background: var(--orange); border: none; color: var(--bg-black); font-weight: 700; font-size: 1.2rem; padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px var(--orange);">Help / FAQ</button>
       <main>
-		<section id="guestInfo" class="card">
-		  <h2>Guest Information</h2>
-		  
-		  <label for="guestName">Guest Name: *</label>
-		  <input type="text" id="guestName" placeholder="Enter your name" required>
-		  
-		  <label for="roomNo">Room Number: *</label>
-		  <input type="text" id="roomNo" placeholder="Enter your room number" required>
-		  
-		  <label for="Whatsappnum">WhatsApp Number: *</label>
-		  <input type="tel" id="Whatsappnum" placeholder="+1234567890" required>
-		</section>
-
-         <section id="menuSection" class="card">
-            <h2 data-translate="menu">Menu</h2>
-            <nav id="menuTabs">
-               <button id="tabVeg" class="tab-btn active" data-translate="veg">Veg</button>
-               <button id="tabNonVeg" class="tab-btn" data-translate="nonveg">Non Veg</button>
-               <button id="tabGeneral" class="tab-btn" data-translate="general">General</button>
-            </nav>
-            <div id="menuContainer">Loading menu…</div>
-
-
-<!-- Order Summary Section -->
-<section id="orderSummarySection">
-  <h2 style="color: var(--primary);">Order Summary</h2>
-
-  <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-    <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-
-    <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc; max-height: 200px; overflow-y: auto;">
-      <li>No items selected</li>
-    </ul>
-
-<div id="totalBox" 
-     style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-  Total: ₹<span id="orderTotal">0.00</span>
-</div>
-
-    <div style="text-align: right;">
-      <button id="confirmOrder" disabled 
-        style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
-        Confirm Order
-      </button>
-    </div>
-  </div>
+         <!-- Guest Information Section -->
+<section aria-label="Guest Information" id="guestSection">
+<h2 id="guestInfoTitle">Guest Information</h2>
+<form id="guestInfo" novalidate="">
+<label for="guestName" id="guestNameLabel">Guest Name <sup>*</sup></label>
+<input aria-required="true" autocomplete="name" id="guestName" name="guestName" placeholder="Enter your name" required="" type="text"/>
+<label for="roomNumber" id="roomNumberLabel">Room Number <sup>*</sup></label>
+<input aria-required="true" autocomplete="off" id="roomNumber" name="roomNumber" pattern="^[0-9a-zA-Z\s-]+$" placeholder="Enter your room number" required="" type="text"/>
+<label for="guestWhatsApp" id="guestWhatsAppLabel">WhatsApp Number <sup>*</sup></label>
+<input aria-required="true" autocomplete="tel" id="guestWhatsApp" name="guestWhatsApp" pattern="^\+?[0-9]{7,15}$" placeholder="+1234567890" required="" type="tel"/>
+</form>
 </section>
-<!-- End Order Summary Section -->
+<!-- Guest Information Section -->
 
-
-
-
+         <!-- Menu Section -->
+         <section aria-label="Menu Section" id="menuSection">
+            <h2 id="menuTitle">Menu</h2>
+            <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
+               <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
+               <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
+               <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="2">General</button>
+            </nav>
+            <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
+               <p style="font-style: italic; color: #777;">Loading menu…</p>
+            </div>
+         </section>
+         <!-- Menu Section -->
+         <!-- Order Summary Section -->
+         <section aria-label="Order Summary" id="orderSection">
+            <h2 id="orderSummaryTitle">Order Summary</h2>
+            <div id="orderSummary">
+               <h3 id="selectedItemsTitle">Selected Items</h3>
+               <div aria-atomic="true" aria-live="polite" id="orderItems" tabindex="0">
+                  <p>No items selected</p>
+               </div>
+               <div aria-atomic="true" aria-live="polite" id="totalPrice" tabindex="0">Total: $0.00</div>
+               <button aria-disabled="true" aria-label="Confirm Order and Send via WhatsApp" disabled="" id="confirmBtn">Confirm Order</button>
+            </div>
+         </section>
+         <!-- Order Summary Section -->
 
 
       </main>
-      <div id="faqModal">
-         <div id="faqContent">
-            <h2 data-translate="faqTitle">Frequently Asked Questions</h2>
-            <div id="faqText"></div>
-            <button id="closeFaq" data-translate="close">Close</button>
-         </div>
-      </div>
+
+
+
       <script>
          (() => {
            const translations = {
@@ -347,64 +545,64 @@
            };
            const langSelect = document.getElementById('langSelect');
            const faqText = document.getElementById('faqText');
-			function applyTranslations(lang) {
-			  document.querySelectorAll('[data-translate]').forEach(el => {
-				const key = el.getAttribute('data-translate');
-				if (translations[lang] && translations[lang][key]) {
-				  if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-					// update placeholder
-					el.setAttribute("placeholder", translations[lang][key]);
-				  } else if (el.tagName === "BUTTON") {
-					// update button text
-					el.textContent = translations[lang][key];
-				  } else {
-					// update normal text content
-					el.textContent = translations[lang][key];
-				  }
-				}
-			  });
-
-			  // FAQ translations
-			  faqText.innerHTML = translations[lang].faqs;
-			}         
+         function applyTranslations(lang) {
+         document.querySelectorAll('[data-translate]').forEach(el => {
+         const key = el.getAttribute('data-translate');
+         if (translations[lang] && translations[lang][key]) {
+         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+         // update placeholder
+         el.setAttribute("placeholder", translations[lang][key]);
+         } else if (el.tagName === "BUTTON") {
+         // update button text
+         el.textContent = translations[lang][key];
+         } else {
+         // update normal text content
+         el.textContent = translations[lang][key];
+         }
+         }
+         });
+         
+         // FAQ translations
+         faqText.innerHTML = translations[lang].faqs;
+         }         
            const menuContainer = document.getElementById('menuContainer');
            const tabVegBtn = document.getElementById('tabVeg');
            const tabNonVegBtn = document.getElementById('tabNonVeg');
            const tabGeneralBtn = document.getElementById('tabGeneral');
-           const orderList = document.getElementById('orderList');
-           const orderTotalEl = document.getElementById('orderTotal');
-           const confirmOrderBtn = document.getElementById('confirmOrder');
+	   const orderList = document.getElementById('orderItems');
+	   const orderTotalEl = document.getElementById('totalPrice');
+	   const confirmOrderBtn = document.getElementById('confirmBtn');
            const guestNameEl = document.getElementById('guestName');
-           const roomNoEl = document.getElementById('roomNo');
-           const whatsappEl = document.getElementById('Whatsappnum');
+	   const roomNoEl = document.getElementById('roomNumber');
+  	   const whatsappEl = document.getElementById('guestWhatsApp');
          
            let menuData = { veg:{}, nonveg:{}, general:{} };
            let currentTab = 'veg';
            let currentOrder = {};
          
-		function parseCSV(text) {
-		  const lines = text.trim().split('\n');
-		  const headers = lines[0].split(',').map(h => h.trim());
-
-		  return lines.slice(1).map(line => {
-			const values = [];
-			let match;
-			const regex = /("([^"]*)"|[^,]+)/g; // match quoted "..." or unquoted text
-
-			while ((match = regex.exec(line)) !== null) {
-			  if (match[2] !== undefined) {
-				values.push(match[2]); // inside quotes
-			  } else {
-				values.push(match[1]);
-			  }
-			}
-
-			const obj = {};
-			headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
-			return obj;
-		  });
-		}
-
+         function parseCSV(text) {
+         const lines = text.trim().split('\n');
+         const headers = lines[0].split(',').map(h => h.trim());
+         
+         return lines.slice(1).map(line => {
+         const values = [];
+         let match;
+         const regex = /("([^"]*)"|[^,]+)/g; // match quoted "..." or unquoted text
+         
+         while ((match = regex.exec(line)) !== null) {
+         if (match[2] !== undefined) {
+         values.push(match[2]); // inside quotes
+         } else {
+         values.push(match[1]);
+         }
+         }
+         
+         const obj = {};
+         headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
+         return obj;
+         });
+         }
+         
          
            function renderMenu() {
              const data = menuData[currentTab];
@@ -420,31 +618,32 @@
            }
          
            window.showCategory = function(category) {
-             const items = menuData[currentTab][category] || [];
-             const container = document.getElementById('categoryContent');
-             container.innerHTML = '';
-             items.forEach(item => {
-               const qty = currentOrder[item.Name]?.qty || 0;
-               container.innerHTML += `
-                 <div class="menu-item">
-                   <div class="item-info"><div class="item-name">${item.Name}</div><div>${item.Description}</div></div>
-                   <div class="item-price">₹${item.Price}</div>
-                   <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g,'_')}">
-         			  ${qty > 0 
-         				? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
-         				   <span class="qty-val">${qty}</span>
-         				   <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-         				: `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`}
-         			</div>
-                 </div>`;
-			// Highlight active sub tab
-				document.querySelectorAll('.category-tabs button').forEach(btn => {
-				  if (btn.getAttribute('data-category') === category) {
-					btn.classList.add('active');
-				  } else {
-					btn.classList.remove('active');
-				  }
-				});
+    const items = menuData[currentTab][category] || [];
+    const container = document.getElementById('categoryContent');
+    container.innerHTML = ''; // Clear the content first
+
+    items.forEach(item => {
+        const qty = currentOrder[item.Name]?.qty || 0;
+        container.innerHTML += `
+            <div class="menu-item">
+                <div class="menu-item-details">
+                    <div class="item-name">${item.Name}</div>
+                    <div class="item-desc">${item.Description}</div>
+                </div>
+                <div class="menu-item-controls">
+                    <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
+                    <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+                        ${qty > 0 
+                            ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                               <span class="qty-val">${qty}</span>
+                               <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+                            : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
+                        }
+                    </div>
+                </div>
+            </div>
+        `;
+
          	// Add button → starts qty = 1
          		container.querySelectorAll('.add-btn').forEach(btn => {
          		  btn.addEventListener('click', () => {
@@ -455,8 +654,10 @@
          			showCategory(category); // re-render controls
          		  });
          		});
-         
-         	// Increment button
+
+
+
+                 	// Increment button
          		container.querySelectorAll('.inc-btn').forEach(btn => {
          		  btn.addEventListener('click', () => {
          			const name = btn.dataset.name;
@@ -479,29 +680,125 @@
              });
              container.querySelectorAll('input[type="number"]').forEach(input => input.addEventListener('input', onQtyChange));
            };
-         
-           function onQtyChange(e) {
-             const input = e.target;
-             const name = input.dataset.name;
-             const price = parseFloat(input.dataset.price);
-             const qty = parseInt(input.value) || 0;
-             if (qty > 0) currentOrder[name] = { qty, price };
-             else delete currentOrder[name];
-             updateOrderSummary();
-           }
-         
-           function updateOrderSummary() {
-             orderList.innerHTML = '';
-             let total = 0;
-             for (const [name, item] of Object.entries(currentOrder)) {
-               const lineTotal = item.qty * item.price;
-               total += lineTotal;
-               orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
-             }
-             orderTotalEl.textContent = total.toFixed(2);
-           }
+
+// This function handles quantity change inputs
+function onQtyChange(e) {
+    const input = e.target;
+    const name = input.dataset.name;
+    const price = parseFloat(input.dataset.price);
+    const qty = parseInt(input.value) || 0;
+    if (qty > 0) currentOrder[name] = { qty, price };
+    else delete currentOrder[name];
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    orderList.innerHTML = '';
+    let total = 0;
+    for (const [name, item] of Object.entries(currentOrder)) {
+        const lineTotal = item.qty * item.price;
+        total += lineTotal;
+        orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+    }
+    orderTotalEl.textContent = total.toFixed(2);
+}
+
+
+
+
+window.showCategory = function(category) {
+    const items = menuData[currentTab][category] || [];
+    const container = document.getElementById('categoryContent');
+    container.innerHTML = ''; // Clear the content first
+
+    items.forEach(item => {
+        const qty = currentOrder[item.Name]?.qty || 0;
+        container.innerHTML += `
+            <div class="menu-item">
+                <div class="menu-item-details">
+                    <div class="item-name">${item.Name}</div>
+                    <div class="item-desc">${item.Description}</div>
+                </div>
+                <div class="menu-item-controls">
+                    <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
+                    <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+                        ${qty > 0 
+                            ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                               <span class="qty-val">${qty}</span>
+                               <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+                            : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
+                        }
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add button event listener
+        container.querySelectorAll('.add-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const name = e.target.dataset.name;
+                const price = parseFloat(e.target.dataset.price);
+                currentOrder[name] = { qty: 1, price };
+                updateOrderSummary();
+                showCategory(category); // re-render controls after adding
+            });
+        });
+
+        // Increment button event listener
+        container.querySelectorAll('.inc-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const name = e.target.dataset.name;
+                currentOrder[name].qty++;
+                updateOrderSummary();
+                showCategory(category); // re-render controls
+            });
+        });
+
+        // Decrement button event listener
+        container.querySelectorAll('.dec-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const name = e.target.dataset.name;
+                currentOrder[name].qty--;
+                if (currentOrder[name].qty <= 0) {
+                    delete currentOrder[name];
+                    showCategory(category); // revert to "Add" button
+                } else {
+                    updateOrderSummary();
+                    showCategory(category); // re-render controls
+                }
+            });
+        });
+    });
+};
+
+// This function handles quantity change inputs
+function onQtyChange(e) {
+    const input = e.target;
+    const name = input.dataset.name;
+    const price = parseFloat(input.dataset.price);
+    const qty = parseInt(input.value) || 0;
+    if (qty > 0) currentOrder[name] = { qty, price };
+    else delete currentOrder[name];
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    orderList.innerHTML = '';
+    let total = 0;
+    for (const [name, item] of Object.entries(currentOrder)) {
+        const lineTotal = item.qty * item.price;
+        total += lineTotal;
+        orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+    }
+    orderTotalEl.textContent = total.toFixed(2);
+}
+
+
+
          
            // Tab switching
+
+
            function switchActive(activeBtn) {
              [tabVegBtn, tabNonVegBtn, tabGeneralBtn].forEach(btn => btn.classList.remove('active'));
              activeBtn.classList.add('active');
