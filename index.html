@@ -101,11 +101,7 @@
          #orderList { margin: 0; padding: 0; list-style: none; }
          #confirmOrder { width: 100%; margin-top: 1rem; background: var(--primary); color: var(--light); padding: 12px; border: none; cursor: pointer; border-radius: 8px; font-size: 1rem; font-weight: 600; }
          #confirmOrder:hover { background: var(--accent); }
-         #faqModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-         #faqContent { background: #fff; padding: 1.5rem; border-radius: 10px; max-width: 600px; max-height: 80%; overflow-y: auto; }
-         #faqContent h2 { margin-top: 0; color: var(--primary); }
-         #closeFaq { margin-top: 1rem; background: var(--primary); color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
-		@media (max-width: 600px) {
+         @media (max-width: 600px) {
 		  .menu-item {
 			grid-template-columns: 1fr auto;
 			grid-template-rows: auto auto;
@@ -149,15 +145,6 @@
          <h1>SANVI GROUP OF HOTELS</h1>
          <p>MEMORABLE STAYS</p>
       </header>
-      <div class="topbar">
-         <select id="langSelect">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="te">తెలుగు</option>
-            <option value="ta">தமிழ்</option>
-         </select>
-         <button id="faqBtn" data-translate="faq">FAQ</button>
-      </div>
       <main>
 		<section id="guestInfo" class="card">
 		  <h2>Guest Information</h2>
@@ -188,40 +175,9 @@
             <button id="confirmOrder" data-translate="confirm">Confirm Order</button>
          </section>
       </main>
-      <div id="faqModal">
-         <div id="faqContent">
-            <h2 data-translate="faqTitle">Frequently Asked Questions</h2>
-            <div id="faqText"></div>
-            <button id="closeFaq" data-translate="close">Close</button>
-         </div>
-      </div>
+      
       <script>
-         (() => {
-           const translations = {
-             en: { guestInfo:"Guest Information", name:"Name:", room:"Room Number:", whatsapp:"Whatsapp Number:", menu:"Menu", veg:"Veg", nonveg:"Non Veg", general:"General", orderSummary:"Order Summary", total:"Total:", confirm:"Confirm Order", faq:"FAQ", faqTitle:"Frequently Asked Questions", close:"Close", faqs:`<p><strong>How to order?</strong> Fill your guest details and select quantities...</p>` }
-           };
-           const langSelect = document.getElementById('langSelect');
-           const faqText = document.getElementById('faqText');
-			function applyTranslations(lang) {
-			  document.querySelectorAll('[data-translate]').forEach(el => {
-				const key = el.getAttribute('data-translate');
-				if (translations[lang] && translations[lang][key]) {
-				  if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-					// update placeholder
-					el.setAttribute("placeholder", translations[lang][key]);
-				  } else if (el.tagName === "BUTTON") {
-					// update button text
-					el.textContent = translations[lang][key];
-				  } else {
-					// update normal text content
-					el.textContent = translations[lang][key];
-				  }
-				}
-			  });
-
-			  // FAQ translations
-			  faqText.innerHTML = translations[lang].faqs;
-			}         
+         (() => { 
            const menuContainer = document.getElementById('menuContainer');
            const tabVegBtn = document.getElementById('tabVeg');
            const tabNonVegBtn = document.getElementById('tabNonVeg');
@@ -386,8 +342,6 @@
              window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`);
            });
          
-           document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
-           document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
          })();
       </script>
    </body>
