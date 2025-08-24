@@ -142,131 +142,6 @@
          font-weight: 600;
          }
       </style>
-<!-- below style makes this web page mobile responsive -->
-      <style id="mobile-responsive-overrides">
-         @media (max-width: 600px) {
-         /* Stack header; place language selector above logo, centered */
-         header {
-         display: flex !important;
-         flex-direction: column !important;
-         align-items: center !important;
-         text-align: center !important;
-         gap: 6px !important;
-         }
-         #langSelector {
-         order: 1 !important;
-         width: auto !important;
-         max-width: 240px !important;
-         align-self: center !important;
-         margin: 8px auto 4px auto !important;
-         }
-         #languageSelect {
-         width: 100% !important;
-         max-width: 240px !important;
-         }
-         /* Keep help/confirm stack clean (from your earlier fix) */
-         .footer-actions,
-         .cart-actions,
-         .actions,
-         #orderActions {
-         position: static !important;
-         display: flex !important;
-         flex-direction: column !important;
-         gap: 8px !important;
-         padding: 8px 10px !important;
-         width: 100% !important;
-         box-sizing: border-box;
-         }
-         #faqBtn,
-         .faq-btn,
-         .help-btn {
-         order: 1 !important;
-         position: static !important;
-         width: 100% !important;
-         }
-         #confirmBtn,
-         #confirmOrderBtn {
-         order: 2 !important;
-         width: 100% !important;
-         }
-         /* Menu item alignment left */
-         .menu-item,
-         .item,
-         .food-card {
-         display: flex !important;
-         justify-content: flex-start !important;
-         align-items: flex-start !important;
-         text-align: left !important;
-         gap: 12px !important;
-         }
-         .menu-item .item-info,
-         .item .item-info,
-         .food-card .item-info {
-         display: flex !important;
-         align-items: flex-start !important;
-         gap: 10px !important;
-         width: 100% !important;
-         }
-         .menu-item img,
-         .item img,
-         .food-card img,
-         .menu-image {
-         width: 96px !important;
-         height: 96px !important;
-         object-fit: cover !important;
-         border-radius: 10px !important;
-         margin: 0 !important;
-         }
-         }
-         /* Sticky horizontal category sub-tabs (all viewports) */
-        .category-tabs {
-  position: sticky;
-  top: 0;
-  z-index: 9; /* higher to stay above other elements */
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 20px 12px;
-  background: linear-gradient(to right, #ffffff, #f9f9f9); /* soft gradient */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* subtle shadow */
-}
-
-.category-tabs::-webkit-scrollbar {
-  height: 6px;
-}
-
-.category-tabs button {
-  flex: 0 0 auto;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: #f0f0f0;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.category-tabs button:hover {
-  background: var(--orange);
-  transform: scale(1.05);
-}
-
-.category-tabs button.active {
-  background: #ff6f00; /* orange highlight */
-  color: #fff;
-  border-color: #ff6f00;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
-}
-
-      </style>
-      <!-- mobile responsiveness code styling ends -->
-
-	   
    </head>
    <body>
       <header>
@@ -305,19 +180,13 @@
                <button id="tabGeneral" class="tab-btn" data-translate="general">General</button>
             </nav>
             <div id="menuContainer">Loading menu…</div>
-         <!-- Order Summary Section -->
-         <section aria-label="Order Summary" id="orderSection">
-            <h2 id="orderSummaryTitle">Order Summary</h2>
-            <div id="orderSummary">
-               <h3 id="selectedItemsTitle">Selected Items</h3>
-               <div aria-atomic="true" aria-live="polite" id="orderItems" tabindex="0">
-                  <p>No items selected</p>
-               </div>
-               <div aria-atomic="true" aria-live="polite" id="totalPrice" tabindex="0">Total: $0.00</div>
-               <button aria-disabled="true" aria-label="Confirm Order and Send via WhatsApp" disabled="" id="confirmBtn">Confirm Order</button>
-            </div>
          </section>
-         <!-- Order Summary Section -->
+         <section id="orderSummary" class="card">
+            <h3 data-translate="orderSummary">Order Summary</h3>
+            <ul id="orderList"></ul>
+            <p><strong data-translate="total">Total:</strong> ₹<span id="orderTotal">0.00</span></p>
+            <button id="confirmOrder" data-translate="confirm">Confirm Order</button>
+         </section>
       </main>
       <div id="faqModal">
          <div id="faqContent">
@@ -357,9 +226,9 @@
            const tabVegBtn = document.getElementById('tabVeg');
            const tabNonVegBtn = document.getElementById('tabNonVeg');
            const tabGeneralBtn = document.getElementById('tabGeneral');
-           const orderList = document.getElementById('orderItems');
-           const orderTotalEl = document.getElementById('totalPrice');
-           const confirmOrderBtn = document.getElementById('confirmBtn');
+           const orderList = document.getElementById('orderList');
+           const orderTotalEl = document.getElementById('orderTotal');
+           const confirmOrderBtn = document.getElementById('confirmOrder');
            const guestNameEl = document.getElementById('guestName');
            const roomNoEl = document.getElementById('roomNo');
            const whatsappEl = document.getElementById('Whatsappnum');
@@ -386,7 +255,7 @@
 			}
 
 			const obj = {};
-			headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "";
+			headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
 			return obj;
 		  });
 		}
@@ -410,4 +279,116 @@
              const container = document.getElementById('categoryContent');
              container.innerHTML = '';
              items.forEach(item => {
-               const qty = currentOrder[item.Name]?.qty
+               const qty = currentOrder[item.Name]?.qty || 0;
+               container.innerHTML += `
+                 <div class="menu-item">
+                   <div class="item-info"><div class="item-name">${item.Name}</div><div>${item.Description}</div></div>
+                   <div class="item-price">₹${item.Price}</div>
+                   <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g,'_')}">
+         			  ${qty > 0 
+         				? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+         				   <span class="qty-val">${qty}</span>
+         				   <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+         				: `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`}
+         			</div>
+                 </div>`;
+			// Highlight active sub tab
+				document.querySelectorAll('.category-tabs button').forEach(btn => {
+				  if (btn.getAttribute('data-category') === category) {
+					btn.classList.add('active');
+				  } else {
+					btn.classList.remove('active');
+				  }
+				});
+         	// Add button → starts qty = 1
+         		container.querySelectorAll('.add-btn').forEach(btn => {
+         		  btn.addEventListener('click', () => {
+         			const name = btn.dataset.name;
+         			const price = parseFloat(btn.dataset.price);
+         			currentOrder[name] = { qty: 1, price };
+         			updateOrderSummary();
+         			showCategory(category); // re-render controls
+         		  });
+         		});
+         
+         	// Increment button
+         		container.querySelectorAll('.inc-btn').forEach(btn => {
+         		  btn.addEventListener('click', () => {
+         			const name = btn.dataset.name;
+         			currentOrder[name].qty++;
+         			updateOrderSummary();
+         			showCategory(category);
+         		  });
+         		});
+         
+         	// Decrement button
+         		container.querySelectorAll('.dec-btn').forEach(btn => {
+         		  btn.addEventListener('click', () => {
+         			const name = btn.dataset.name;
+         			currentOrder[name].qty--;
+         			if (currentOrder[name].qty <= 0) delete currentOrder[name];
+         			updateOrderSummary();
+         			showCategory(category);
+         		  });
+         		});
+             });
+             container.querySelectorAll('input[type="number"]').forEach(input => input.addEventListener('input', onQtyChange));
+           };
+         
+           function onQtyChange(e) {
+             const input = e.target;
+             const name = input.dataset.name;
+             const price = parseFloat(input.dataset.price);
+             const qty = parseInt(input.value) || 0;
+             if (qty > 0) currentOrder[name] = { qty, price };
+             else delete currentOrder[name];
+             updateOrderSummary();
+           }
+         
+           function updateOrderSummary() {
+             orderList.innerHTML = '';
+             let total = 0;
+             for (const [name, item] of Object.entries(currentOrder)) {
+               const lineTotal = item.qty * item.price;
+               total += lineTotal;
+               orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+             }
+             orderTotalEl.textContent = total.toFixed(2);
+           }
+         
+           // Tab switching
+           function switchActive(activeBtn) {
+             [tabVegBtn, tabNonVegBtn, tabGeneralBtn].forEach(btn => btn.classList.remove('active'));
+             activeBtn.classList.add('active');
+           }
+           tabVegBtn.addEventListener('click', () => { currentTab = 'veg'; switchActive(tabVegBtn); renderMenu(); });
+           tabNonVegBtn.addEventListener('click', () => { currentTab = 'nonveg'; switchActive(tabNonVegBtn); renderMenu(); });
+           tabGeneralBtn.addEventListener('click', () => { currentTab = 'general'; switchActive(tabGeneralBtn); renderMenu(); });
+         
+           // Load menu.csv
+           fetch('menu.csv')
+             .then(r => r.text())
+             .then(text => {
+               const rows = parseCSV(text);
+               rows.forEach(row => {
+                 const type = row.Type.toLowerCase();
+                 const category = row.Category || "Misc";
+                 if (!menuData[type][category]) menuData[type][category] = [];
+                 menuData[type][category].push(row);
+               });
+               renderMenu();
+             });
+         
+           confirmOrderBtn.addEventListener('click', () => {
+             let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
+             let total = orderTotalEl.textContent;
+             let msg = `Guest: ${guestNameEl.value}, Room: ${roomNoEl.value}, WhatsApp: ${whatsappEl.value}. Order: ${orderDetails}. Total: ₹${total}`;
+             window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`);
+           });
+         
+           document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
+           document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
+         })();
+      </script>
+   </body>
+</html>
