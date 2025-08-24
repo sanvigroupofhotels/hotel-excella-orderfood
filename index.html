@@ -103,40 +103,48 @@
 		  font-weight: 600;
 		}
 
-         #orderBox {
-  background: #2e7d32; /* green */
-  padding: 1rem;
-  border-radius: 8px;
-}
 
-#orderBox h3 {
-  margin-top: 0;
-  font-weight: 700;
-}
 
-#orderList li {
+#orderBox {
+  background: var(--primary);
   color: #fff;
-  margin-bottom: 0.25rem;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+#orderList {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+#totalBox {
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-top: 2px solid var(--accent);
+  padding-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 #confirmOrder {
   width: 100%;
   padding: 0.8rem;
-  font-size: 1.1rem;
+  background: var(--accent);
+  color: #fff;
   font-weight: 700;
-  background: #ccc;
-  color: #000;
+  font-size: 1rem;
   border: none;
-  border-radius: 6px;
-  margin-top: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#confirmOrder:disabled {
+  background: #bbb;
   cursor: not-allowed;
 }
 
-#confirmOrder.enabled {
-  background: var(--orange);
-  color: var(--bg-black);
-  cursor: pointer;
-}
+
 
          #faqModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
          #faqContent { background: #fff; padding: 1.5rem; border-radius: 10px; max-width: 600px; max-height: 80%; overflow-y: auto; }
@@ -179,6 +187,78 @@
          font-weight: 600;
          }
       </style>
+
+/* ---------- Mobile Responsive ---------- */
+<style id="mobile-responsive-overrides">
+@media (max-width: 768px) {
+  main {
+    padding: 0.5rem;
+  }
+
+  .menu-item {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    padding: 10px;
+  }
+
+  .item-price {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1rem;
+  }
+
+  .quantity-selector {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 6px;
+  }
+
+  .item-info {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+
+  #orderBox {
+    padding: 0.8rem;
+  }
+
+  #confirmOrder {
+    font-size: 1rem;
+    padding: 0.7rem;
+  }
+
+  #helpBtn {
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-name {
+    font-size: 1rem;
+  }
+
+  .item-desc {
+    font-size: 0.8rem;
+  }
+
+  .item-price {
+    font-size: 0.95rem;
+  }
+
+  .quantity-selector button {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+  }
+
+  .quantity-selector .qty-val {
+    font-size: 0.85rem;
+  }
+}
+    </style>
+
+/* ---------- Mobile Responsive ---------- */
+
    </head>
    <body>
       <header>
@@ -221,26 +301,34 @@
             <div id="menuContainer">Loading menu…</div>
 
 
-         <!-- Order Summary Section -->
-         <section id="orderSummarySection">
-  <h2 style="color: var(--dark-green);">Order Summary</h2>
-  <hr style="border: 1px solid var(--orange); margin: 0.5rem 0;">
+<!-- Order Summary Section -->
+<section id="orderSummarySection">
+  <h2 style="color: var(--primary);">Order Summary</h2>
 
-  <div id="orderBox">
-    <h3 style="color: var(--orange);">Selected Items</h3>
-    <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc;">
+  <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
+    <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
+
+    <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc; max-height: 200px; overflow-y: auto;">
       <li>No items selected</li>
     </ul>
-    <hr style="border: 1px solid yellow; margin: 0.5rem 0;">
-    <div style="font-weight: 700; color: #fff; margin: 0.5rem 0;">
-      Total: ₹<span id="orderTotal">0.00</span>
+
+<div id="totalBox" 
+     style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
+  Total: ₹<span id="orderTotal">0.00</span>
+</div>
+
+    <div style="text-align: right;">
+      <button id="confirmOrder" disabled 
+        style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
+        Confirm Order
+      </button>
     </div>
-    <button id="confirmOrder" disabled>Confirm Order</button>
   </div>
 </section>
+<!-- End Order Summary Section -->
 
 
-         <!-- Order Summary Section -->
+
 
 
 
