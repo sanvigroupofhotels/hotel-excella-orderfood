@@ -182,13 +182,19 @@
                <button id="tabGeneral" class="tab-btn" data-translate="general">General</button>
             </nav>
             <div id="menuContainer">Loading menu…</div>
+         <!-- Order Summary Section -->
+         <section aria-label="Order Summary" id="orderSection">
+            <h2 id="orderSummaryTitle">Order Summary</h2>
+            <div id="orderSummary">
+               <h3 id="selectedItemsTitle">Selected Items</h3>
+               <div aria-atomic="true" aria-live="polite" id="orderItems" tabindex="0">
+                  <p>No items selected</p>
+               </div>
+               <div aria-atomic="true" aria-live="polite" id="totalPrice" tabindex="0">Total: $0.00</div>
+               <button aria-disabled="true" aria-label="Confirm Order and Send via WhatsApp" disabled="" id="confirmBtn">Confirm Order</button>
+            </div>
          </section>
-         <section id="orderSummary" class="card">
-            <h3 data-translate="orderSummary">Order Summary</h3>
-            <ul id="orderList"></ul>
-            <p><strong data-translate="total">Total:</strong> ₹<span id="orderTotal">0.00</span></p>
-            <button id="confirmOrder" data-translate="confirm">Confirm Order</button>
-         </section>
+         <!-- Order Summary Section -->
       </main>
       <div id="faqModal">
          <div id="faqContent">
