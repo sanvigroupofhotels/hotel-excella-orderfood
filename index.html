@@ -5,17 +5,13 @@
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <title>Hotel Excella - Food Ordering</title>
       <style>
-      :root {
-      --orange: #f9a825;
-      --dark-green: #2e7d32;
-      --yellow: #fff176;
-      --bg-black: #000000;
-      --white: #ffffff;
-      --light-gray: #f5f5f5;
-      --dark-gray: #333333;
-      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      --font-main-size: 1rem;
-      }
+         :root {
+         --primary: #2e7d32;
+         --accent: #f9a825;
+         --light: #ffffff;
+         --dark: #333333;
+         --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         }
          body { margin: 0; font-family: var(--font-family); background: #fafafa; color: var(--dark); }
          header { text-align: center; padding: 1rem 0; background: var(--primary); color: var(--light); }
          header img { width: 100px; height: auto; margin-bottom: 0.5rem; }
@@ -149,9 +145,11 @@
    </head>
    <body>
       <header>
-         <img src="images/sanvigrouplogo.jpg" alt="Hotel Logo"/>
-         <h1>SANVI GROUP OF HOTELS</h1>
-         <p>MEMORABLE STAYS</p>
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<div style="flex: 1; text-align: centre;">
+<img alt="Hotel Logo" src="images/hotelexcellalogo.png" style="width: 125px; height: auto;"/>
+<h1 style="margin: 0;">HOTEL EXCELLA</h1>
+         <p style="margin: 0; color: black; font-weight: 900;">IN-HOUSE ROOM SERVICE MENU</p>
       </header>
       <div class="topbar">
          <select id="langSelect">
