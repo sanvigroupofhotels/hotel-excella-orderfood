@@ -1,836 +1,399 @@
-
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Hotel Excella - Food Ordering</title>
-      <style>
-         :root {
-         --orange: #f9a825;
-         --dark-green: #2e7d32;
-         --yellow: #fff176;
-         --bg-black: #000000;
-         --white: #ffffff;
-         --light-gray: #f5f5f5;
-         --dark-gray: #333333;
-         --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-         --font-main-size: 1rem;
-         }
-         body {
-         margin: 0;
-         font-family: var(--font-family);
-         background-color: var(--bg-black);
-         color: var(--white);
-         line-height: 1.6;
-         font-size: var(--font-main-size);
-         }
-         header {
-         text-align: center;
-         padding: 1rem 0;
-         background: var(--dark-green);
-         }
-         header img {
-         width: 80px;
-         height: auto;
-         margin-bottom: 0.5rem;
-         }
-         header h1 {
-         margin: 0;
-         font-size: 2rem;
-         font-weight: 700;
-         color: var(--orange);
-         text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-         }
-         header p {
-         margin: 0;
-         font-size: 1.1rem;
-         font-weight: 600;
-         color: var(--yellow);
-         }
-         #langSelector {
-         position: absolute;
-         top: 1rem;
-         right: 1.2rem;
-         background: var(--orange);
-         color: var(--bg-black);
-         border-radius: 5px;
-         padding: 0.3rem 0.6rem;
-         font-weight: 700;
-         cursor: pointer;
-         user-select: none;
-         }
-         #langSelector select {
-         border: none;
-         font-weight: 700;
-         background: transparent;
-         color: var(--bg-black);
-         font-family: inherit;
-         font-size: 1rem;
-         cursor: pointer;
-         }
-         main {
-         max-width: 900px;
-         margin: 1rem auto 4rem auto;
-         background: var(--light-gray);
-         border-radius: 12px;
-         padding: 1rem 1.5rem;
-         color: var(--dark-gray);
-         position: relative;
-         }
-         section {
-         margin-bottom: 2rem;
-         }
-         h2 {
-         border-bottom: 0px solid var(--orange);
-         padding-bottom: 0 rem;
-         color: var(--dark-green);
-         }
-        form#guestInfo {
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Menu</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --accent: #f9a825;
+      --dark-green: #1b5e20;
+      --yellow: #fdd835;
+      --orange: #ef6c00;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
       display: flex;
+      background: #ccc;
+      overflow-x: auto;
+    }
+
+    nav button {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      background: #ccc;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    nav button.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    #categoryTabs {
+      display: flex;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      gap: 1rem;
-      }
-      form#guestInfo label {
-      flex: 1 1 100%;
-      font-weight: 750;
-      }
-      form#guestInfo input {
-      padding: 0.5rem;
-      border: 2px solid var(--dark-green);
-      border-radius: 6px;
-      font-size: 1.1rem;
-      width: 100%;
-      box-sizing: border-box;
-      }
+      margin: 1rem;
+    }
 
-         #menuContainer {
-         max-height: 430px;
-         overflow-y: auto;
-         border: 1px solid var(--dark-green);
-         border-radius: 8px;
-         padding: 1rem 1rem 1rem 1rem;
-         background: var(--white);
-         color: var(--dark-gray);
-         position: relative;
-         }
-         #menuTabs {
-         display: flex;
-         border-bottom: 3px solid var(--orange);
-         margin: 0 0 1rem 0;
-         }
-         #menuSubTabs {
-         display: flex;
-         border-bottom: 3px solid var(--orange);
-         margin: 0 0 1rem 0;
-         }
-         .tab-btn {
-         flex: 1;
-         padding: 0.6rem 0;
-         font-weight: 700;
-         font-size: 1.1rem;
-         text-align: center;
-         cursor: pointer;
-         background: var(--light-gray);
-         border: none;
-         border-bottom: 3px solid transparent;
-         color: var(--dark-green);
-         transition: all 0.3s ease;
-         user-select: none;
-         }
-         .tab-btn.active {
-         background: var(--white);
-         border-bottom: 3px solid var(--orange);
-         color: var(--orange);
-         }
-         .tab-btn:focus-visible {
-         outline: 3px solid var(--orange);
-         }
-         .category {
-         margin-bottom: 1.5rem;
-         }
-         .category h3 {
-         margin-top: 0;
-         margin-bottom: 0.5rem;
-         color: var(--orange);
-         border-bottom: 2px solid var(--dark-green);
-         padding-bottom: 0.2rem;
-         }
+    #categoryTabs button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--primary);
+      background: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+    }
 
-      
-       
+    #categoryTabs button.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    #categoryContent {
+      margin: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
     .menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px dotted var(--dark-green);
-}
-
-.menu-item:last-child {
-    border-bottom: none;
-}
-
-.menu-item-details {
-    flex-grow: 1; /* Allow the item name and description to take up available space */
-    margin-right: 10px;
-}
-
-.menu-item-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.item-name {
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--dark-green);
-}
-
-.item-desc {
-    font-style: italic;
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 0.2rem;
-}
-
-.item-price {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-right: 1rem;
-    color: var(--orange);
-    min-width: 75px;
-    text-align: right;
-}
-
-.quantity-selector {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.quantity-selector button {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 6px;
-    background: #28a745; /* Green color */
-    color: #fff;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.quantity-selector button:hover {
-    background: #218838; /* Darker green on hover */
-}
-
-.quantity-selector .qty-val {
-    min-width: 20px;
-    text-align: center;
-    font-weight: 600;
-}
-
-
-
-
-
-         #orderSummary {
-         background: var(--dark-green);
-         color: var(--white);
-         border-radius: 8px;
-         padding: 1rem;
-         }
-         #orderSummary h3 {
-         margin-top: 0;
-         margin-bottom: 1rem;
-         color: var(--yellow);
-         }
-         #orderItems {
-         max-height: 200px;
-         overflow-y: auto;
-         margin-bottom: 1rem;
-         }
-         .order-item {
-         display: flex;
-         justify-content: space-between;
-         margin-bottom: 0.4rem;
-         }
-         .order-item span {
-         font-size: 1.1rem;
-         }
-         #totalPrice {
-         font-size: 1.3rem;
-         font-weight: 700;
-         border-top: 2px solid var(--yellow);
-         padding-top: 0.5rem;
-         }
-         #confirmBtn {
-         width: 100%;
-         padding: 0.8rem;
-         background: var(--orange);
-         color: var(--bg-black);
-         font-weight: 700;
-         font-size: 1.3rem;
-         border: none;
-         border-radius: 8px;
-         cursor: pointer;
-         user-select: none;
-         transition: background-color 0.3s ease;
-         }
-         #confirmBtn:disabled {
-         background: #bbb;
-         cursor: not-allowed;
-         }
-         #faqModal {
-         display: none;
-         position: fixed;
-         z-index: 555;
-         left: 0;
-         top: 0;
-         width: 100vw;
-         height: 100vh;
-         overflow: auto;
-         background: rgba(0, 0, 0, 0.7);
-         padding: 2rem;
-         }
-         #faqModalContent {
-         background: var(--white);
-         color: var(--dark-gray);
-         margin: 1rem auto;
-         border-radius: 12px;
-         max-width: 600px;
-         padding: 1.5rem 2rem;
-         position: relative;
-         }
-         #faqModal h2 {
-         color: var(--dark-green);
-         }
-         #faqModalClose {
-         position: absolute;
-         right: 1rem;
-         top: 1rem;
-         font-size: 1.7rem;
-         font-weight: 700;
-         color: var(--dark-green);
-         background: none;
-         border: none;
-         cursor: pointer;
-         }
-         .sr-only {
-         position: absolute !important;
-         width: 1px !important;
-         height: 1px !important;
-         padding: 0 !important;
-         margin: -1px !important;
-         overflow: hidden !important;
-         clip: rect(0,0,0,0) !important;
-         border: 0 !important;
-         }
-         @media (max-width: 720px) {
-         .item-info {
-         flex-direction: column;
-         gap: 0.35rem;
-         }
-         .item-name {
-         font-size: 1rem;
-         }
-         .menu-item {
-         padding: 0.3rem 0;
-         }
-         #orderSummary {
-         padding: 0.75rem;
-         }
-         }         
-      </style>
-  
-
-<!-- below style makes this web page mobile responsive -->
-      <style id="mobile-responsive-overrides">
-         @media (max-width: 600px) {
-         /* Stack header; place language selector above logo, centered */
-         header {
-         display: flex !important;
-         flex-direction: column !important;
-         align-items: center !important;
-         text-align: center !important;
-         gap: 6px !important;
-         }
-         #langSelector {
-         order: 1 !important;
-         width: auto !important;
-         max-width: 240px !important;
-         align-self: center !important;
-         margin: 8px auto 4px auto !important;
-         }
-         #languageSelect {
-         width: 100% !important;
-         max-width: 240px !important;
-         }
-         /* Keep help/confirm stack clean (from your earlier fix) */
-         .footer-actions,
-         .cart-actions,
-         .actions,
-         #orderActions {
-         position: static !important;
-         display: flex !important;
-         flex-direction: column !important;
-         gap: 8px !important;
-         padding: 8px 10px !important;
-         width: 100% !important;
-         box-sizing: border-box;
-         }
-         #faqBtn,
-         .faq-btn,
-         .help-btn {
-         order: 1 !important;
-         position: static !important;
-         width: 100% !important;
-         }
-         #confirmBtn,
-         #confirmOrderBtn {
-         order: 2 !important;
-         width: 100% !important;
-         }
-         /* Menu item alignment left */
-         .menu-item,
-         .item,
-         .food-card {
-         display: flex !important;
-         justify-content: flex-start !important;
-         align-items: flex-start !important;
-         text-align: left !important;
-         gap: 12px !important;
-         }
-         .menu-item .item-info,
-         .item .item-info,
-         .food-card .item-info {
-         display: flex !important;
-         align-items: flex-start !important;
-         gap: 10px !important;
-         width: 100% !important;
-         }
-         .menu-item img,
-         .item img,
-         .food-card img,
-         .menu-image {
-         width: 96px !important;
-         height: 96px !important;
-         object-fit: cover !important;
-         border-radius: 10px !important;
-         margin: 0 !important;
-         }
-         }
-         /* Sticky horizontal category sub-tabs (all viewports) */
-        .category-tabs {
-  position: sticky;
-  top: 0;
-  z-index: 9; /* higher to stay above other elements */
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 20px 12px;
-  background: linear-gradient(to right, #ffffff, #f9f9f9); /* soft gradient */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* subtle shadow */
-}
-
-
-
-.category-tabs::-webkit-scrollbar {
-  height: 6px;
-}
-
-.category-tabs button {
-  flex: 0 0 auto;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: #f0f0f0;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.category-tabs button:hover {
-  background: var(--orange);
-  transform: scale(1.05);
-}
-
-.category-tabs button.active {
-  background: #ff6f00; /* orange highlight */
-  color: #fff;
-  border-color: #ff6f00;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
-}
-
-      </style>
-      <!-- mobile responsiveness code styling ends -->
-   </head>
-   <body>
-      <header>
-<div style="display: flex; align-items: center; justify-content: space-between;">
-<div style="flex: 1; text-align: centre;">
-<img alt="Hotel Logo" src="images/hotelexcellalogo.png" style="width: 125px; height: auto;"/>
-<h1 style="margin: 0;">HOTEL EXCELLA</h1>
-         <p style="margin: 0; color: black; font-weight: 900;">IN-HOUSE ROOM SERVICE MENU</p>
-      </header>
-      </div>
-      <!-- Language Selector Section -->
-      <div aria-label="Select language" id="langSelector">
-         <label class="sr-only" for="languageSelect">Language</label>
-         <select aria-label="Language selection" aria-live="polite" id="languageSelect">
-            <option selected="" value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="te">తెలుగు</option>
-            <option value="ta">தமிழ்</option>
-         </select>
-      </div>
-      <!-- Language Selector Section -->
-<button aria-controls="faqModal" aria-expanded="false" aria-haspopup="dialog" id="helpBtn" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 600; background: var(--orange); border: none; color: var(--bg-black); font-weight: 700; font-size: 1.2rem; padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px var(--orange);">Help / FAQ</button>
-      <main>
-         <!-- Guest Information Section -->
-<section aria-label="Guest Information" id="guestSection">
-<h2 id="guestInfoTitle">Guest Information</h2>
-<form id="guestInfo" novalidate="">
-<label for="guestName" id="guestNameLabel">Guest Name <sup>*</sup></label>
-<input aria-required="true" autocomplete="name" id="guestName" name="guestName" placeholder="Enter your name" required="" type="text"/>
-<label for="roomNumber" id="roomNumberLabel">Room Number <sup>*</sup></label>
-<input aria-required="true" autocomplete="off" id="roomNumber" name="roomNumber" pattern="^[0-9a-zA-Z\s-]+$" placeholder="Enter your room number" required="" type="text"/>
-<label for="guestWhatsApp" id="guestWhatsAppLabel">WhatsApp Number <sup>*</sup></label>
-<input aria-required="true" autocomplete="tel" id="guestWhatsApp" name="guestWhatsApp" pattern="^\+?[0-9]{7,15}$" placeholder="+1234567890" required="" type="tel"/>
-</form>
-</section>
-<!-- Guest Information Section -->
-
-         <!-- Menu Section -->
-         <section aria-label="Menu Section" id="menuSection">
-            <h2 id="menuTitle">Menu</h2>
-            <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
-               <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
-               <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
-               <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="2">General</button>
-            </nav>
-            <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
-               <p style="font-style: italic; color: #777;">Loading menu…</p>
-            </div>
-         </section>
-         <!-- Menu Section -->
-         <!-- Order Summary Section -->
-         <section aria-label="Order Summary" id="orderSection">
-            <h2 id="orderSummaryTitle">Order Summary</h2>
-            <div id="orderSummary">
-               <h3 id="selectedItemsTitle">Selected Items</h3>
-               <div aria-atomic="true" aria-live="polite" id="orderItems" tabindex="0">
-                  <p>No items selected</p>
-               </div>
-               <div aria-atomic="true" aria-live="polite" id="totalPrice" tabindex="0">Total: $0.00</div>
-               <button aria-disabled="true" aria-label="Confirm Order and Send via WhatsApp" disabled="" id="confirmBtn">Confirm Order</button>
-            </div>
-         </section>
-         <!-- Order Summary Section -->
-
-
-      </main>
-
-
-
-      <script>
-         (() => {
-           const translations = {
-             en: { guestInfo:"Guest Information", name:"Name:", room:"Room Number:", whatsapp:"Whatsapp Number:", menu:"Menu", veg:"Veg", nonveg:"Non Veg", general:"General", orderSummary:"Order Summary", total:"Total:", confirm:"Confirm Order", faq:"FAQ", faqTitle:"Frequently Asked Questions", close:"Close", faqs:`<p><strong>How to order?</strong> Fill your guest details and select quantities...</p>` }
-           };
-           const langSelect = document.getElementById('langSelect');
-           const faqText = document.getElementById('faqText');
-         function applyTranslations(lang) {
-         document.querySelectorAll('[data-translate]').forEach(el => {
-         const key = el.getAttribute('data-translate');
-         if (translations[lang] && translations[lang][key]) {
-         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-         // update placeholder
-         el.setAttribute("placeholder", translations[lang][key]);
-         } else if (el.tagName === "BUTTON") {
-         // update button text
-         el.textContent = translations[lang][key];
-         } else {
-         // update normal text content
-         el.textContent = translations[lang][key];
-         }
-         }
-         });
-         
-         // FAQ translations
-         faqText.innerHTML = translations[lang].faqs;
-         }         
-           const menuContainer = document.getElementById('menuContainer');
-           const tabVegBtn = document.getElementById('tabVeg');
-           const tabNonVegBtn = document.getElementById('tabNonVeg');
-           const tabGeneralBtn = document.getElementById('tabGeneral');
-	   const orderList = document.getElementById('orderItems');
-	   const orderTotalEl = document.getElementById('totalPrice');
-	   const confirmOrderBtn = document.getElementById('confirmBtn');
-           const guestNameEl = document.getElementById('guestName');
-	   const roomNoEl = document.getElementById('roomNumber');
-  	   const whatsappEl = document.getElementById('guestWhatsApp');
-         
-           let menuData = { veg:{}, nonveg:{}, general:{} };
-           let currentTab = 'veg';
-           let currentOrder = {};
-         
-         function parseCSV(text) {
-         const lines = text.trim().split('\n');
-         const headers = lines[0].split(',').map(h => h.trim());
-         
-         return lines.slice(1).map(line => {
-         const values = [];
-         let match;
-         const regex = /("([^"]*)"|[^,]+)/g; // match quoted "..." or unquoted text
-         
-         while ((match = regex.exec(line)) !== null) {
-         if (match[2] !== undefined) {
-         values.push(match[2]); // inside quotes
-         } else {
-         values.push(match[1]);
-         }
-         }
-         
-         const obj = {};
-         headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
-         return obj;
-         });
-         }
-         
-         
-           function renderMenu() {
-             const data = menuData[currentTab];
-             if (!data || Object.keys(data).length === 0) { menuContainer.innerHTML = '<p>No items</p>'; return; }
-             let tabsHtml = '<div class="category-tabs">';
-             for (const category of Object.keys(data)) {
-               tabsHtml += `<button data-category="${category}" onclick="showCategory('${category}')">${category}</button>`;
-             }
-             tabsHtml += '</div><div id="categoryContent"></div>';
-             menuContainer.innerHTML = tabsHtml;
-             const firstCategory = Object.keys(data)[0];
-             if (firstCategory) showCategory(firstCategory);
-           }
-         
-           window.showCategory = function(category) {
-    const items = menuData[currentTab][category] || [];
-    const container = document.getElementById('categoryContent');
-    container.innerHTML = ''; // Clear the content first
-
-    items.forEach(item => {
-        const qty = currentOrder[item.Name]?.qty || 0;
-        container.innerHTML += `
-            <div class="menu-item">
-                <div class="menu-item-details">
-                    <div class="item-name">${item.Name}</div>
-                    <div class="item-desc">${item.Description}</div>
-                </div>
-                <div class="menu-item-controls">
-                    <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-                    <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
-                        ${qty > 0 
-                            ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
-                               <span class="qty-val">${qty}</span>
-                               <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-                            : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
-                        }
-                    </div>
-                </div>
-            </div>
-        `;
-
-         	// Add button → starts qty = 1
-         		container.querySelectorAll('.add-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			const price = parseFloat(btn.dataset.price);
-         			currentOrder[name] = { qty: 1, price };
-         			updateOrderSummary();
-         			showCategory(category); // re-render controls
-         		  });
-         		});
-
-
-
-                 	// Increment button
-         		container.querySelectorAll('.inc-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			currentOrder[name].qty++;
-         			updateOrderSummary();
-         			showCategory(category);
-         		  });
-         		});
-         
-         	// Decrement button
-         		container.querySelectorAll('.dec-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			currentOrder[name].qty--;
-         			if (currentOrder[name].qty <= 0) delete currentOrder[name];
-         			updateOrderSummary();
-         			showCategory(category);
-         		  });
-         		});
-             });
-             container.querySelectorAll('input[type="number"]').forEach(input => input.addEventListener('input', onQtyChange));
-           };
-
-// This function handles quantity change inputs
-function onQtyChange(e) {
-    const input = e.target;
-    const name = input.dataset.name;
-    const price = parseFloat(input.dataset.price);
-    const qty = parseInt(input.value) || 0;
-    if (qty > 0) currentOrder[name] = { qty, price };
-    else delete currentOrder[name];
-    updateOrderSummary();
-}
-
-function updateOrderSummary() {
-    orderList.innerHTML = '';
-    let total = 0;
-    for (const [name, item] of Object.entries(currentOrder)) {
-        const lineTotal = item.qty * item.price;
-        total += lineTotal;
-        orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
     }
-    orderTotalEl.textContent = total.toFixed(2);
-}
 
+    .menu-item:last-child {
+      border-bottom: none;
+    }
 
+    .menu-item-details {
+      flex: 1;
+    }
 
+    .item-name {
+      font-weight: bold;
+    }
 
-window.showCategory = function(category) {
-    const items = menuData[currentTab][category] || [];
-    const container = document.getElementById('categoryContent');
-    container.innerHTML = ''; // Clear the content first
+    .item-desc {
+      font-size: 0.9rem;
+      color: #666;
+    }
 
-    items.forEach(item => {
+    .menu-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .quantity-selector button {
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #ccc;
+      background: #eee;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #orderBox {
+      background: var(--dark-green);
+      color: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    #orderBox h3 {
+      color: var(--yellow);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    #orderList {
+      margin: 0.5rem 0;
+      padding-left: 1rem;
+      list-style-type: disc;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #totalBox {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      border-top: 2px solid var(--yellow);
+      padding-top: 0.5rem;
+      text-align: right;
+    }
+
+    #confirmOrder {
+      width: 40%;
+      padding: 0.8rem;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #confirmOrder:disabled {
+      background: #bbb;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hotel Menu</h1>
+  </header>
+
+  <nav id="tabs"></nav>
+  <div id="categoryTabs"></div>
+  <div id="categoryContent">Loading menu...</div>
+
+  <section id="orderSummarySection">
+    <h2>Order Summary</h2>
+    <div id="orderBox">
+      <h3>Selected Items</h3>
+      <ul id="orderList">
+        <li>No items selected</li>
+      </ul>
+      <div id="totalBox">
+        Total: ₹<span id="orderTotal">0.00</span>
+      </div>
+      <div>
+        <button id="confirmOrder" disabled>Confirm Order</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="guestInfo">
+    <h2>Guest Information</h2>
+    <input id="guestName" placeholder="Guest Name">
+    <input id="roomNumber" placeholder="Room Number">
+    <input id="guestWhatsApp" placeholder="WhatsApp Number">
+    <button id="helpBtn">Help / FAQ</button>
+  </section>
+
+  <script>
+    let menuData = {};
+    let currentTab = '';
+    let currentOrder = {};
+
+    const orderList = document.getElementById('orderList');
+    const orderTotalEl = document.getElementById('orderTotal');
+    const confirmOrderBtn = document.getElementById('confirmOrder');
+
+    const guestNameEl = document.getElementById('guestName');
+    const roomNoEl = document.getElementById('roomNumber');
+    const whatsappEl = document.getElementById('guestWhatsApp');
+
+    // Fetch menu
+    fetch('menu.csv')
+      .then(response => response.text())
+      .then(data => {
+        menuData = parseCSV(data);
+        renderTabs();
+      });
+
+    function parseCSV(data) {
+      const lines = data.trim().split('\n');
+      const headers = lines[0].split(',');
+      const result = {};
+      for (let i = 1; i < lines.length; i++) {
+        const obj = {};
+        const currentline = lines[i].split(',');
+        headers.forEach((header, j) => {
+          obj[header.trim()] = currentline[j].trim();
+        });
+        if (!result[obj.Category]) result[obj.Category] = {};
+        if (!result[obj.Category][obj.Subcategory]) result[obj.Category][obj.Subcategory] = [];
+        result[obj.Category][obj.Subcategory].push(obj);
+      }
+      return result;
+    }
+
+    function renderTabs() {
+      const tabsContainer = document.getElementById('tabs');
+      tabsContainer.innerHTML = '';
+      Object.keys(menuData).forEach((tab, idx) => {
+        const btn = document.createElement('button');
+        btn.textContent = tab;
+        if (idx === 0) {
+          btn.classList.add('active');
+          currentTab = tab;
+          renderCategories(tab);
+        }
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTab = tab;
+          renderCategories(tab);
+        });
+        tabsContainer.appendChild(btn);
+      });
+    }
+
+    function renderCategories(tab) {
+      const categoryTabs = document.getElementById('categoryTabs');
+      categoryTabs.innerHTML = '';
+      const subcategories = Object.keys(menuData[tab]);
+      subcategories.forEach((cat, idx) => {
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        if (idx === 0) {
+          btn.classList.add('active');
+          showCategory(cat);
+        }
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#categoryTabs button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          showCategory(cat);
+        });
+        categoryTabs.appendChild(btn);
+      });
+    }
+
+    // ✅ merged single showCategory
+    window.showCategory = function(category) {
+      const items = menuData[currentTab][category] || [];
+      const container = document.getElementById('categoryContent');
+      container.innerHTML = ''; 
+
+      items.forEach(item => {
         const qty = currentOrder[item.Name]?.qty || 0;
         container.innerHTML += `
-            <div class="menu-item">
-                <div class="menu-item-details">
-                    <div class="item-name">${item.Name}</div>
-                    <div class="item-desc">${item.Description}</div>
-                </div>
-                <div class="menu-item-controls">
-                    <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-                    <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
-                        ${qty > 0 
-                            ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
-                               <span class="qty-val">${qty}</span>
-                               <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-                            : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
-                        }
-                    </div>
-                </div>
+          <div class="menu-item">
+            <div class="menu-item-details">
+              <div class="item-name">${item.Name}</div>
+              <div class="item-desc">${item.Description}</div>
             </div>
-        `;
-
-        // Add button event listener
-        container.querySelectorAll('.add-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const name = e.target.dataset.name;
-                const price = parseFloat(e.target.dataset.price);
-                currentOrder[name] = { qty: 1, price };
-                updateOrderSummary();
-                showCategory(category); // re-render controls after adding
-            });
-        });
-
-        // Increment button event listener
-        container.querySelectorAll('.inc-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const name = e.target.dataset.name;
-                currentOrder[name].qty++;
-                updateOrderSummary();
-                showCategory(category); // re-render controls
-            });
-        });
-
-        // Decrement button event listener
-        container.querySelectorAll('.dec-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const name = e.target.dataset.name;
-                currentOrder[name].qty--;
-                if (currentOrder[name].qty <= 0) {
-                    delete currentOrder[name];
-                    showCategory(category); // revert to "Add" button
-                } else {
-                    updateOrderSummary();
-                    showCategory(category); // re-render controls
+            <div class="menu-item-controls">
+              <div class="item-price">₹${parseFloat(item.Price).toFixed(2)}</div>
+              <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+                ${qty > 0 
+                    ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                       <span class="qty-val">${qty}</span>
+                       <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+                    : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
                 }
-            });
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Add button
+      container.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const name = e.target.dataset.name;
+          const price = parseFloat(e.target.dataset.price);
+          currentOrder[name] = { qty: 1, price };
+          updateOrderSummary();
+          showCategory(category);
         });
-    });
-};
+      });
 
-// This function handles quantity change inputs
-function onQtyChange(e) {
-    const input = e.target;
-    const name = input.dataset.name;
-    const price = parseFloat(input.dataset.price);
-    const qty = parseInt(input.value) || 0;
-    if (qty > 0) currentOrder[name] = { qty, price };
-    else delete currentOrder[name];
-    updateOrderSummary();
-}
+      // Increment
+      container.querySelectorAll('.inc-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const name = e.target.dataset.name;
+          currentOrder[name].qty++;
+          updateOrderSummary();
+          showCategory(category);
+        });
+      });
 
-function updateOrderSummary() {
-    orderList.innerHTML = '';
-    let total = 0;
-    for (const [name, item] of Object.entries(currentOrder)) {
+      // Decrement
+      container.querySelectorAll('.dec-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const name = e.target.dataset.name;
+          currentOrder[name].qty--;
+          if (currentOrder[name].qty <= 0) {
+            delete currentOrder[name];
+          }
+          updateOrderSummary();
+          showCategory(category);
+        });
+      });
+    };
+
+    // ✅ single updateOrderSummary
+    function updateOrderSummary() {
+      orderList.innerHTML = '';
+      let total = 0;
+      for (const [name, item] of Object.entries(currentOrder)) {
         const lineTotal = item.qty * item.price;
         total += lineTotal;
         orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+      }
+      orderTotalEl.textContent = total.toFixed(2);
+      confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
     }
-    orderTotalEl.textContent = total.toFixed(2);
-}
 
+    // ✅ single onQtyChange
+    function onQtyChange(e) {
+      const name = e.target.dataset.name;
+      let qty = parseInt(e.target.value, 10) || 0;
+      if (qty < 0) qty = 0;
+      if (qty === 0) {
+        delete currentOrder[name];
+      } else {
+        currentOrder[name].qty = qty;
+      }
+      updateOrderSummary();
+    }
 
+    // Confirm Order
+    confirmOrderBtn.addEventListener('click', () => {
+      const guestName = guestNameEl.value.trim();
+      const roomNo = roomNoEl.value.trim();
+      const whatsapp = whatsappEl.value.trim();
+      if (!guestName || !roomNo || !whatsapp) {
+        alert('Please fill all guest details.');
+        return;
+      }
 
-         
-           // Tab switching
+      let message = `Guest: ${guestName}%0A`;
+      message += `Room: ${roomNo}%0A`;
+      message += `Order:%0A`;
+      for (const [name, item] of Object.entries(currentOrder)) {
+        message += `${name} x ${item.qty} = ₹${item.qty * item.price}%0A`;
+      }
+      message += `Total: ₹${orderTotalEl.textContent}%0A`;
 
+      window.open(`https://wa.me/${whatsapp}?text=${message}`, '_blank');
+    });
 
-           function switchActive(activeBtn) {
-             [tabVegBtn, tabNonVegBtn, tabGeneralBtn].forEach(btn => btn.classList.remove('active'));
-             activeBtn.classList.add('active');
-           }
-           tabVegBtn.addEventListener('click', () => { currentTab = 'veg'; switchActive(tabVegBtn); renderMenu(); });
-           tabNonVegBtn.addEventListener('click', () => { currentTab = 'nonveg'; switchActive(tabNonVegBtn); renderMenu(); });
-           tabGeneralBtn.addEventListener('click', () => { currentTab = 'general'; switchActive(tabGeneralBtn); renderMenu(); });
-         
-           // Load menu.csv
-           fetch('menu.csv')
-             .then(r => r.text())
-             .then(text => {
-               const rows = parseCSV(text);
-               rows.forEach(row => {
-                 const type = row.Type.toLowerCase();
-                 const category = row.Category || "Misc";
-                 if (!menuData[type][category]) menuData[type][category] = [];
-                 menuData[type][category].push(row);
-               });
-               renderMenu();
-             });
-         
-           confirmOrderBtn.addEventListener('click', () => {
-             let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
-             let total = orderTotalEl.textContent;
-             let msg = `Guest: ${guestNameEl.value}, Room: ${roomNoEl.value}, WhatsApp: ${whatsappEl.value}. Order: ${orderDetails}. Total: ₹${total}`;
-             window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`);
-           });
-         
-           document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
-           document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
-         })();
-      </script>
-   </body>
+    // ✅ Fixed FAQ button ID mismatch
+    document.getElementById('helpBtn').onclick = () => {
+      alert('FAQ: Please contact reception for assistance.');
+    };
+  </script>
+</body>
 </html>
