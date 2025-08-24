@@ -146,18 +146,22 @@
          <p>MEMORABLE STAYS</p>
       </header>
       <main>
-		<section id="guestInfo" class="card">
-		  <h2>Guest Information</h2>
-		  
-		  <label for="guestName">Guest Name: *</label>
-		  <input type="text" id="guestName" placeholder="Enter your name" required>
-		  
-		  <label for="roomNo">Room Number: *</label>
-		  <input type="text" id="roomNo" placeholder="Enter your room number" required>
-		  
-		  <label for="Whatsappnum">WhatsApp Number: *</label>
-		  <input type="tel" id="Whatsappnum" placeholder="+1234567890" required>
-		</section>
+		<!-- Guest Information Section -->
+<section aria-label="Guest Information" id="guestSection">
+<h2 id="guestInfoTitle">Guest Information</h2>
+<form id="guestInfo" novalidate="">
+
+	<label for="guestName" id="guestNameLabel">Guest Name <sup>*</sup></label>
+	<input aria-required="true" autocomplete="name" id="guestName" name="guestName" placeholder="Enter your name" required="" type="text"/>
+
+	<label for="roomNumber" id="roomNumberLabel">Room Number <sup>*</sup></label>
+	<input aria-required="true" autocomplete="off" id="roomNumber" name="roomNumber" pattern="^[0-9a-zA-Z\s-]+$" placeholder="Enter your room number" required="" type="text"/>
+
+	<label for="guestWhatsApp" id="guestWhatsAppLabel">WhatsApp Number <sup>*</sup></label>
+	<input aria-required="true" autocomplete="tel" id="guestWhatsApp" name="guestWhatsApp" pattern="^\+?[0-9]{7,15}$" placeholder="+1234567890" required="" type="tel"/>
+</form>
+</section>
+<!-- Guest Information Section -->
 
          <section id="menuSection" class="card">
             <h2 data-translate="menu">Menu</h2>
