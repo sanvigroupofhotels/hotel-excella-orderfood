@@ -203,7 +203,7 @@
   max-height: 200px;
   overflow-y: auto;
 }
-#totalBox {
+#orderTotal {
   font-weight: 700;
   font-size: 1.2rem;
   margin: 0.5rem 0;
@@ -370,13 +370,13 @@
 		  <h2>Guest Information</h2>
 		  
 		  <label for="guestName">Guest Name: *</label>
-		  <input type="text" id="guestName" placeholder="Enter your name" required>
+		  <input type="text" id="guestname" required placeholder="Enter your name">
 		  
 		  <label for="roomNo">Room Number: *</label>
-		  <input type="text" id="roomNo" placeholder="Enter your room number" required>
+		  <input type="text" id="roomNo" required placeholder="Enter your room number">
 		  
 		  <label for="Whatsappnum">WhatsApp Number: *</label>
-		  <input type="tel" id="Whatsappnum" placeholder="+1234567890" required>
+		  <input type="tel" id="whatsapp" required placeholder="Enter your whatsapp number">
 		</section>
 
         
@@ -395,6 +395,8 @@
             </div>
          </section>
          <!-- Menu Section -->
+
+
          <!-- Order Summary Section -->
          <section id="orderSummarySection">
             <h2 style="color: var(--primary);">Order Summary</h2>
@@ -404,14 +406,14 @@
 
                   <li>No items selected</li>
                </ul>
-               <div id="totalBox" 
+               <div id="orderTotal" 
                   style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
                   Total: ₹<span id="orderTotal">0.00</span>
                </div>
                <div style="text-align: right;">
                   <button id="confirmOrder" disabled 
                      style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
-                  Confirm Order
+                  Confirm Order  
                   </button>
                </div>
             </div>
