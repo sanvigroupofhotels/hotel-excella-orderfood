@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
-   <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Hotel Excella - Food Ordering</title>
-      <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Hotel Excella - Food Ordering</title>
+<style>
          :root {
 	 --primary: #2e7d32; /* or your theme color */
   	 --accent: #f9a825;
@@ -254,10 +255,68 @@
          padding: 0.75rem;
          }
          }         
-      </style>
-
-   <!-- below style makes this web page mobile responsive -->
-      <style id="mobile-responsive-overrides">
+      
+.category-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 8px 0;
+    margin-bottom: 0.5rem;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1000;
+}
+.category-tabs button {
+    flex: 0 0 auto;
+    border: 1px solid #aaa;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.category-tabs button.active {
+    border-color: green;
+    background: green;
+    color: #fff;
+}
+.menu-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #f9f9f9;
+}
+.menu-card .item-name {
+    font-weight: bold;
+}
+.menu-card .item-price {
+    color: #555;
+}
+.menu-card .add-button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.order-summary {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #333;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1000;
+}
+    </style>
+<!-- below style makes this web page mobile responsive -->
+<style id="mobile-responsive-overrides">
          @media (max-width: 600px) {
          /* Stack header; place language selector above logo, centered */
          header {
@@ -266,17 +325,6 @@
          align-items: center !important;
          text-align: center !important;
          gap: 6px !important;
-         }
-         #langSelector {
-         order: 1 !important;
-         width: auto !important;
-         max-width: 240px !important;
-         align-self: center !important;
-         margin: 8px auto 4px auto !important;
-         }
-         #languageSelect {
-         width: 100% !important;
-         max-width: 240px !important;
          }
          /* Keep help/confirm stack clean (from your earlier fix) */
          .footer-actions,
@@ -373,84 +421,76 @@
          box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
          }
       </style>
-      <!-- mobile responsiveness code styling ends -->
-   </head>
-   <body>
-      <header>
-         <div style="display: flex; align-items: center; justify-content: space-between;">
-         <div style="flex: 1; text-align: centre;">
-            <img alt="Hotel Logo" src="images/hotelexcellalogo.png" style="width: 125px; height: auto;"/>
-            <h1 style="margin: 0;">HOTEL EXCELLA</h1>
-            <p style="margin: 0; color: black; font-weight: 900;">IN-HOUSE ROOM SERVICE MENU</p>
-      </header>
-      </div>
-      <!-- Language Selector Section -->
-      <div aria-label="Select language" id="langSelector">
-         <label class="sr-only" for="languageSelect">Language</label>
-         <select aria-label="Language selection" aria-live="polite" id="languageSelect">
-            <option selected="" value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="te">తెలుగు</option>
-            <option value="ta">தமிழ்</option>
-         </select>
-      </div>
-      <!-- Language Selector Section -->
-      <button aria-controls="faqModal" aria-expanded="false" aria-haspopup="dialog" id="helpBtn" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 600; background: var(--orange); border: none; color: var(--bg-black); font-weight: 700; font-size: 1.2rem; padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px var(--orange);">Help / FAQ</button>
-      <main>
-        
-         <!-- Menu Section -->
-         <section aria-label="Menu Section" id="menuSection">
-            <h2 id="menuTitle">Menu</h2>
-            <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
-               <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
-               <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
-               <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="2">General</button>
-            </nav>
-            <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
-               <p style="font-style: italic; color: #777;">Loading menu…</p>
-            </div>
-         </section>
-         <!-- Menu Section -->
-         <!-- Order Summary Section -->
-         <section id="orderSummarySection">
-            <h2 style="color: var(--primary);">Order Summary</h2>
-            <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-               <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-               <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc; max-height: 200px; overflow-y: auto;">
-                  <li>No items selected</li>
-               </ul>
-               <div id="totalBox" 
-                  style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-                  Total: ₹<span id="orderTotal">0.00</span>
-               </div>
-               <div style="text-align: right;">
-                  <button id="confirmOrder" disabled 
-                     style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
-                  Confirm Order
-                  </button>
-               </div>
-            </div>
-         </section>
-         <!-- End Order Summary Section -->
+<!-- mobile responsiveness code styling ends -->
+</head>
+<body>
+<header>
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<div style="flex: 1; text-align: centre;">
+<img alt="Hotel Logo" src="images/hotelexcellalogo.png" style="width: 125px; height: auto;"/>
+<h1 style="margin: 0;">HOTEL EXCELLA</h1>
+<p style="margin: 0; color: black; font-weight: 900;">IN-HOUSE ROOM SERVICE MENU</p>
+</div></div></header>
 
- <!-- Guest Information Section -->
-         <section aria-label="Guest Information" id="guestSection">
-            <h2 id="guestInfoTitle">Guest Information</h2>
-            <form id="guestInfo" novalidate="">
-               <label for="guestName" id="guestNameLabel">Guest Name <sup>*</sup></label>
-               <input aria-required="true" autocomplete="name" id="guestName" name="guestName" placeholder="Enter your name" required="" type="text"/>
-               <label for="roomNumber" id="roomNumberLabel">Room Number <sup>*</sup></label>
-               <input aria-required="true" autocomplete="off" id="roomNumber" name="roomNumber" pattern="^[0-9a-zA-Z\s-]+$" placeholder="Enter your room number" required="" type="text"/>
-               <label for="guestWhatsApp" id="guestWhatsAppLabel">WhatsApp Number <sup>*</sup></label>
-               <input aria-required="true" autocomplete="tel" id="guestWhatsApp" name="guestWhatsApp" pattern="^\+?[0-9]{7,15}$" placeholder="+1234567890" required="" type="tel"/>
-            </form>
-         </section>
-         <!-- Guest Information Section -->
-
-      </main>
-
-
-      <script>
+<!-- Language Selector Section -->
+<div aria-label="Select language" id="langSelector">
+<label class="sr-only" for="languageSelect">Language</label>
+<select aria-label="Language selection" aria-live="polite" id="languageSelect">
+<option selected="" value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="te">తెలుగు</option>
+<option value="ta">தமிழ்</option>
+</select>
+</div>
+<!-- Language Selector Section -->
+<button aria-controls="faqModal" aria-expanded="false" aria-haspopup="dialog" id="helpBtn" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 600; background: var(--orange); border: none; color: var(--bg-black); font-weight: 700; font-size: 1.2rem; padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px var(--orange);">Help / FAQ</button>
+<main>
+<!-- Menu Section -->
+<section aria-label="Menu Section" id="menuSection">
+<h2 id="menuTitle">Menu</h2>
+<nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
+<button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
+<button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
+<button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="2">General</button>
+</nav>
+<div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
+<p style="font-style: italic; color: #777;">Loading menu…</p>
+</div>
+</section>
+<!-- Menu Section -->
+<!-- Order Summary Section -->
+<section id="orderSummarySection">
+<div class="order-summary">
+<h4>Order Summary</h4>
+<div class="selected-items">
+<strong>Selected Items</strong><br/>
+<ul id="orderList">
+<li>No items selected</li>
+</ul>
+</div>
+<div class="total">
+<strong>Total:</strong> ₹<span id="orderTotal">0.00</span>
+</div>
+<button disabled="" id="confirmOrder">Confirm Order</button>
+<button id="sendWhatsApp">Send via WhatsApp</button>
+</div>
+</section>
+<!-- End Order Summary Section -->
+<!-- Guest Information Section -->
+<section aria-label="Guest Information" id="guestSection">
+<h2 id="guestInfoTitle">Guest Information</h2>
+<form id="guestInfo" novalidate="">
+<label for="guestName" id="guestNameLabel">Guest Name <sup>*</sup></label>
+<input aria-required="true" autocomplete="name" id="guestName" name="guestName" placeholder="Enter your name" required="" type="text"/>
+<label for="roomNumber" id="roomNumberLabel">Room Number <sup>*</sup></label>
+<input aria-required="true" autocomplete="off" id="roomNumber" name="roomNumber" pattern="^[0-9a-zA-Z\s-]+$" placeholder="Enter your room number" required="" type="text"/>
+<label for="guestWhatsApp" id="guestWhatsAppLabel">WhatsApp Number <sup>*</sup></label>
+<input aria-required="true" autocomplete="tel" id="guestWhatsApp" name="guestWhatsApp" pattern="^\+?[0-9]{7,15}$" placeholder="+1234567890" required="" type="tel"/>
+</form>
+</section>
+<!-- Guest Information Section -->
+</main>
+<script>
          (() => {
                    
                 
@@ -712,5 +752,5 @@
            document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
          })();
       </script>
-   </body>
+</body>
 </html>
