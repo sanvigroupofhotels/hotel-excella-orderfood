@@ -6,8 +6,8 @@
       <title>Hotel Excella - Food Ordering</title>
       <style>
          :root {
-	 --primary: #2e7d32; /* or your theme color */
-  	 --accent: #f9a825;
+         --primary: #2e7d32; /* or your theme color */
+         --accent: #f9a825;
          --orange: #f9a825;
          --dark-green: #2e7d32;
          --yellow: #fff176;
@@ -49,7 +49,6 @@
          font-weight: 600;
          color: var(--yellow);
          }
-         
          main {
          max-width: 900px;
          margin: 1rem auto 4rem auto;
@@ -68,20 +67,19 @@
          color: var(--dark-green);
          }
          #guestInfo label {
-		  display: block;
-		  font-weight: 750;
-		  margin-bottom: 4px;
-		  color: var(--primary);
-		}
-		#guestInfo input {
-		  width: 90%;
-		  padding: 10px;
-		  border: 2px solid var(--primary);
-		  border-radius: 6px;
-		  margin-bottom: 15px;
-		  font-size: 1rem;
-		}
-
+         display: block;
+         font-weight: 750;
+         margin-bottom: 4px;
+         color: var(--primary);
+         }
+         #guestInfo input {
+         width: 90%;
+         padding: 10px;
+         border: 2px solid var(--primary);
+         border-radius: 6px;
+         margin-bottom: 15px;
+         font-size: 1rem;
+         }
          #menuTabs {
          display: flex;
          border-bottom: 3px solid var(--orange);
@@ -184,49 +182,51 @@
          text-align: center;
          font-weight: 600;
          }
-	 
-#orderBox {
-  background: var(--dark-green);
-  color: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-}
-#orderBox h3 {
-  color: var(--yellow);
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-#orderList {
-  margin: 0.5rem 0;
-  padding-left: 1rem;
-  list-style-type: disc;
-  max-height: 200px;
-  overflow-y: auto;
-}
-#orderTotal {
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  border-top: 2px solid var(--yellow);
-  padding-top: 0.5rem;
-  text-align: right;
-}
-#confirmOrder {
-  width: 40%;
-  padding: 0.8rem;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-#confirmOrder:disabled {
-  background: #bbb;
-  cursor: not-allowed;
-}
-        
+         #orderBox {
+         background: var(--dark-green);
+         color: #fff;
+         border-radius: 8px;
+         padding: 1rem;
+         }
+         #orderBox h3 {
+         color: var(--yellow);
+         margin-top: 0;
+         margin-bottom: 1rem;
+         }
+         #orderList {
+         margin: 0.5rem 0;
+         padding-left: 1rem;
+         list-style-type: disc;
+         max-height: 200px;
+         overflow-y: auto;
+         }
+         #orderTotal::before {
+         content: "₹ ";
+         font-weight: bold;
+         }
+         #orderTotal {
+         font-weight: 700;
+         font-size: 1.2rem;
+         margin: 0.5rem 0;
+         border-top: 2px solid var(--yellow);
+         padding-top: 0.5rem;
+         text-align: right;
+         }
+         #confirmOrder {
+         width: 40%;
+         padding: 0.8rem;
+         background: var(--orange);
+         color: #fff;
+         font-weight: 700;
+         font-size: 1rem;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         }
+         #confirmOrder:disabled {
+         background: #bbb;
+         cursor: not-allowed;
+         }
          .sr-only {
          position: absolute !important;
          width: 1px !important;
@@ -253,8 +253,7 @@
          }
          }         
       </style>
-
-   <!-- below style makes this web page mobile responsive -->
+      <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
          @media (max-width: 600px) {
          header {
@@ -276,6 +275,9 @@
          padding: 8px 10px !important;
          width: 100% !important;
          box-sizing: border-box;
+         }
+         #confirmOrder {
+         width: 100%;
          }
          #confirmBtn,
          #confirmOrderBtn {
@@ -355,33 +357,12 @@
       <!-- mobile responsiveness code styling ends -->
    </head>
    <body>
-
-<header style="display: flex; align-items: center; padding: 10px; background-color: #f8f8f8;">
-  <img src="images/hotelexcellalogosmall.png" alt="Hotel Logo" style="height: 40px; margin-right: 10px;">
-  <h2 style="margin: 0;">HOTEL EXCELLA - IN HOUSE FOOD MENU</h2>
-</header>
-
+      <header style="display: flex; align-items: center; padding: 10px; background-color: #f8f8f8;">
+         <img src="images/hotelexcellalogosmall.png" alt="Hotel Logo" style="height: 40px; margin-right: 10px;">
+         <h2 style="margin: 0;">HOTEL EXCELLA - IN HOUSE FOOD MENU</h2>
+      </header>
       </div>
       <main>
-        
-<!-- Guest Information Section -->
-
-<section id="guestInfo" class="card">
-		  <h2>Guest Information</h2>
-		  
-		  <label for="guestName">Guest Name: *</label>
-		  <input type="text" id="guestname" required placeholder="Enter your name">
-		  
-		  <label for="roomNo">Room Number: *</label>
-		  <input type="text" id="roomNo" required placeholder="Enter your room number">
-		  
-		  <label for="Whatsappnum">WhatsApp Number: *</label>
-		  <input type="tel" id="whatsapp" required placeholder="Enter your whatsapp number">
-		</section>
-
-        
-         <!-- Guest Information Section -->
-
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
             <h2 id="menuTitle">Menu</h2>
@@ -395,33 +376,38 @@
             </div>
          </section>
          <!-- Menu Section -->
-
-
          <!-- Order Summary Section -->
          <section id="orderSummarySection">
             <h2 style="color: var(--primary);">Order Summary</h2>
             <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
                <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
                <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc; max-height: 200px; overflow-y: auto;">
-
                   <li>No items selected</li>
                </ul>
-               <div id="orderTotal" 
-                  style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-                  Total: ₹<span id="orderTotal">0.00</span>
+               <div style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
+                  Total: <span id="orderTotal">0.00</span>
                </div>
-               <div style="text-align: right;">
-                  <button id="confirmOrder" disabled 
-                     style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
-                  Confirm Order  
-                  </button>
-               </div>
-            </div>
          </section>
          <!-- End Order Summary Section -->
-
- 
-
+		 
+         <!-- Guest Information Section -->
+         <section id="guestInfo" class="card">
+         <h2>Guest Information</h2>
+         <label for="guestName">Guest Name: *</label>
+         <input type="text" id="guestName" required placeholder="Enter your name">
+         <label for="roomNumber">Room Number: *</label>
+         <input type="text" id="roomNumber" required placeholder="Enter your room number">
+         <label for="Whatsappnum">WhatsApp Number: *</label>
+         <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number">
+         <div style="text-align: right;">
+         <button id="confirmOrder"  
+            style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
+         Confirm Order  
+         </button>
+         </div>
+         </div>
+         </section>
+         <!-- Guest Information Section -->
       </main>
 
 
@@ -437,7 +423,7 @@
          const orderTotalEl = document.getElementById('orderTotal');
          const confirmOrderBtn = document.getElementById('confirmOrder');
            const guestNameEl = document.getElementById('guestName');
-         const roomNoEl = document.getElementById('roomNumber');
+         const roomNumberEl = document.getElementById('roomNumber');
          const whatsappEl = document.getElementById('guestWhatsApp');
          
            let menuData = { veg:{}, nonveg:{}, general:{} };
@@ -530,7 +516,7 @@
          			showCategory(category);
          		  });
          		});
-
+         
                
          	// Decrement button
          		container.querySelectorAll('.dec-btn').forEach(btn => {
@@ -560,37 +546,44 @@
          
          
          
-                  function updateOrderSummary() {
-         orderList.innerHTML = '';
-         let total = 0;
-         for (const [name, item] of Object.entries(currentOrder)) {
-         const lineTotal = item.qty * item.price;
-         total += lineTotal;
-         orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
-         }
-         orderTotalEl.textContent = total.toFixed(2);
-         }
+function updateOrderSummary() {
+  orderList.innerHTML = '';
+  let total = 0;
+  for (const [name, item] of Object.entries(currentOrder)) {
+    const lineTotal = item.qty * item.price;
+    total += lineTotal;
+    orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+  }
+  orderTotalEl.textContent = total.toFixed(2);
+
+  // Enable Confirm button when there's an order
+  const confirmOrderBtn = document.getElementById('confirmOrder');
+  confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
+}
 
 
-function removeFromCart(item) {
-    if (cart[item]) {
-        cart[item].quantity -= 1;
-
-        if (cart[item].quantity <= 0) {
+         
+         
+         
+         function removeFromCart(item) {
+         if (cart[item]) {
+         cart[item].quantity -= 1;
+         
+         if (cart[item].quantity <= 0) {
             delete cart[item];
-
+         
             // Show Add button again
             const addBtn = document.getElementById("add-button-" + item);
             if (addBtn) addBtn.style.display = "inline-block";
-
+         
             // Hide quantity controls
             const qtyControls = document.getElementById("quantity-controls-" + item);
             if (qtyControls) qtyControls.style.display = "none";
-        }
-    }
-
-    updateOrderSummary(); // Refresh Order Summary
-}         
+         }
+         }
+         
+         updateOrderSummary(); // Refresh Order Summary
+         }         
          
          
          
@@ -619,15 +612,29 @@ function removeFromCart(item) {
                renderMenu();
              });
          
-           confirmOrderBtn.addEventListener('click', () => {
-             let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
-             let total = orderTotalEl.textContent;
-             let msg = `Guest: ${guestNameEl.value}, Room: ${roomNoEl.value}, WhatsApp: ${whatsappEl.value}. Order: ${orderDetails}. Total: ₹${total}`;
-             window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`);
-           });
+confirmOrderBtn.addEventListener('click', () => {
+  // Get guest info from inputs
+  const guestName = guestNameEl.value.trim();
+  const roomNumber = roomNumberEl.value.trim();
+  const guestWhatsApp = whatsappEl.value.trim();
+
+  // Validate guest info fields
+  if (!guestName || !roomNumber || !guestWhatsApp) {
+    alert('Please fill all guest details.');
+    return;
+  }
+
+  // Construct the order message
+  let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
+  let total = orderTotalEl.textContent;
+  let msg = `Guest: ${guestName}%0ARoom: ${roomNumber}%0AWhatsAppNum: ${guestWhatsApp}%0AOrder: ${orderDetails}%0ATotal: ₹${total}`;
+
+  // Open WhatsApp with the prefilled message
+  window.open(`https://wa.me/${guestWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+});
+
          
-           document.getElementById('faqBtn').onclick = () => { document.getElementById('faqModal').style.display = 'flex'; };
-           document.getElementById('closeFaq').onclick = () => { document.getElementById('faqModal').style.display = 'none'; };
+
          })();
       </script>
    </body>
