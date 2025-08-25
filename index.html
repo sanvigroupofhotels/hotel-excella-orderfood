@@ -614,9 +614,9 @@ function updateOrderSummary() {
          
 confirmOrderBtn.addEventListener('click', () => {
   // Get guest info from inputs
-  const guestName = guestNameEl.value.trim();
-  const roomNumber = roomNumberEl.value.trim();
-  const guestWhatsApp = whatsappEl.value.trim();
+  const guestName = document.getElementById('guestName').value.trim();
+  const roomNumber = document.getElementById('roomNumber').value.trim();
+  const guestWhatsApp = document.getElementById('guestWhatsApp').value.trim();
 
   // Validate guest info fields
   if (!guestName || !roomNumber || !guestWhatsApp) {
@@ -624,10 +624,12 @@ confirmOrderBtn.addEventListener('click', () => {
     return;
   }
 
-  // Construct the order message
-  let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join(', ');
+  // Construct the order message with each item on a new line
+  let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
   let total = orderTotalEl.textContent;
-  let msg = `Guest: ${guestName}%0ARoom: ${roomNumber}%0AWhatsAppNum: ${guestWhatsApp}%0AOrder: ${orderDetails}%0ATotal: ₹${total}`;
+
+  // Use template literals and encodeURIComponent for proper line breaks and URL encoding
+  let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
 
   // Open WhatsApp with the prefilled message
   window.open(`https://wa.me/${guestWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
