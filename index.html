@@ -80,6 +80,7 @@
          margin-bottom: 15px;
          font-size: 1rem;
          }
+
          #menuTabs {
          display: flex;
          border-bottom: 3px solid var(--orange);
@@ -401,7 +402,7 @@
          <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number">
          <div style="text-align: right;">
          <button id="confirmOrder"  
-            style="width: 40%; padding: 0.8rem; background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
+            style="width: 75%; padding: 0.8rem; background: var(--dark-gray); color: #fff; font-weight: 700; font-size: 2rem; border: none; border-radius: 8px; cursor: pointer;">
          Confirm Order  
          </button>
          </div>
@@ -493,6 +494,15 @@
                 </div>
             </div>
          `;
+// Highlight active sub tab
+				document.querySelectorAll('.category-tabs button').forEach(btn => {
+				  if (btn.getAttribute('data-category') === category) {
+					btn.classList.add('active');
+				  } else {
+					btn.classList.remove('active');
+				  }
+				});
+
          
          	// Add button → starts qty = 1
          		container.querySelectorAll('.add-btn').forEach(btn => {
