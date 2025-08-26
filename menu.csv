@@ -1,5 +1,4 @@
 Type,Category,Name,Description,Price,ImageURL
-Veg,Starters,Spring Rolls,Crispy veg spring rolls with sweet chili sauce,5,spring_rolls.jpg
 Veg,Soups,Veg. Manchow Soup,A hot and tangy vegetable soup with Indo-Chinese flavors.,180,
 Veg,Soups,Veg. Hot & Sour Soup,Spicy and sour vegetable soup with a perfect balance of flavors.,180,
 Veg,Soups,Veg. Sweetcorn Soup,Creamy sweet corn blended with fresh vegetables.,180,
@@ -165,3 +164,4 @@ General,Sides,Plain Curd,Cooling plain curd.,40,
 General,Sides,Green Salad,Fresh seasonal salad.,120,
 General,Sides,Boiled Eggs (2 Pcs),Two protein-rich boiled eggs.,40,
 General,Sides,Omelette,Fluffy omelette made to order.,120,
+
