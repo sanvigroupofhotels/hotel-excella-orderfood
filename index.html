@@ -299,6 +299,13 @@
         font-size: 1rem !important;
         font-weight: 700 !important;
     }
+      /* Floating Cart Button on mobile  */
+              #cartButton {
+             font-size: 1.2rem; /* Slightly smaller icon on mobile */
+             padding: 10px; /* Adjust padding */
+             bottom: 10px; /* Bring it up a bit from the edge */
+             right: 10px; /* Same for right */
+           }
          /* Keep help/confirm stack clean (from your earlier fix) */
          .footer-actions,
          .cart-actions,
@@ -680,6 +687,39 @@
          });
          
          })();
+         (() => {
+    const cartButton = document.getElementById('cartButton');
+    const orderTotalEl = document.getElementById('orderTotal');
+    
+    // Listen for changes in the order summary (items added/removed)
+    function updateCartButton() {
+      const total = parseFloat(orderTotalEl.textContent);
+      if (total > 0) {
+        cartButton.style.display = 'block'; // Show the cart button if there's a total
+      } else {
+        cartButton.style.display = 'none'; // Hide the cart button if the cart is empty
+      }
+    }
+    
+    // Click handler for the cart button to navigate to checkout
+    cartButton.addEventListener('click', () => {
+      window.scrollTo(0, document.body.scrollHeight); // Scroll to the order summary section
+      // Alternatively, you can open a modal or show the cart details
+    });
+
+    // Call the updateCartButton function after every change to the order summary
+    updateCartButton();
+    
+    // Also call this function when items are added/removed from the cart
+    const updateOrderSummary = () => {
+      // Your existing code for updating the order summary
+      updateCartButton(); // Update cart button visibility based on total
+    };
+  })();
       </script>
+      <!-- Floating Cart Button -->
+         <button id="cartButton" style="display: none;">
+            🛒
+         </button>
    </body>
 </html>
