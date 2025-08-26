@@ -430,11 +430,12 @@
                   <li>No items selected</li>
                </ul>
                <div style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-                  Total: <span id="orderTotal">0.00</span>
+                  <p>Total: <span id="orderTotal">0.00</span></p>
                </div>
          </section>
-         <!-- End Order Summary Section -->
-         <!-- Guest Information Section -->
+     <!-- End Order Summary Section -->
+    
+     <!-- Guest Information Section -->
          <section id="guestInfo" class="card">
          <h2>Guest Information</h2>
          <label for="guestName">Guest Name: *</label>
@@ -451,12 +452,13 @@
          </div>
          </div>
          </section>
-         <!-- Guest Information Section -->
+     <!-- Guest Information Section -->
       </main>
-            <!-- Floating Cart Button -->
-         <button id="cartButton">
-            🛒
-         </button>
+     <!-- Floating Cart Button -->
+	<button id="cartButton" style="display: none; position: fixed; bottom: 20px; 	right: 20px; background-color: #ff6600; color: white; border: none; border-	radius: 50%; width: 60px; height: 60px; font-size: 24px; box-shadow: 0 4px 8px 	rgba(0,0,0,0.2); z-index: 1000;">
+ 	 🛒
+	</button>
+     <!-- Floating Cart Button -->
       
       <script>
          (() => {
@@ -602,21 +604,25 @@
          
          
          
-         function updateOrderSummary() {
-         orderList.innerHTML = '';
-         let total = 0;
-         for (const [name, item] of Object.entries(currentOrder)) {
-         const lineTotal = item.qty * item.price;
-         total += lineTotal;
-         orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
-         }
-         orderTotalEl.textContent = total.toFixed(2);
-		 console.log("Updated Order Total:", total); // 👈 Delete Me
-         
-         // Enable Confirm button when there's an order
-         const confirmOrderBtn = document.getElementById('confirmOrder');
-         confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
-         }
+		function updateOrderSummary() {
+		  orderList.innerHTML = '';
+		  let total = 0;
+		  for (const [name, item] of Object.entries(currentOrder)) {
+			const lineTotal = item.qty * item.price;
+			total += lineTotal;
+			orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+		  }
+		  orderTotalEl.textContent = total.toFixed(2);
+		  console.log("Updated Order Total:", total);
+
+		  // Enable Confirm button when there's an order
+		  const confirmOrderBtn = document.getElementById('confirmOrder');
+		  confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
+
+		  // 👇 Add this line so cart button updates after total changes
+		  updateCartButton();
+		}
+
          
          
          
@@ -694,37 +700,28 @@
          
          })();
 
-  // CartButton Functionality       
-         (() => {
-    const cartButton = document.getElementById('cartButton');
-    const orderTotalEl = document.getElementById('orderTotal');
-    
-    // Listen for changes in the order summary (items added/removed)
-    function updateCartButton() {
-      const total = parseFloat(orderTotalEl.textContent);  
-	  console.log("Order Total inside updateCartButton:", total); // 👈 Delete Me 
-      if (total > 0) {
-        cartButton.style.display = 'block'; // Show the cart button if there's a total
-      } else {
-        cartButton.style.display = 'none'; // Hide the cart button if the cart is empty
-      }
-    }
-    
-    // Click handler for the cart button to navigate to checkout
-    cartButton.addEventListener('click', () => {
-      window.scrollTo(0, document.body.scrollHeight); // Scroll to the order summary section
-      // Alternatively, you can open a modal or show the cart details
-    });
+  // CartButton Functionality script starts    
 
-    // Call the updateCartButton function after every change to the order summary
-    updateCartButton();
-    
-    // Also call this function when items are added/removed from the cart
-    const updateOrderSummary = () => {
-      // Your existing code for updating the order summary
-      updateCartButton(); // Update cart button visibility based on total
-    };
-  })();
+(() => {
+  const cartButton = document.getElementById('cartButton');
+  const orderTotalEl = document.getElementById('orderTotal');
+
+  window.updateCartButton = function() {
+    const total = parseFloat(orderTotalEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+    console.log("Order Total inside updateCartButton:", total);
+    cartButton.style.display = total > 0 ? 'block' : 'none';
+  };
+
+  cartButton.addEventListener('click', () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  updateCartButton(); // Initial check
+})();
+
+  // CartButton Functionality script ends
+
+         
       </script>
 
    </body>
