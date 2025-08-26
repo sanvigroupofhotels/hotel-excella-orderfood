@@ -270,8 +270,101 @@
          }
          }         
       </style>
+	  
+	  
+	  	  
+	  
       <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
+	  /* Mobile Order Summary - Bottom Sticky Card */
+@media (max-width: 768px) {
+  #orderSummarySection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+    padding: 1rem;
+    z-index: 1000;
+  }
+
+  #orderSummarySection h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  #orderList {
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 0.8rem;
+  }
+
+  #orderList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 0.95rem;
+  }
+
+  /* Item controls */
+  #orderList li div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #orderList button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .dec-btn {
+    background: #e53935;
+    color: #fff;
+  }
+
+  .inc-btn {
+    background: #43a047;
+    color: #fff;
+  }
+
+  .qty-val {
+    min-width: 24px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* Total */
+  .order-summary-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Confirm button full width */
+  #confirmOrder {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+  }
+}
+
          @media (max-width: 600px) {
          header {
          flex-direction: row !important;
