@@ -197,6 +197,7 @@
          margin-top: 0;
          margin-bottom: 1rem;
          }
+	 
          #orderList {
          margin: 0.5rem 0;
          padding-left: 1rem;
@@ -204,6 +205,50 @@
          max-height: 200px;
          overflow-y: auto;
          }
+#orderList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.2);
+}
+
+.order-item-name {
+  flex: 1; /* take available space on left */
+}
+
+.order-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 90px; /* ensures + - stay aligned */
+  justify-content: center;
+}
+
+.order-item-price {
+  min-width: 70px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.dec-btn {
+  padding: 2px 6px;
+  border: none;
+  border-radius: 5px;
+  background: #e53935; /* red */
+  color: #fff;
+  cursor: pointer;
+}
+
+.inc-btn {
+  padding: 2px 6px;
+  border: none;
+  border-radius: 5px;
+  background: #43a047; /* green */
+  color: #fff;
+  cursor: pointer;
+}
+
          #orderTotal::before {
          content: "₹ ";
          font-weight: bold;
@@ -417,19 +462,26 @@
             </div>
          </section>
          <!-- Menu Section -->
-         <!-- Order Summary Section -->
-         <section id="orderSummarySection">
-            <h2 style="color: var(--primary);">Order Summary</h2>
-            <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-               <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-               <ul id="orderList" style="margin: 0.5rem 0; padding-left: 1rem; list-style-type: disc; max-height: 200px; overflow-y: auto;">
-                  <li>No items selected</li>
-               </ul>
-               <div style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-                  <p>Total: <span id="orderTotal">0.00</span></p>
-               </div>
-         </section>
-         <!-- End Order Summary Section -->
+<!-- Order Summary Section -->
+<section id="orderSummarySection">
+  <h2 style="color: var(--primary);">Order Summary</h2>
+  <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
+    <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
+
+    <!-- Order list (dynamic rows inserted here) -->
+    <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
+      <li>No items selected</li>
+    </ul>
+
+    <!-- Total -->
+    <div style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
+      <p>Total: <span id="orderTotal">0.00</span></p>
+    </div>
+  </div>
+</section>
+<!-- End Order Summary Section -->
+
+
          <!-- Guest Information Section -->
          <section id="guestInfo" class="card">
          <h2>Guest Information</h2>
@@ -579,10 +631,10 @@
          };
          
          //Function to update quantity in the menu list (live update)
-         function updateMenuQty(name) {
-  const safeId = `#qty-${encodeURIComponent(name)}`;
-  const qtyValElem = document.querySelector(`${safeId} .qty-val`);
-
+function updateMenuQty(name) {
+  const safeId = `#qty-${name.replace(/\s+/g, '_')}`;
+  const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeId)} .qty-val`);
+  
   if (qtyValElem) {
     const updatedQty = currentOrder[name]?.qty || 0;
     qtyValElem.textContent = updatedQty;
@@ -591,7 +643,7 @@
   const activeCategoryBtn = document.querySelector('.category-tabs button.active');
   const category = activeCategoryBtn?.dataset?.category;
   if (category) {
-    showCategory(category); // re-render
+    showCategory(category); //re-render the current category
   }
 }
 
@@ -619,17 +671,19 @@
          for (const [name, item] of Object.entries(currentOrder)) {
          const lineTotal = item.qty * item.price;
          total += lineTotal;
+
+	orderList.innerHTML += `
+  <li>
+    <span class="order-item-name">${name}</span>
+    <div class="order-item-controls">
+      <button class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
+      <span class="qty-val">${item.qty}</span>
+      <button class="inc-btn" data-name="${encodeURIComponent(name)}">+</button>
+    </div>
+    <span class="order-item-price">₹${lineTotal.toFixed(2)}</span>
+  </li>`;
          
-         orderList.innerHTML += `
-         <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-         <span>${name}</span>
-         <div style="display: inline-flex; align-items: center; gap: 6px;">
-          <button class="dec-btn" data-name="${name}" style="padding: 2px 6px; border: none; border-radius: 4px; background: #e53935; color: #fff; cursor: pointer;">-</button>
-          <span class="qty-val">${item.qty}</span>
-          <button class="inc-btn" data-name="${name}" style="padding: 2px 6px; border: none; border-radius: 4px; background: #43a047; color: #fff; cursor: pointer;">+</button>
-          <span>= ₹${lineTotal.toFixed(2)}</span>
-         </div>
-         </li>`;
+        
          }
          
          if (Object.keys(currentOrder).length === 0) {
@@ -645,26 +699,28 @@
          updateCartButton();
          
          // 👉 Bind increment/decrement events
-         orderList.querySelectorAll('.inc-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = btn.dataset.name;
-         currentOrder[name].qty++;
-         updateOrderSummary();
-         updateMenuQty(name); // ✅ live sync with menu
-         });
-         });
-         
-         orderList.querySelectorAll('.dec-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = btn.dataset.name;
-         currentOrder[name].qty--;
-         if (currentOrder[name].qty <= 0) delete currentOrder[name];
-         updateOrderSummary();
-         updateMenuQty(name); // ✅ live sync with menu
-         });
-         });
+orderList.querySelectorAll('.inc-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
+    currentOrder[name].qty++;
+    updateOrderSummary();
+    updateMenuQty(name);
+  });
+});
+
+orderList.querySelectorAll('.dec-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
+    currentOrder[name].qty--;
+    if (currentOrder[name].qty <= 0) delete currentOrder[name];
+    updateOrderSummary();
+    updateMenuQty(name);
+  });
+});
+
          
          }
+
          
          
          function removeFromCart(item) {
