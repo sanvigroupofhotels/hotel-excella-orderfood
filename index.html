@@ -261,16 +261,20 @@
       <style id="mobile-responsive-overrides">
          @media (max-width: 600px) {
          header {
-         flex-direction: column !important;
-         align-items: left !important;
-         text-align: center !important;
-         gap: 6px !important;
+         flex-direction: row !important;
+         align-items: center !important;
+	 justify-content: flex-start !important;
+	 padding 8px 12px !important; 
+         gap: 10px !important;
          }
          header img {
+	 height 40px !important;
+	 margin 0 !important;
          margin-bottom: 6px !important;
          }
          header div {
-         text-align: center !important;
+         text-align: left !important;
+	 line height: 1.2 !important;
          }
          /* Keep help/confirm stack clean (from your earlier fix) */
          .footer-actions,
