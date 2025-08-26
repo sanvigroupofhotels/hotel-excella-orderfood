@@ -453,6 +453,11 @@
          </section>
          <!-- Guest Information Section -->
       </main>
+            <!-- Floating Cart Button -->
+         <button id="cartButton" style="display: none;">
+            🛒
+         </button>
+      
       <script>
          (() => {
                    
@@ -606,6 +611,7 @@
          orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
          }
          orderTotalEl.textContent = total.toFixed(2);
+		 console.log("Updated Order Total:", total); // 👈 Delete Me
          
          // Enable Confirm button when there's an order
          const confirmOrderBtn = document.getElementById('confirmOrder');
@@ -687,13 +693,16 @@
          });
          
          })();
+
+  // CartButton Functionality       
          (() => {
     const cartButton = document.getElementById('cartButton');
     const orderTotalEl = document.getElementById('orderTotal');
     
     // Listen for changes in the order summary (items added/removed)
     function updateCartButton() {
-      const total = parseFloat(orderTotalEl.textContent);
+      const total = parseFloat(orderTotalEl.textContent);  
+	  console.log("Order Total inside updateCartButton:", total); // 👈 Delete Me 
       if (total > 0) {
         cartButton.style.display = 'block'; // Show the cart button if there's a total
       } else {
@@ -717,9 +726,6 @@
     };
   })();
       </script>
-      <!-- Floating Cart Button -->
-         <button id="cartButton" style="display: none;">
-            🛒
-         </button>
+
    </body>
 </html>
