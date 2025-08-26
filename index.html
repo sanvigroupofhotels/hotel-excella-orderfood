@@ -525,7 +525,7 @@
          </div>
          <div class="menu-item-controls">
           <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-          <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+          <div class="quantity-selector" id="qty-${encodeURIComponent(name)}">
             ${qty > 0 
               ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
                  <span class="qty-val">${qty}</span>
@@ -580,21 +580,21 @@
          
          //Function to update quantity in the menu list (live update)
          function updateMenuQty(name) {
-         const qtyValElem = document.querySelector(`#categoryContent .menu-item #qty-${name.replace(/\s+/g, '_')} .qty-val`);
-         
-         // If the element is found, update the qty
-         if (qtyValElem) {
-         const updatedQty = currentOrder[name]?.qty || 0;
-         qtyValElem.textContent = updatedQty;
-         }
-         
-         // Force a re-render of the current category to show updated quantity live
-         const activeCategoryBtn = document.querySelector('.category-tabs button.active');
-         const category = activeCategoryBtn?.dataset?.category;
-         if (category) {
-         showCategory(category); // Re-render the current category
-         }
-         }
+  const safeId = `#qty-${encodeURIComponent(name)}`;
+  const qtyValElem = document.querySelector(`${safeId} .qty-val`);
+
+  if (qtyValElem) {
+    const updatedQty = currentOrder[name]?.qty || 0;
+    qtyValElem.textContent = updatedQty;
+  }
+
+  const activeCategoryBtn = document.querySelector('.category-tabs button.active');
+  const category = activeCategoryBtn?.dataset?.category;
+  if (category) {
+    showCategory(category); // re-render
+  }
+}
+
          
          
          
