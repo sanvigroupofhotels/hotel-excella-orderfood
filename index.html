@@ -9,10 +9,10 @@
          --primary: #2e7d32; /* or your theme color */
          --accent: #f9a825;
          --orange: #f9a825;
-	 --light-orange: #FDAA48;
+         --light-orange: #FDAA48;
          --dark-green: #2e7d32;
          --yellow: #fff176;
-	 --black: #000000;
+         --black: #000000;
          --bg-black: #000000;
          --white: #ffffff;
          --light-gray: #f5f5f5;
@@ -40,7 +40,7 @@
          }
          header h1 {
          margin: 0;
-	 text-align: left;
+         text-align: left;
          font-size: 1.2rem;
          font-weight: 700;
          color: var(--orange);
@@ -83,7 +83,6 @@
          margin-bottom: 15px;
          font-size: 1rem;
          }
-
          #menuTabs {
          position: sticky;
          display: flex;
@@ -260,22 +259,19 @@
       </style>
       <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
-        @media (max-width: 600px) {
-  header {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    gap: 6px !important;
-  }
-
-  header img {
-    margin-bottom: 6px !important;
-  }
-
-  header div {
-    text-align: center !important;
-  }
-}
+         @media (max-width: 600px) {
+         header {
+         flex-direction: column !important;
+         align-items: center !important;
+         text-align: center !important;
+         gap: 6px !important;
+         }
+         header img {
+         margin-bottom: 6px !important;
+         }
+         header div {
+         text-align: center !important;
+         }
          /* Keep help/confirm stack clean (from your earlier fix) */
          .footer-actions,
          .cart-actions,
@@ -370,17 +366,14 @@
       <!-- mobile responsiveness code styling ends -->
    </head>
    <body>
-
-<header style="display: flex; align-items: left; padding: 10px;">
-  <img src="images/hotelexcellalogo.png" alt="Hotel Logo" style="height: 60px; margin-right: 15px;">
-  <div>
-    <h1 style="margin: 0;">HOTEL EXCELLA</h1>
-    <p style="margin: 0; color: black; font-weight: 700;">IN-HOUSE ROOM SERVICE MENU</p>
-  </div>
-</header>
-
-     <main>
-
+      <header style="display: flex; align-items: left; padding: 10px;">
+         <img src="images/hotelexcellalogo.png" alt="Hotel Logo" style="height: 60px; margin-right: 15px;">
+         <div>
+            <h1 style="margin: 0;">HOTEL EXCELLA</h1>
+            <p style="margin: 0; color: black; font-weight: 700;">IN-HOUSE ROOM SERVICE MENU</p>
+         </div>
+      </header>
+      <main>
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
             <h2 id="menuTitle">Menu</h2>
@@ -394,7 +387,6 @@
             </div>
          </section>
          <!-- Menu Section -->
-
          <!-- Order Summary Section -->
          <section id="orderSummarySection">
             <h2 style="color: var(--primary);">Order Summary</h2>
@@ -408,7 +400,6 @@
                </div>
          </section>
          <!-- End Order Summary Section -->
-		 
          <!-- Guest Information Section -->
          <section id="guestInfo" class="card">
          <h2>Guest Information</h2>
@@ -428,8 +419,6 @@
          </section>
          <!-- Guest Information Section -->
       </main>
-
-
       <script>
          (() => {
                    
@@ -512,15 +501,15 @@
                 </div>
             </div>
          `;
-// Highlight active sub tab
-				document.querySelectorAll('.category-tabs button').forEach(btn => {
-				  if (btn.getAttribute('data-category') === category) {
-					btn.classList.add('active');
-				  } else {
-					btn.classList.remove('active');
-				  }
-				});
-
+         // Highlight active sub tab
+         document.querySelectorAll('.category-tabs button').forEach(btn => {
+         if (btn.getAttribute('data-category') === category) {
+         btn.classList.add('active');
+         } else {
+         btn.classList.remove('active');
+         }
+         });
+         
          
          	// Add button → starts qty = 1
          		container.querySelectorAll('.add-btn').forEach(btn => {
@@ -574,22 +563,22 @@
          
          
          
-function updateOrderSummary() {
-  orderList.innerHTML = '';
-  let total = 0;
-  for (const [name, item] of Object.entries(currentOrder)) {
-    const lineTotal = item.qty * item.price;
-    total += lineTotal;
-    orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
-  }
-  orderTotalEl.textContent = total.toFixed(2);
-
-  // Enable Confirm button when there's an order
-  const confirmOrderBtn = document.getElementById('confirmOrder');
-  confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
-}
-
-
+         function updateOrderSummary() {
+         orderList.innerHTML = '';
+         let total = 0;
+         for (const [name, item] of Object.entries(currentOrder)) {
+         const lineTotal = item.qty * item.price;
+         total += lineTotal;
+         orderList.innerHTML += `<li>${name} x ${item.qty} = ₹${lineTotal}</li>`;
+         }
+         orderTotalEl.textContent = total.toFixed(2);
+         
+         // Enable Confirm button when there's an order
+         const confirmOrderBtn = document.getElementById('confirmOrder');
+         confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
+         }
+         
+         
          
          
          
@@ -640,29 +629,29 @@ function updateOrderSummary() {
                renderMenu();
              });
          
-confirmOrderBtn.addEventListener('click', () => {
-  // Get guest info from inputs
-  const guestName = document.getElementById('guestName').value.trim();
-  const roomNumber = document.getElementById('roomNumber').value.trim();
-  const guestWhatsApp = document.getElementById('guestWhatsApp').value.trim();
-
-  // Validate guest info fields
-  if (!guestName || !roomNumber || !guestWhatsApp) {
-    alert('Please fill all guest details.');
-    return;
-  }
-
-  // Construct the order message with each item on a new line
-  let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
-  let total = orderTotalEl.textContent;
-
-  // Use template literals and encodeURIComponent for proper line breaks and URL encoding
-  let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
-
-  // Open WhatsApp with the prefilled message
-  window.open(`https://wa.me/${guestWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-});
-      
+         confirmOrderBtn.addEventListener('click', () => {
+         // Get guest info from inputs
+         const guestName = document.getElementById('guestName').value.trim();
+         const roomNumber = document.getElementById('roomNumber').value.trim();
+         const guestWhatsApp = document.getElementById('guestWhatsApp').value.trim();
+         
+         // Validate guest info fields
+         if (!guestName || !roomNumber || !guestWhatsApp) {
+         alert('Please fill all guest details.');
+         return;
+         }
+         
+         // Construct the order message with each item on a new line
+         let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
+         let total = orderTotalEl.textContent;
+         
+         // Use template literals and encodeURIComponent for proper line breaks and URL encoding
+         let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
+         
+         // Open WhatsApp with the prefilled message
+         window.open(`https://wa.me/${guestWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+         });
+         
          })();
       </script>
    </body>
