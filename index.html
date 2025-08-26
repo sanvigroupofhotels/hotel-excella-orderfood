@@ -518,24 +518,25 @@
          items.forEach(item => {
          const qty = currentOrder[item.Name]?.qty || 0;
          container.innerHTML += `
-            <div class="menu-item">
-                <div class="menu-item-details">
-                    <div class="item-name">${item.Name}</div>
-                    <div class="item-desc">${item.Description}</div>
-                </div>
-                <div class="menu-item-controls">
-                    <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-                    <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
-                        ${qty > 0 
-                            ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
-                               <span class="qty-val">${qty}</span>
-                               <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-                            : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
-                        }
-                    </div>
-                </div>
-            </div>
+         <div class="menu-item">
+         <div class="menu-item-details">
+          <div class="item-name">${item.Name}</div>
+          <div class="item-desc">${item.Description}</div>
+         </div>
+         <div class="menu-item-controls">
+          <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
+          <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+            ${qty > 0 
+              ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                 <span class="qty-val">${qty}</span>
+                 <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+              : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
+            }
+          </div>
+         </div>
+         </div>
          `;
+         
          // Highlight active sub tab
          document.querySelectorAll('.category-tabs button').forEach(btn => {
          if (btn.getAttribute('data-category') === category) {
@@ -545,44 +546,57 @@
          }
          });
          
+         // Attach increment/decrement events for each item in the menu
+         container.querySelectorAll('.inc-btn').forEach(btn => {
+         btn.addEventListener('click', () => {
+         const name = btn.dataset.name;
+         currentOrder[name].qty++;
+         updateOrderSummary();
+         updateMenuQty(name);
+         });
+         });
          
-         	// Add button → starts qty = 1
-         		container.querySelectorAll('.add-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			const price = parseFloat(btn.dataset.price);
-         			currentOrder[name] = { qty: 1, price };
-         			updateOrderSummary();
-         			showCategory(category); // re-render controls
-         		  });
-         		});
+         container.querySelectorAll('.dec-btn').forEach(btn => {
+         btn.addEventListener('click', () => {
+         const name = btn.dataset.name;
+         currentOrder[name].qty--;
+         if (currentOrder[name].qty <= 0) delete currentOrder[name];
+         updateOrderSummary();
+         updateMenuQty(name);
+         });
+         });
+         
+         container.querySelectorAll('.add-btn').forEach(btn => {
+         btn.addEventListener('click', () => {
+         const name = btn.dataset.name;
+         const price = parseFloat(btn.dataset.price);
+         currentOrder[name] = { qty: 1, price };
+         updateOrderSummary();
+         updateMenuQty(name);
+         });
+         });
+         });
+         };
+         
+         //Function to update quantity in the menu list (live update)
+         function updateMenuQty(name) {
+         const qtyValElem = document.querySelector(`#categoryContent .menu-item #qty-${name.replace(/\s+/g, '_')} .qty-val`);
+         
+         // If the element is found, update the qty
+         if (qtyValElem) {
+         const updatedQty = currentOrder[name]?.qty || 0;
+         qtyValElem.textContent = updatedQty;
+         }
+         
+         // Force a re-render of the current category to show updated quantity live
+         const activeCategoryBtn = document.querySelector('.category-tabs button.active');
+         const category = activeCategoryBtn?.dataset?.category;
+         if (category) {
+         showCategory(category); // Re-render the current category
+         }
+         }
          
          
-         
-                 	// Increment button
-         		container.querySelectorAll('.inc-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			currentOrder[name].qty++;
-         			updateOrderSummary();
-         			showCategory(category);
-         		  });
-         		});
-         
-               
-         	// Decrement button
-         		container.querySelectorAll('.dec-btn').forEach(btn => {
-         		  btn.addEventListener('click', () => {
-         			const name = btn.dataset.name;
-         			currentOrder[name].qty--;
-         			if (currentOrder[name].qty <= 0) delete currentOrder[name];
-         			updateOrderSummary();
-         			showCategory(category);
-         		  });
-         		});
-             });
-             container.querySelectorAll('input[type="number"]').forEach(input => input.addEventListener('input', onQtyChange));
-           };
          
          // This function handles quantity change inputs
          function onQtyChange(e) {
@@ -636,7 +650,7 @@
          const name = btn.dataset.name;
          currentOrder[name].qty++;
          updateOrderSummary();
-         refreshVisibleCategory(); // ✅ only refresh active category
+         updateMenuQty(name); // ✅ live sync with menu
          });
          });
          
@@ -646,9 +660,10 @@
          currentOrder[name].qty--;
          if (currentOrder[name].qty <= 0) delete currentOrder[name];
          updateOrderSummary();
-         refreshVisibleCategory(); // ✅ only refresh active category
+         updateMenuQty(name); // ✅ live sync with menu
          });
          });
+         
          }
          
          
