@@ -699,7 +699,26 @@
          updateCartButton();
          
          // 👉 Bind increment/decrement events
-         orderList.querySelectorAll('.inc-btn').forEach(btn => {
+orderList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('inc-btn')) {
+    const name = e.target.dataset.name;
+    currentOrder[name].qty++;
+    updateOrderSummary();
+    updateMenuQty(name);
+  }
+
+  if (e.target.classList.contains('dec-btn')) {
+    const name = e.target.dataset.name;
+    currentOrder[name].qty--;
+    if (currentOrder[name].qty <= 0) delete currentOrder[name];
+    updateOrderSummary();
+    updateMenuQty(name);
+  }
+});
+         
+
+
+orderList.querySelectorAll('.inc-btn').forEach(btn => {
          btn.addEventListener('click', () => {
          const name = btn.dataset.name;
          currentOrder[name].qty++;
