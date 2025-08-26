@@ -260,14 +260,22 @@
       </style>
       <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
-         @media (max-width: 600px) {
-         header {
-         display: flex !important;
-         flex-direction: column !important;
-         align-items: left !important;
-         text-align: left !important;
-         gap: 6px !important;
-         }
+        @media (max-width: 600px) {
+  header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+  }
+
+  header img {
+    margin-bottom: 6px !important;
+  }
+
+  header div {
+    text-align: center !important;
+  }
+}
          /* Keep help/confirm stack clean (from your earlier fix) */
          .footer-actions,
          .cart-actions,
