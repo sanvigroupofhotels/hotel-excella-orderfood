@@ -40,7 +40,8 @@
          }
          header h1 {
          margin: 0;
-         font-size: 2rem;
+	 text-align: left;
+         font-size: 1.2rem;
          font-weight: 700;
          color: var(--orange);
          text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
@@ -263,8 +264,8 @@
          header {
          display: flex !important;
          flex-direction: column !important;
-         align-items: center !important;
-         text-align: center !important;
+         align-items: left !important;
+         text-align: left !important;
          gap: 6px !important;
          }
          /* Keep help/confirm stack clean (from your earlier fix) */
@@ -361,12 +362,17 @@
       <!-- mobile responsiveness code styling ends -->
    </head>
    <body>
-      <header style="display: flex; align-items: center; padding: 10px; background-color: #f8f8f8;">
-         <img src="images/hotelexcellalogosmall.png" alt="Hotel Logo" style="height: 40px; margin-right: 10px;">
-         <h2 style="margin: 0;">HOTEL EXCELLA - IN HOUSE FOOD MENU</h2>
-      </header>
-      </div>
-      <main>
+
+<header style="display: flex; align-items: left; padding: 10px;">
+  <img src="images/hotelexcellalogo.png" alt="Hotel Logo" style="height: 60px; margin-right: 15px;">
+  <div>
+    <h1 style="margin: 0;">HOTEL EXCELLA</h1>
+    <p style="margin: 0; color: black; font-weight: 700;">IN-HOUSE ROOM SERVICE MENU</p>
+  </div>
+</header>
+
+     <main>
+
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
             <h2 id="menuTitle">Menu</h2>
@@ -380,6 +386,7 @@
             </div>
          </section>
          <!-- Menu Section -->
+
          <!-- Order Summary Section -->
          <section id="orderSummarySection">
             <h2 style="color: var(--primary);">Order Summary</h2>
@@ -647,9 +654,7 @@ confirmOrderBtn.addEventListener('click', () => {
   // Open WhatsApp with the prefilled message
   window.open(`https://wa.me/${guestWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
 });
-
-         
-
+      
          })();
       </script>
    </body>
