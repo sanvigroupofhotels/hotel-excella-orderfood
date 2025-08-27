@@ -261,6 +261,47 @@
          padding-top: 0.5rem;
          text-align: right;
          }
+/* ===== Order Summary totals (Subtotal, GST, Total) ===== */
+
+
+.order-summary-footer {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: flex-end;   /* push everything to the right */
+  gap: 6px;                    /* small space between label and value */
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+.summary-line .label {
+  font-weight: 500;
+  text-align: right;
+}
+
+.summary-line .value {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 60px;             /* keeps numbers aligned vertically */
+}
+
+.summary-line.total {
+  border-top: 2px solid var(--accent);
+  margin-top: 6px;
+  padding-top: 6px;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.summary-line.total .value {
+  color: #fff;
+}
+
+
          #confirmOrder {
          width: 60%;
          padding: 0.8rem;
@@ -317,6 +358,15 @@
       </style>
       <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
+/* Order Summary */
+@media (max-width: 768px) {
+  .order-summary-footer {
+    gap: 8px;
+  }
+  .order-summary-footer > div {
+    font-size: 1rem;
+  }
+}
          @media (max-width: 600px) {
          header {
          flex-direction: row !important;
@@ -451,7 +501,10 @@
       <main>
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
-            <h2 id="menuTitle">Menu</h2>
+	   <p style="margin: 0; font-weight: 400; color: var(--primary);">GST Extra Applicable on all prices.</p>
+	   <p style="margin: 0; font-weight: 400; color: var(--primary);">Items Subject to Availability</p>
+	   
+            
             <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
                <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
                <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
@@ -474,10 +527,24 @@
     </ul>
 
     <!-- Total -->
-    <div style="font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; border-top: 2px solid var(--accent); padding-top: 0.5rem; text-align: right;">
-      <p>Total: <span id="orderTotal">0.00</span></p>
-    </div>
+
+<div class="order-summary-footer">
+  <div class="summary-line">
+    <span class="label">Subtotal: </span>
+    <span class="value">₹<span id="subtotal">0.00</span></span>
   </div>
+  <div class="summary-line">
+    <span class="label">GST (5%): </span>
+    <span class="value">₹<span id="gst">0.00</span></span>
+  </div>
+  <div class="summary-line total">
+    <span class="label">Total: </span>
+    <span class="value"><span id="orderTotal">0.00</span></span>
+  </div>
+</div>
+
+
+
 </section>
 <!-- End Order Summary Section -->
 
@@ -689,9 +756,17 @@ function updateMenuQty(name) {
          if (Object.keys(currentOrder).length === 0) {
          orderList.innerHTML = '<li>No items selected</li>';
          }
+
+// ✅ GST calculation
+  const gst = total * 0.05;
+  const grandTotal = total + gst;
+
+  // ✅ Update totals
+  document.getElementById('subtotal').textContent = total.toFixed(2);
+  document.getElementById('gst').textContent = gst.toFixed(2);
+  orderTotalEl.textContent = grandTotal.toFixed(2);
          
-         orderTotalEl.textContent = total.toFixed(2);
-         
+                 
          // Enable Confirm button when there's an order
          confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
          
