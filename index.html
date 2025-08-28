@@ -501,8 +501,8 @@
       <main>
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
-	   <p style="margin: 0; font-weight: 200; color: var(--primary);">GST Extra Applicable on all prices.</p>
-	   <p style="margin: 0; font-weight: 200; color: var(--primary);">Items Subject to Availability</p>
+	   <p style="margin: 0; font-weight: 200; color: var(--primary);">- GST Extra Applicable on all prices.</p>
+	   <p style="margin: 0; font-weight: 200; color: var(--primary);">- Items Subject to Availability</p>
 	   
             
             <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
@@ -884,7 +884,7 @@ orderList.querySelectorAll('.dec-btn').forEach(btn => {
          
          cartButton.addEventListener('click', () => {
 		 const orderSummary = document.getElementById("orderSummarySection");
-         const offset = orderSummary.getBoundingClientRect().top + window.scrollY - 120; // adjust -80px as needed
+         const offset = orderSummary.getBoundingClientRect().top + window.scrollY - 200; // adjust -80px as needed
          window.scrollTo({ top: offset, behavior: "smooth" });
 
 		
