@@ -86,25 +86,19 @@ body {
 
 /* Container */
 #menuTabs {
-  position: sticky;
-  top: 0; /* ensures sticky takes effect */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 8px;
+  display: flex;
   border-radius: 30px;
   justify-content: center; /* center align on desktop */
   flex-wrap: wrap; /* optional if tabs can wrap */
-  padding: 8px;            /* <-- space around the group */
+  padding: 0px;            /* <-- space around the group */
   overflow: hidden;        /* keeps corners tidy */
   background: transparent; /* or a color if you want colored separators */
  
 }
 
 
-
 /* Category sub-tabs - desktop */
 .category-tabs {
-  position: sticky;
   top: 0px; /* adjust to match header height */
   z-index: 9;
   display: flex;
@@ -113,6 +107,7 @@ body {
   padding: 12px 0;
   background: #fff;
   border-bottom: 2px solid rgba(0,0,0,0.1);
+  margin: 0;
 }
 
 .category-tabs button {
@@ -491,7 +486,6 @@ body {
 
 /* Sticky horizontal category sub-tabs */
 .category-tabs {
-  position: sticky;
   top: 60px; /* below header */
   z-index: 9;
   display: flex;
