@@ -91,7 +91,7 @@ h2 {
   background: var(--light-gray);
   z-index: 5;
 }
-#menuSubTabs {
+#Category-tabs {
   display: flex;
   border-bottom: 3px solid var(--light-orange);
   margin: 0 0 1rem 0;
@@ -347,37 +347,69 @@ h2 {
 }
 </style>
 
-<!-- below style makes this web page mobile responsive -->
+<!-- Mobile Overrides --->
 <style id="mobile-responsive-overrides">
+@media (max-width: 768px) {
+  header {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  header img { height: 50px; }
+  .hotel-name { font-size: 1rem; }
+  .tagline { font-size: 0.9rem; }
+}
+
+
+@media (max-width: 600px) {
+  /* Cart button smaller */
+  #cartButton {
+    font-size: 1.2rem;
+    padding: 10px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  /* Menu item stacking */
+  .menu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .menu-item img,
+  .menu-image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+  .menu-item-details {
+    flex: 1;
+  }
+  .menu-item-controls {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .menu-item img,
+  .menu-image {
+    width: 64px;
+    height: 64px;
+  }
+  .item-name { font-size: 0.9rem; }
+  .item-price { font-size: 0.95rem; }
+  #orderList { max-height: 140px; }
+}
+
 @media (max-width: 768px) {
   .order-summary-footer { gap: 8px; }
   .order-summary-footer > div { font-size: 1rem; }
 }
+
+
 @media (max-width: 600px) {
-  header {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 15px !important;
-  }
-  header img {
-    height: 60px !important;
-    margin-right: 15px !important;
-  }
-  header div {
-    text-align: left !important;
-    line-height: 1.2 !important;
-  }
-  .hotel-name { font-size: 1.2rem !important; font-weight: bold !important; }
-  .tagline { font-size: 1rem !important; font-weight: 700 !important; }
-
-  #cartButton {
-    font-size: 1.2rem;
-    padding: 12px; /* balanced smaller button */
-    bottom: 10px;
-    right: 10px;
-  }
-
   .footer-actions,
   .cart-actions,
   .actions,
@@ -397,49 +429,6 @@ h2 {
     width: 100% !important;
   }
 
-  .menu-item,
-  .item,
-  .food-card {
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-    text-align: left !important;
-    gap: 12px !important;
-  }
-  .menu-item .item-info,
-  .item .item-info,
-  .food-card .item-info {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-  .menu-item img,
-  .item img,
-  .food-card img,
-  .menu-image {
-    width: 96px !important;
-    height: 96px !important;
-    object-fit: cover !important;
-    border-radius: 10px !important;
-    margin: 0 !important;
-  }
-  .menu-image.empty {
-    background-color: #f0f0f0;
-    width: 100px;
-    height: 100px;
-  }
-}
-@media (max-width: 400px) {
-  .menu-item img,
-  .menu-image {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .item-name { font-size: 0.9rem !important; }
-  .item-price { font-size: 1rem !important; }
-  #orderList { max-height: 140px; }
-}
 /* Sticky horizontal category sub-tabs */
 .category-tabs {
   position: sticky;
@@ -478,6 +467,7 @@ h2 {
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
+
 </style>
 <!-- mobile responsiveness code styling ends -->
 
@@ -611,7 +601,7 @@ h2 {
              if (firstCategory) showCategory(firstCategory);
            }
          
-           window.showCategory = function(category) {
+         window.showCategory = function(category) {
          const items = menuData[currentTab][category] || [];
          const container = document.getElementById('categoryContent');
          container.innerHTML = ''; // Clear the content first
