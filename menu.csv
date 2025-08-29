@@ -1,9 +1,9 @@
 Type,Category,Name,Description,Price,ImageURL
-Veg,Soups,Veg. Manchow Soup,A hot and tangy vegetable soup with Indo-Chinese flavors.,180,
-Veg,Soups,Veg. Hot & Sour Soup,Spicy and sour vegetable soup with a perfect balance of flavors.,180,
+Veg,Soups,Veg. Manchow Soup,A hot and tangy vegetable soup with Indo-Chinese flavors.,180,ChickenManchowSoup.jpg
+Veg,Soups,Veg. Hot & Sour Soup,Spicy and sour vegetable soup with a perfect balance of flavors.,180,ChickenManchowSoup.jpg
 Veg,Soups,Veg. Sweetcorn Soup,Creamy sweet corn blended with fresh vegetables.,180,
 Veg,Soups,Lemon Coriander Soup,Refreshing soup with lemon zest and coriander aroma.,180,
-NonVeg,Soups,Chicken Manchow Soup,A hearty chicken soup with bold Indo-Chinese spices.,180,
+NonVeg,Soups,Chicken Manchow Soup,A hearty chicken soup with bold Indo-Chinese spices.,180,ChickenManchowSoup.jpg
 NonVeg,Soups,Chicken Hot & Sour Soup,Spicy and tangy chicken broth with vegetables.,180,
 NonVeg,Soups,Chicken Sweetcorn Soup,Classic chicken and sweet corn soup.,180,
 NonVeg,Soups,Lemon Coriander Chicken Soup,Light chicken soup flavored with lemon and coriander.,180,
@@ -164,4 +164,3 @@ General,Sides,Plain Curd,Cooling plain curd.,40,
 General,Sides,Green Salad,Fresh seasonal salad.,120,
 General,Sides,Boiled Eggs (2 Pcs),Two protein-rich boiled eggs.,40,
 General,Sides,Omelette,Fluffy omelette made to order.,120,
-
