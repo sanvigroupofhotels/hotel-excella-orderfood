@@ -171,6 +171,7 @@ h2 {
   margin: 0 10px 8px 8px;
   object-fit: cover;
   display: block;
+  max-width: 100%;   /* ✅ ensure images scale properly */
 }
 .menu-image.empty {
   background-color: #f0f0f0;
@@ -407,7 +408,7 @@ h2 {
     align-items: flex-start !important;
     text-align: left !important;
     gap: 12px !important;
-    flex-wrap: nowrap !important;   /* ✅ prevent controls dropping */
+    flex-wrap: nowrap !important;   /* ✅ keep price/qty aligned */
   }
 
   .menu-item .item-info,
@@ -428,15 +429,15 @@ h2 {
     object-fit: cover !important;
     border-radius: 10px !important;
     margin: 0 !important;
-    max-width: 100% !important;  /* ✅ ensure visible on mobile */
+    max-width: 100% !important;   /* ✅ fix image visibility */
   }
 
   .menu-item-details {
-    flex: 1 1 auto !important;    /* ✅ details expand properly */
+    flex: 1 1 auto !important;    /* ✅ details expand */
   }
 
   .menu-item-controls {
-    flex-shrink: 0 !important;    /* ✅ keep price + qty on right */
+    flex-shrink: 0 !important;    /* ✅ price + qty stay on right */
     margin-left: auto !important;
   }
 
@@ -457,7 +458,6 @@ h2 {
   .item-price { font-size: 1rem !important; }
   #orderList { max-height: 140px; }
 }
-
 
 /* Sticky category tabs */
 .category-tabs {
@@ -498,6 +498,7 @@ h2 {
   box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
 </style>
+
 
 <!-- mobile responsiveness code styling ends -->
 
@@ -907,7 +908,8 @@ h2 {
          updateCartButton(); // Initial check
          })();
          
-         // CartButton Functionality script ends      
+         // CartButton Functionality script ends
+         
          
       </script>
    </body>
