@@ -632,32 +632,28 @@ h2 {
              if (firstCategory) showCategory(firstCategory);
            }
          
-           window.showCategory = function(category) {
-         const items = menuData[currentTab][category] || [];
-         const container = document.getElementById('categoryContent');
-         container.innerHTML = ''; // Clear the content first
-         
-         
-         
-         items.forEach(item => {
-         const qty = currentOrder[item.Name]?.qty || 0;
-         const imageFile = item.ImageURL?.trim();
-		 const safeFile = imageFile.replace(/\s+/g, "_"); // or encodeURI(imageFile)
-		 const imageTag = imageFile
-  ? `<img src="images/${safeFile}" class="menu-image" onerror="this.style.display='none'">`
-  : "";
-		 const imageFile = item.ImageURL?.trim();
-         const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image">` : "";
-         
-         container.innerHTML += `
-         <div class="menu-item">
-         ${imageTag}
-         <div class="menu-item-details">
+         window.showCategory = function(category) {
+  const items = menuData[currentTab][category] || [];
+  const container = document.getElementById('categoryContent');
+  container.innerHTML = ''; 
+
+  items.forEach(item => {
+    const qty = currentOrder[item.Name]?.qty || 0;
+    const imageFile = item.ImageURL?.trim();
+    const safeFile = imageFile ? imageFile.replace(/\s+/g, "_") : "";
+    const imageTag = imageFile
+      ? `<img src="images/${safeFile}" class="menu-image" onerror="this.style.display='none'">`
+      : "";
+
+    container.innerHTML += `
+      <div class="menu-item">
+        ${imageTag}
+        <div class="menu-item-details">
           <div class="item-name">${item.Name}</div>
           <div class="item-desc">${item.Description}</div>
-         </div>
-         <div class="menu-item-controls">
-          <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
+        </div>
+        <div class="menu-item-controls">
+          <div class="item-price">₹${parseFloat(item.Price).toFixed(2)}</div>
           <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
             ${qty > 0 
               ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
@@ -666,9 +662,10 @@ h2 {
               : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
             }
           </div>
-         </div>
-         </div>
-         `; 
+        </div>
+      </div>
+    `; 
+  });
          
          
          // Highlight active sub tab
@@ -880,7 +877,8 @@ h2 {
          let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
          
          // Open WhatsApp with the prefilled message
-         window.open(`https://wa.me/${+917702483811}?text=${encodeURIComponent(msg)}`, '_blank');
+ 		 window.open(`https://wa.me/917702483811?text=${encodeURIComponent(msg)}`, '_blank');
+
          });
          
          })();
@@ -900,17 +898,13 @@ h2 {
          cartButton.addEventListener('click', () => {
          const orderSummary = document.getElementById("orderSummarySection");
          const offset = orderSummary.getBoundingClientRect().top + window.scrollY ;
-         window.scrollTo({ top: offset, behavior: "smooth" });
-         
-         
+         window.scrollTo({ top: offset, behavior: "smooth" });     
          });
          
          updateCartButton(); // Initial check
          })();
          
-         // CartButton Functionality script ends
-         
-         
+         // CartButton Functionality script ends      
       </script>
    </body>
 </html>
