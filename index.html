@@ -92,7 +92,8 @@ body {
   flex-wrap: wrap; /* optional if tabs can wrap */
   padding: 0px;            /* <-- space around the group */
   overflow: hidden;        /* keeps corners tidy */
-  background: transparent; /* or a color if you want colored separators */
+  background: var(--dark-grey); /* or a color if you want colored separators */
+  font-weight: 750;
  
 }
 
@@ -130,41 +131,37 @@ body {
 .category-tabs button.active {
   background: var(--dark-green);
   color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
   border-color: var(--dark-green);
 }
 
          .tab-btn {
-         flex: 1;
-         padding: 0.6rem 0;
-         font-weight: 700;
-         font-size: 1.1rem;
-         text-align: center;
-         cursor: pointer;
-         background: var(--light-gray);
-         border: none;
-         border-bottom: 3px solid transparent;
-         color: var(--dark-grey);
-         transition: all 0.3s ease;
-         user-select: none;
+	flex: 1;	 
+  	padding: 0.6rem 0.9rem;
+  	font-weight: 700;
+  	font-size: 1.1rem;
+	font-color: var(--dark-green);
+  	text-align: center;
+  	cursor: pointer;
+  	background: var(--light-gray);
+  	color: var(--dark-green);
+  	border: none;                 /* no side/top borders */
+  	border-bottom: 3px solid var(--light-orange);
+	border-radius: 16px;          /* optional subtle rounding on hover background */
+  	transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease;
+  	user-select: none;
          }
          .tab-btn.active {
          background: var(--light-orange);
          border-bottom: 3px solid var(--light-orange);
-         color: var(--black);
+         color: var(--dark-green);
          }
          .tab-btn:focus-visible {
          outline: 3px solid var(--light-orange);
+	 font-color: var(--dark-green);
          }
-         .category {
-         margin-bottom: 1.5rem;
-         }
-         .category h3 {
-         margin-top: 0;
-         margin-bottom: 0.5rem;
-         color: var(--light-orange);
-         border-bottom: 2px solid var(--dark-green);
-         padding-bottom: 0.2rem;
-         }
+
 
 .menu-item {
   display: flex;
@@ -495,7 +492,8 @@ body {
   padding: 20px 12px;
   background: linear-gradient(to right, #ffffff, #f9f9f9);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
 .category-tabs::-webkit-scrollbar { height: 6px; }
 .category-tabs button {
@@ -508,6 +506,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 600;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .category-tabs button:hover {
@@ -518,8 +517,8 @@ body {
 .category-tabs button.active {
   background: var(--dark-green);
   color: #fff;
-  border-color: var(--dark-green);
   font-weight: 600;
+  border-color: var(--dark-green);
   box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
 
@@ -541,10 +540,10 @@ body {
       <main>
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
-            <p style="margin: 0; font-weight: 200; color: var(--primary);">- GST Extra Applicable on all prices.</p>
-            <p style="margin: 0; font-weight: 200; color: var(--primary);">- Items Subject to Availability</p>
-            <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
-               <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- GST Extra Applicable on all prices.</p>   
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Items Subject to Availability.</p>   
+
+                 <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
                <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
                <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="2">General</button>
             </nav>
