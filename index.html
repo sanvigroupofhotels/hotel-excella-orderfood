@@ -352,10 +352,12 @@ h2 {
   .menu-item { padding: 0.3rem 0; }
   #orderSummary { padding: 0.75rem; }
 }
+
 @media (max-width: 768px) {
   .order-summary-footer { gap: 8px; }
   .order-summary-footer > div { font-size: 1rem; }
 }
+
 @media (max-width: 600px) {
   header {
     flex-direction: row !important;
@@ -405,7 +407,9 @@ h2 {
     align-items: flex-start !important;
     text-align: left !important;
     gap: 12px !important;
+    flex-wrap: nowrap !important;   /* ✅ prevent controls dropping */
   }
+
   .menu-item .item-info,
   .item .item-info,
   .food-card .item-info {
@@ -414,6 +418,7 @@ h2 {
     gap: 10px !important;
     width: 100% !important;
   }
+
   .menu-item img,
   .item img,
   .food-card img,
@@ -423,13 +428,25 @@ h2 {
     object-fit: cover !important;
     border-radius: 10px !important;
     margin: 0 !important;
+    max-width: 100% !important;  /* ✅ ensure visible on mobile */
   }
+
+  .menu-item-details {
+    flex: 1 1 auto !important;    /* ✅ details expand properly */
+  }
+
+  .menu-item-controls {
+    flex-shrink: 0 !important;    /* ✅ keep price + qty on right */
+    margin-left: auto !important;
+  }
+
   .menu-image.empty {
     background-color: #f0f0f0;
     width: 100px;
     height: 100px;
   }
 }
+
 @media (max-width: 400px) {
   .menu-item img,
   .menu-image {
@@ -440,6 +457,7 @@ h2 {
   .item-price { font-size: 1rem !important; }
   #orderList { max-height: 140px; }
 }
+
 
 /* Sticky category tabs */
 .category-tabs {
@@ -623,6 +641,11 @@ h2 {
          items.forEach(item => {
          const qty = currentOrder[item.Name]?.qty || 0;
          const imageFile = item.ImageURL?.trim();
+		 const safeFile = imageFile.replace(/\s+/g, "_"); // or encodeURI(imageFile)
+		 const imageTag = imageFile
+  ? `<img src="images/${safeFile}" class="menu-image" onerror="this.style.display='none'">`
+  : "";
+		 const imageFile = item.ImageURL?.trim();
          const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image">` : "";
          
          container.innerHTML += `
@@ -884,8 +907,7 @@ h2 {
          updateCartButton(); // Initial check
          })();
          
-         // CartButton Functionality script ends
-         
+         // CartButton Functionality script ends      
          
       </script>
    </body>
