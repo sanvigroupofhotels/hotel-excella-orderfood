@@ -4,9 +4,9 @@
       <meta charset="utf-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <title>Hotel Excella - Food Ordering</title>
-<style>
+     <style>
 :root {
-  --primary: #2e7d32; 
+  --primary: #2e7d32; /* or your theme color */
   --accent: #f9a825;
   --orange: #f9a825;
   --light-orange: #FDAA48;
@@ -20,8 +20,6 @@
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --font-main-size: 1rem;
 }
-
-/* Base layout */
 body {
   margin: 0;
   font-family: var(--font-family);
@@ -30,7 +28,6 @@ body {
   line-height: 1.6;
   font-size: var(--font-main-size);
 }
-
 header {
   display: flex;
   align-items: center;
@@ -56,7 +53,6 @@ header p {
   font-weight: 600;
   color: var(--yellow);
 }
-
 main {
   max-width: 900px;
   margin: 1rem auto 4rem auto;
@@ -66,15 +62,12 @@ main {
   color: var(--dark-gray);
   position: relative;
 }
-
 section { margin-bottom: 2rem; }
 h2 {
-  border-bottom: 0;
-  padding-bottom: 0;
+  border-bottom: 0px solid var(--orange);
+  padding-bottom: 0rem;
   color: var(--dark-green);
 }
-
-/* Guest Info */
 #guestInfo label {
   display: block;
   font-weight: 750;
@@ -89,8 +82,6 @@ h2 {
   margin-bottom: 15px;
   font-size: 1rem;
 }
-
-/* Tabs */
 #menuTabs {
   position: sticky;
   top: 0;
@@ -115,7 +106,7 @@ h2 {
   background: var(--light-gray);
   border: none;
   border-bottom: 3px solid transparent;
-  color: var(--dark-gray);
+  color: var(--dark-gray); /* fixed typo */
   transition: all 0.3s ease;
   user-select: none;
 }
@@ -125,17 +116,14 @@ h2 {
   color: var(--black);
 }
 .tab-btn:focus-visible { outline: 3px solid var(--light-orange); }
-
-/* Categories */
 .category { margin-bottom: 1.5rem; }
 .category h3 {
-  margin: 0 0 0.5rem 0;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
   color: var(--light-orange);
   border-bottom: 2px solid var(--dark-green);
   padding-bottom: 0.2rem;
 }
-
-/* Menu items */
 .menu-item {
   display: flex;
   flex-wrap: wrap;
@@ -168,10 +156,11 @@ h2 {
   width: 100px;
   height: auto;
   border-radius: 8px;
-  margin: 0 10px 8px 8px;
+  margin-bottom: 8px;
   object-fit: cover;
   display: block;
-  max-width: 100%;   /* ✅ ensure images scale properly */
+  margin-left: 8px;
+  margin-right: 10px;
 }
 .menu-image.empty {
   background-color: #f0f0f0;
@@ -197,8 +186,6 @@ h2 {
   min-width: 75px;
   text-align: right;
 }
-
-/* Quantity selector */
 .quantity-selector {
   display: inline-flex;
   align-items: center;
@@ -219,8 +206,6 @@ h2 {
   text-align: center;
   font-weight: 600;
 }
-
-/* Order summary */
 #orderBox {
   background: var(--dark-green);
   color: #fff;
@@ -229,7 +214,8 @@ h2 {
 }
 #orderBox h3 {
   color: var(--yellow);
-  margin: 0 0 1rem 0;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 #orderList {
   margin: 0.5rem 0;
@@ -258,16 +244,22 @@ h2 {
   text-align: right;
   font-weight: 600;
 }
-.dec-btn,
+.dec-btn {
+  padding: 2px 6px;
+  border: none;
+  border-radius: 5px;
+  background: #e53935;
+  color: #fff;
+  cursor: pointer;
+}
 .inc-btn {
   padding: 2px 6px;
   border: none;
   border-radius: 5px;
+  background: #43a047;
   color: #fff;
   cursor: pointer;
 }
-.dec-btn { background: #e53935; }
-.inc-btn { background: #43a047; }
 #orderTotal::before { content: "₹ "; font-weight: bold; }
 #orderTotal {
   font-weight: 700;
@@ -289,7 +281,10 @@ h2 {
   margin: 4px 0;
   font-size: 1rem;
 }
-.summary-line .label { font-weight: 500; text-align: right; }
+.summary-line .label {
+  font-weight: 500;
+  text-align: right;
+}
 .summary-line .value {
   font-variant-numeric: tabular-nums;
   text-align: right;
@@ -303,7 +298,6 @@ h2 {
   font-size: 1.2rem;
 }
 .summary-line.total .value { color: #fff; }
-
 #confirmOrder {
   width: 60%;
   padding: 0.8rem;
@@ -319,7 +313,6 @@ h2 {
   background: #bbb;
   cursor: not-allowed;
 }
-
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -330,35 +323,36 @@ h2 {
   clip: rect(0,0,0,0) !important;
   border: 0 !important;
 }
-
-/* Floating cart button */
 #cartButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
   background-color: var(--white);
-  padding: 14px;
+  padding: 14px; /* equal padding for round shape */
   border-radius: 50%;
   color: white;
   font-size: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   z-index: 100;
 }
-
-/* Responsive */
 @media (max-width: 720px) {
-  .item-info { flex-direction: column; gap: 0.35rem; }
+  .item-info {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
   .item-name { font-size: 1rem; }
   .menu-item { padding: 0.3rem 0; }
   #orderSummary { padding: 0.75rem; }
 }
+</style>
 
+<!-- below style makes this web page mobile responsive -->
+<style id="mobile-responsive-overrides">
 @media (max-width: 768px) {
   .order-summary-footer { gap: 8px; }
   .order-summary-footer > div { font-size: 1rem; }
 }
-
 @media (max-width: 600px) {
   header {
     flex-direction: row !important;
@@ -370,13 +364,16 @@ h2 {
     height: 60px !important;
     margin-right: 15px !important;
   }
-  header div { text-align: left !important; line-height: 1.2 !important; }
+  header div {
+    text-align: left !important;
+    line-height: 1.2 !important;
+  }
   .hotel-name { font-size: 1.2rem !important; font-weight: bold !important; }
   .tagline { font-size: 1rem !important; font-weight: 700 !important; }
 
   #cartButton {
     font-size: 1.2rem;
-    padding: 12px;
+    padding: 12px; /* balanced smaller button */
     bottom: 10px;
     right: 10px;
   }
@@ -408,9 +405,7 @@ h2 {
     align-items: flex-start !important;
     text-align: left !important;
     gap: 12px !important;
-    flex-wrap: nowrap !important;   /* ✅ keep price/qty aligned */
   }
-
   .menu-item .item-info,
   .item .item-info,
   .food-card .item-info {
@@ -419,7 +414,6 @@ h2 {
     gap: 10px !important;
     width: 100% !important;
   }
-
   .menu-item img,
   .item img,
   .food-card img,
@@ -429,25 +423,13 @@ h2 {
     object-fit: cover !important;
     border-radius: 10px !important;
     margin: 0 !important;
-    max-width: 100% !important;   /* ✅ fix image visibility */
   }
-
-  .menu-item-details {
-    flex: 1 1 auto !important;    /* ✅ details expand */
-  }
-
-  .menu-item-controls {
-    flex-shrink: 0 !important;    /* ✅ price + qty stay on right */
-    margin-left: auto !important;
-  }
-
   .menu-image.empty {
     background-color: #f0f0f0;
     width: 100px;
     height: 100px;
   }
 }
-
 @media (max-width: 400px) {
   .menu-item img,
   .menu-image {
@@ -458,11 +440,10 @@ h2 {
   .item-price { font-size: 1rem !important; }
   #orderList { max-height: 140px; }
 }
-
-/* Sticky category tabs */
+/* Sticky horizontal category sub-tabs */
 .category-tabs {
   position: sticky;
-  top: 60px;
+  top: 60px; /* below header */
   z-index: 9;
   display: flex;
   gap: 10px;
@@ -470,13 +451,13 @@ h2 {
   white-space: nowrap;
   padding: 20px 12px;
   background: linear-gradient(to right, #ffffff, #f9f9f9);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 .category-tabs::-webkit-scrollbar { height: 6px; }
 .category-tabs button {
   flex: 0 0 auto;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   background: #f0f0f0;
   padding: 8px 14px;
   border-radius: 20px;
@@ -484,7 +465,7 @@ h2 {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .category-tabs button:hover {
   background: var(--light-orange);
@@ -498,8 +479,6 @@ h2 {
   box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
 </style>
-
-
 <!-- mobile responsiveness code styling ends -->
 
    </head>
@@ -632,28 +611,27 @@ h2 {
              if (firstCategory) showCategory(firstCategory);
            }
          
-         window.showCategory = function(category) {
-  const items = menuData[currentTab][category] || [];
-  const container = document.getElementById('categoryContent');
-  container.innerHTML = ''; 
-
-  items.forEach(item => {
-    const qty = currentOrder[item.Name]?.qty || 0;
-    const imageFile = item.ImageURL?.trim();
-    const safeFile = imageFile ? imageFile.replace(/\s+/g, "_") : "";
-    const imageTag = imageFile
-      ? `<img src="images/${safeFile}" class="menu-image" onerror="this.style.display='none'">`
-      : "";
-
-    container.innerHTML += `
-      <div class="menu-item">
-        ${imageTag}
-        <div class="menu-item-details">
+           window.showCategory = function(category) {
+         const items = menuData[currentTab][category] || [];
+         const container = document.getElementById('categoryContent');
+         container.innerHTML = ''; // Clear the content first
+         
+         
+         
+         items.forEach(item => {
+         const qty = currentOrder[item.Name]?.qty || 0;
+         const imageFile = item.ImageURL?.trim();
+         const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image">` : "";
+         
+         container.innerHTML += `
+         <div class="menu-item">
+         ${imageTag}
+         <div class="menu-item-details">
           <div class="item-name">${item.Name}</div>
           <div class="item-desc">${item.Description}</div>
-        </div>
-        <div class="menu-item-controls">
-          <div class="item-price">₹${parseFloat(item.Price).toFixed(2)}</div>
+         </div>
+         <div class="menu-item-controls">
+          <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
           <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
             ${qty > 0 
               ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
@@ -662,10 +640,9 @@ h2 {
               : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
             }
           </div>
-        </div>
-      </div>
-    `; 
-  });
+         </div>
+         </div>
+         `; 
          
          
          // Highlight active sub tab
@@ -877,8 +854,7 @@ h2 {
          let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
          
          // Open WhatsApp with the prefilled message
- 		 window.open(`https://wa.me/917702483811?text=${encodeURIComponent(msg)}`, '_blank');
-
+         window.open(`https://wa.me/${+917702483811}?text=${encodeURIComponent(msg)}`, '_blank');
          });
          
          })();
@@ -898,13 +874,17 @@ h2 {
          cartButton.addEventListener('click', () => {
          const orderSummary = document.getElementById("orderSummarySection");
          const offset = orderSummary.getBoundingClientRect().top + window.scrollY ;
-         window.scrollTo({ top: offset, behavior: "smooth" });     
+         window.scrollTo({ top: offset, behavior: "smooth" });
+         
+         
          });
          
          updateCartButton(); // Initial check
          })();
          
-         // CartButton Functionality script ends      
+         // CartButton Functionality script ends
+         
+         
       </script>
    </body>
 </html>
