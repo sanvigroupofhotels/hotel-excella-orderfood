@@ -128,10 +128,11 @@
          }
          .menu-item {
          display: flex;
+         flex-wrap: wrap;
+         align-items: center;
          justify-content: space-between;
-         align-items: flex-start;
-         padding: 0.75rem 0; /* Increased padding for better readability */
-         border-bottom: 1px dotted var(--dark-green);
+         padding: 0.5rem 0;
+         border-bottom: 0.5px dotted var(--dark-green);
          }
          .menu-item:last-child {
          border-bottom: none;
@@ -144,6 +145,33 @@
          display: flex;
          align-items: center;
          justify-content: space-between;
+         }
+         .item-thumb {
+         width: 60px;
+         height: 60px;
+         border-radius: 6px;
+         background-position: center;
+         background-size: cover;
+         flex-shrink: 0;
+         border: 1px solid var(--dark-green);
+         }
+         .item-thumb.empty {
+         display: none;
+         }
+         .menu-image {
+         width: 100px;
+         height: auto;
+         border-radius: 8px;
+         margin-bottom: 8px;
+         object-fit: cover;
+         display: block;
+         margin-left: 8px;
+         margin-right: 10px;
+         }
+         .menu-image.empty {
+         background-color: #f0f0f0;
+         width: 100px;
+         height: 100px;
          }
          .item-name {
          font-weight: 700;
@@ -197,7 +225,6 @@
          margin-top: 0;
          margin-bottom: 1rem;
          }
-	 
          #orderList {
          margin: 0.5rem 0;
          padding-left: 1rem;
@@ -205,50 +232,44 @@
          max-height: 200px;
          overflow-y: auto;
          }
-#orderList li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(255,255,255,0.2);
-}
-
-.order-item-name {
-  flex: 1; /* take available space on left */
-}
-
-.order-item-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 90px; /* ensures + - stay aligned */
-  justify-content: center;
-}
-
-.order-item-price {
-  min-width: 70px;
-  text-align: right;
-  font-weight: 600;
-}
-
-.dec-btn {
-  padding: 2px 6px;
-  border: none;
-  border-radius: 5px;
-  background: #e53935; /* red */
-  color: #fff;
-  cursor: pointer;
-}
-
-.inc-btn {
-  padding: 2px 6px;
-  border: none;
-  border-radius: 5px;
-  background: #43a047; /* green */
-  color: #fff;
-  cursor: pointer;
-}
-
+         #orderList li {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 6px 0;
+         border-bottom: 1px dashed rgba(255,255,255,0.2);
+         }
+         .order-item-name {
+         flex: 1; /* take available space on left */
+         }
+         .order-item-controls {
+         display: flex;
+         align-items: center;
+         gap: 6px;
+         min-width: 90px; /* ensures + - stay aligned */
+         justify-content: center;
+         }
+         .order-item-price {
+         min-width: 70px;
+         text-align: right;
+         font-weight: 600;
+         }
+         .dec-btn {
+         padding: 2px 6px;
+         border: none;
+         border-radius: 5px;
+         background: #e53935; /* red */
+         color: #fff;
+         cursor: pointer;
+         }
+         .inc-btn {
+         padding: 2px 6px;
+         border: none;
+         border-radius: 5px;
+         background: #43a047; /* green */
+         color: #fff;
+         cursor: pointer;
+         }
          #orderTotal::before {
          content: "₹ ";
          font-weight: bold;
@@ -261,47 +282,38 @@
          padding-top: 0.5rem;
          text-align: right;
          }
-/* ===== Order Summary totals (Subtotal, GST, Total) ===== */
-
-
-.order-summary-footer {
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-}
-
-.summary-line {
-  display: flex;
-  justify-content: flex-end;   /* push everything to the right */
-  gap: 6px;                    /* small space between label and value */
-  margin: 4px 0;
-  font-size: 1rem;
-}
-
-.summary-line .label {
-  font-weight: 500;
-  text-align: right;
-}
-
-.summary-line .value {
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-  min-width: 60px;             /* keeps numbers aligned vertically */
-}
-
-.summary-line.total {
-  border-top: 2px solid var(--accent);
-  margin-top: 6px;
-  padding-top: 6px;
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.summary-line.total .value {
-  color: #fff;
-}
-
-
+         /* ===== Order Summary totals (Subtotal, GST, Total) ===== */
+         .order-summary-footer {
+         padding: 8px 12px;
+         background: rgba(255, 255, 255, 0.05);
+         border-radius: 6px;
+         }
+         .summary-line {
+         display: flex;
+         justify-content: flex-end;   /* push everything to the right */
+         gap: 6px;                    /* small space between label and value */
+         margin: 4px 0;
+         font-size: 1rem;
+         }
+         .summary-line .label {
+         font-weight: 500;
+         text-align: right;
+         }
+         .summary-line .value {
+         font-variant-numeric: tabular-nums;
+         text-align: right;
+         min-width: 60px;             /* keeps numbers aligned vertically */
+         }
+         .summary-line.total {
+         border-top: 2px solid var(--accent);
+         margin-top: 6px;
+         padding-top: 6px;
+         font-weight: 700;
+         font-size: 1.2rem;
+         }
+         .summary-line.total .value {
+         color: #fff;
+         }
          #confirmOrder {
          width: 60%;
          padding: 0.8rem;
@@ -358,15 +370,15 @@
       </style>
       <!-- below style makes this web page mobile responsive -->
       <style id="mobile-responsive-overrides">
-/* Order Summary */
-@media (max-width: 768px) {
-  .order-summary-footer {
-    gap: 8px;
-  }
-  .order-summary-footer > div {
-    font-size: 1rem;
-  }
-}
+         /* Order Summary */
+         @media (max-width: 768px) {
+         .order-summary-footer {
+         gap: 8px;
+         }
+         .order-summary-footer > div {
+         font-size: 1rem;
+         }
+         }
          @media (max-width: 600px) {
          header {
          flex-direction: row !important;
@@ -446,6 +458,11 @@
          border-radius: 10px !important;
          margin: 0 !important;
          }
+         .menu-image.empty {
+         background-color: #f0f0f0;
+         width: 100px;
+         height: 100px;
+         }
          }
          /* Sticky horizontal category sub-tabs (all viewports) */
          .category-tabs {
@@ -501,10 +518,8 @@
       <main>
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection">
-	   <p style="margin: 0; font-weight: 200; color: var(--primary);">- GST Extra Applicable on all prices.</p>
-	   <p style="margin: 0; font-weight: 200; color: var(--primary);">- Items Subject to Availability</p>
-	   
-            
+            <p style="margin: 0; font-weight: 200; color: var(--primary);">- GST Extra Applicable on all prices.</p>
+            <p style="margin: 0; font-weight: 200; color: var(--primary);">- Items Subject to Availability</p>
             <nav aria-label="Food category tabs" id="menuTabs" role="tablist" tabindex="0">
                <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
                <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
@@ -515,40 +530,32 @@
             </div>
          </section>
          <!-- Menu Section -->
-<!-- Order Summary Section -->
-<section id="orderSummarySection">
-  <h2 style="color: var(--primary);">Order Summary</h2>
-  <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-    <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-
-    <!-- Order list (dynamic rows inserted here) -->
-    <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
-      <li>No items selected</li>
-    </ul>
-
-    <!-- Total -->
-
-<div class="order-summary-footer">
-  <div class="summary-line">
-    <span class="label">Subtotal: </span>
-    <span class="value">₹<span id="subtotal">0.00</span></span>
-  </div>
-  <div class="summary-line">
-    <span class="label">GST (5%): </span>
-    <span class="value">₹<span id="gst">0.00</span></span>
-  </div>
-  <div class="summary-line total">
-    <span class="label">Total: </span>
-    <span class="value"><span id="orderTotal">0.00</span></span>
-  </div>
-</div>
-
-
-
-</section>
-<!-- End Order Summary Section -->
-
-
+         <!-- Order Summary Section -->
+         <section id="orderSummarySection">
+            <h2 style="color: var(--primary);">Order Summary</h2>
+            <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
+               <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
+               <!-- Order list (dynamic rows inserted here) -->
+               <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
+                  <li>No items selected</li>
+               </ul>
+               <!-- Total -->
+               <div class="order-summary-footer">
+                  <div class="summary-line">
+                     <span class="label">Subtotal: </span>
+                     <span class="value">₹<span id="subtotal">0.00</span></span>
+                  </div>
+                  <div class="summary-line">
+                     <span class="label">GST (5%): </span>
+                     <span class="value">₹<span id="gst">0.00</span></span>
+                  </div>
+                  <div class="summary-line total">
+                     <span class="label">Total: </span>
+                     <span class="value"><span id="orderTotal">0.00</span></span>
+                  </div>
+               </div>
+         </section>
+         <!-- End Order Summary Section -->
          <!-- Guest Information Section -->
          <section id="guestInfo" class="card">
          <h2>Guest Information</h2>
@@ -634,10 +641,16 @@
          const container = document.getElementById('categoryContent');
          container.innerHTML = ''; // Clear the content first
          
+         
+         
          items.forEach(item => {
          const qty = currentOrder[item.Name]?.qty || 0;
+         const imageFile = item.ImageURL?.trim();
+         const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image">` : "";
+         
          container.innerHTML += `
          <div class="menu-item">
+         ${imageTag}
          <div class="menu-item-details">
           <div class="item-name">${item.Name}</div>
           <div class="item-desc">${item.Description}</div>
@@ -654,7 +667,8 @@
           </div>
          </div>
          </div>
-         `;
+         `; 
+         
          
          // Highlight active sub tab
          document.querySelectorAll('.category-tabs button').forEach(btn => {
@@ -698,22 +712,22 @@
          };
          
          //Function to update quantity in the menu list (live update)
-function updateMenuQty(name) {
-  const safeId = `#qty-${name.replace(/\s+/g, '_')}`;
-  const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeId)} .qty-val`);
-  
-  if (qtyValElem) {
-    const updatedQty = currentOrder[name]?.qty || 0;
-    qtyValElem.textContent = updatedQty;
-  }
-
-  const activeCategoryBtn = document.querySelector('.category-tabs button.active');
-  const category = activeCategoryBtn?.dataset?.category;
-  if (category) {
-    showCategory(category); //re-render the current category
-  }
-}
-
+         function updateMenuQty(name) {
+         const safeId = `#qty-${name.replace(/\s+/g, '_')}`;
+         const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeId)} .qty-val`);
+         
+         if (qtyValElem) {
+         const updatedQty = currentOrder[name]?.qty || 0;
+         qtyValElem.textContent = updatedQty;
+         }
+         
+         const activeCategoryBtn = document.querySelector('.category-tabs button.active');
+         const category = activeCategoryBtn?.dataset?.category;
+         if (category) {
+         showCategory(category); //re-render the current category
+         }
+         }
+         
          
          
          
@@ -738,33 +752,33 @@ function updateMenuQty(name) {
          for (const [name, item] of Object.entries(currentOrder)) {
          const lineTotal = item.qty * item.price;
          total += lineTotal;
-
-	orderList.innerHTML += `
-  <li>
-    <span class="order-item-name">${name}</span>
-    <div class="order-item-controls">
-      <button class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
-      <span class="qty-val">${item.qty}</span>
-      <button class="inc-btn" data-name="${encodeURIComponent(name)}">+</button>
-    </div>
-    <span class="order-item-price">₹${lineTotal.toFixed(2)}</span>
-  </li>`;
          
-        
+         orderList.innerHTML += `
+         <li>
+         <span class="order-item-name">${name}</span>
+         <div class="order-item-controls">
+         <button class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
+         <span class="qty-val">${item.qty}</span>
+         <button class="inc-btn" data-name="${encodeURIComponent(name)}">+</button>
+         </div>
+         <span class="order-item-price">₹${lineTotal.toFixed(2)}</span>
+         </li>`;
+         
+         
          }
          
          if (Object.keys(currentOrder).length === 0) {
          orderList.innerHTML = '<li>No items selected</li>';
          }
-
-// ✅ GST calculation
-  const gst = total * 0.05;
-  const grandTotal = total + gst;
-
-  // ✅ Update totals
-  document.getElementById('subtotal').textContent = total.toFixed(2);
-  document.getElementById('gst').textContent = gst.toFixed(2);
-  orderTotalEl.textContent = grandTotal.toFixed(2);
+         
+         // ✅ GST calculation
+         const gst = total * 0.05;
+         const grandTotal = total + gst;
+         
+         // ✅ Update totals
+         document.getElementById('subtotal').textContent = total.toFixed(2);
+         document.getElementById('gst').textContent = gst.toFixed(2);
+         orderTotalEl.textContent = grandTotal.toFixed(2);
          
                  
          // Enable Confirm button when there's an order
@@ -774,28 +788,28 @@ function updateMenuQty(name) {
          updateCartButton();
          
          // 👉 Bind increment/decrement events
-orderList.querySelectorAll('.inc-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
-    currentOrder[name].qty++;
-    updateOrderSummary();
-    updateMenuQty(name);
-  });
-});
-
-orderList.querySelectorAll('.dec-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
-    currentOrder[name].qty--;
-    if (currentOrder[name].qty <= 0) delete currentOrder[name];
-    updateOrderSummary();
-    updateMenuQty(name);
-  });
-});
-
+         orderList.querySelectorAll('.inc-btn').forEach(btn => {
+         btn.addEventListener('click', () => {
+         const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
+         currentOrder[name].qty++;
+         updateOrderSummary();
+         updateMenuQty(name);
+         });
+         });
+         
+         orderList.querySelectorAll('.dec-btn').forEach(btn => {
+         btn.addEventListener('click', () => {
+         const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
+         currentOrder[name].qty--;
+         if (currentOrder[name].qty <= 0) delete currentOrder[name];
+         updateOrderSummary();
+         updateMenuQty(name);
+         });
+         });
+         
          
          }
-
+         
          
          
          function removeFromCart(item) {
@@ -883,13 +897,13 @@ orderList.querySelectorAll('.dec-btn').forEach(btn => {
          };
          
          cartButton.addEventListener('click', () => {
-		 const orderSummary = document.getElementById("orderSummarySection");
+         const orderSummary = document.getElementById("orderSummarySection");
          const offset = orderSummary.getBoundingClientRect().top + window.scrollY ;
          window.scrollTo({ top: offset, behavior: "smooth" });
-
-		
+         
+         
          });
-			 
+         
          updateCartButton(); // Initial check
          })();
          
