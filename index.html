@@ -89,7 +89,6 @@ body {
   display: flex;
   border-radius: 30px;
   justify-content: center; /* center align on desktop */
-  flex-wrap: wrap; /* optional if tabs can wrap */
   padding: 0px;            /* <-- space around the group */
   overflow: hidden;        /* keeps corners tidy */
   background: var(--dark-grey); /* or a color if you want colored separators */
@@ -99,17 +98,25 @@ body {
 
 
 /* Category sub-tabs - desktop */
+
 .category-tabs {
-  top: 0px; /* adjust to match header height */
+  /*position: sticky;*/
+  top: var(--menuTabs-h, 0);   /* keep sticky if you need; adjust or remove */
   z-index: 9;
   display: flex;
-  justify-content: left; /* center align on desktop */
   gap: 16px;
-  padding: 12px 0;
-  background: #fff;
-  border-bottom: 2px solid rgba(0,0,0,0.1);
+  padding: 12px 0;              /* keep vertical rhythm without a box */
   margin: 0;
+  justify-content: left;
+
+  /* 🔻 remove box look */
+  background: transparent;
+  border: 0;
+  border-bottom: 0;            /* was adding a line; keep 0 for no underline */
+  box-shadow: none;
+  border-radius: 0;
 }
+
 
 .category-tabs button {
   padding: 8px 18px;
@@ -121,6 +128,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  justify-content: left
 }
 
 .category-tabs button:hover {
@@ -147,7 +155,7 @@ body {
   	background: var(--light-gray);
   	color: var(--dark-green);
   	border: none;                 /* no side/top borders */
-  	border-bottom: 3px solid var(--light-orange);
+  	/*border-bottom: 3px solid var(--light-orange);*/
 	border-radius: 16px;          /* optional subtle rounding on hover background */
   	transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease;
   	user-select: none;
@@ -486,14 +494,16 @@ body {
   top: 60px; /* below header */
   z-index: 9;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 20px 12px;
-  background: linear-gradient(to right, #ffffff, #f9f9f9);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 0px;
+  background: transparent;
+  border-bottom: 0;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
+  box-shadow: none;
+  justify-content: left
+  margin: 0
 }
 .category-tabs::-webkit-scrollbar { height: 6px; }
 .category-tabs button {
@@ -502,22 +512,24 @@ body {
   background: #f0f0f0;
   padding: 8px 14px;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 600;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  justify-content: left 	
 }
 .category-tabs button:hover {
-  background: var(--light-orange);
-  transform: scale(1.05);
+  background: var(--dark-green);
+  color: #fff;
 }
 
 .category-tabs button.active {
   background: var(--dark-green);
   color: #fff;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   border-color: var(--dark-green);
   box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
 }
