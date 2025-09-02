@@ -9,17 +9,99 @@ Sorter_by_Category,Type,Category,Name,Description,Price,ImageURL
 1,General,Breads,Pudhina Naan,Mint flavored naan bread.,95,
 1,General,Breads,Masala Kulcha,Stuffed kulcha with spices.,100,
 1,General,Breads,Stuffed Kulcha,Kulcha filled with stuffing of choice.,100,
-4,General,Cold Beverages,Water Bottle,Refreshing bottled water.,25,
-4,General,Cold Beverages,Nimboo Pani,Chilled lemon drink with a sweet-salty kick.,70,
-4,General,Cold Beverages,Cold Badam Milk,Chilled almond-flavored milk.,120,
-4,General,Cold Beverages,Mango Milk Shake,Creamy mango milkshake.,120,
-3,General,Hot Beverages,Special Coffee,Freshly brewed coffee.,50,
-3,General,Hot Beverages,Special Tea,Fragrant hot tea.,50,
-3,General,Hot Beverages,Hot Badam Milk,Warm almond milk.,120,
+1,NonVeg,Soups,Chicken Hot & Sour Soup,Spicy and tangy chicken broth with vegetables.,180,ChickenHotandSourceSoup.jpg
+1,NonVeg,Soups,Lemon Coriander Chicken Soup,Light chicken soup flavored with lemon and coriander.,180,ChickenLemonCorriandorSoup.jpg
+1,NonVeg,Soups,Chicken Manchow Soup,A hearty chicken soup with bold Indo-Chinese spices.,180,ChickenManchowSoup.jpg
+1,NonVeg,Soups,Chicken Sweetcorn Soup,Classic chicken and sweet corn soup.,180,ChickenSweetcornSoup.jpg
+1,Veg,Soups,Lemon Coriander Soup,Refreshing soup with lemon zest and coriander aroma.,180,LemonCorriandorSoup.jpg
+1,Veg,Soups,Veg. Hot & Sour Soup,Spicy and sour vegetable soup with a perfect balance of flavors.,180,VegHotandSourceSoup.jpg
+1,Veg,Soups,Veg. Manchow Soup,A hot and tangy vegetable soup with Indo-Chinese flavors.,180,VegManchowSoup.jpg
+1,Veg,Soups,Veg. Sweetcorn Soup,Creamy sweet corn blended with fresh vegetables.,180,VegSweetcornSoup.jpg
 2,General,Sides,Boiled Eggs (2 Pcs),Two protein-rich boiled eggs.,40,
 2,General,Sides,Plain Curd,Cooling plain curd.,40,
 2,General,Sides,Green Salad,Fresh seasonal salad.,120,
 2,General,Sides,Omelette,Fluffy omelette made to order.,120,
+2,NonVeg,Starters,Chicken 65,South Indian style fried chicken with spices.,340,Chicken65.jpg
+2,NonVeg,Starters,Chicken Manchurian,Crispy chicken balls in tangy manchurian sauce.,340,ChickenManchurian.jpg
+2,NonVeg,Starters,Chilly Chicken,Stir-fried chicken tossed in chili sauce.,340,ChillyChicken.jpg
+2,NonVeg,Starters,Garlic Chicken,Flavorful chicken stir-fried with garlic.,350,GarlicChicken.jpg
+2,NonVeg,Starters,Ginger Chicken,Chicken tossed in a ginger-based sauce.,350,GingerChicken.jpg
+2,NonVeg,Starters,Lemon Chicken,Crispy chicken flavored with lemon.,350,LemonChicken.jpg
+2,NonVeg,Starters,Chicken Drumsticks (6 Pcs),Juicy chicken drumsticks fried to perfection.,365,ChickenDrumsticks(6Pcs).jpg
+2,NonVeg,Starters,Chicken Lollypop (6 Pcs),Crispy chicken lollipops served with spicy sauce.,365,ChickenLollypop(6Pcs).jpg
+2,NonVeg,Starters,Chicken Chilly Wings,Spicy chicken wings tossed with chili sauce.,365,ChickenChillyWings.jpg
+2,NonVeg,Starters,Schezwan Chicken,Chicken stir-fried with bold schezwan flavors.,375,SchezwanChicken.jpg
+2,NonVeg,Starters,Pepper Chicken,Pepper spiced chicken fry.,390,PepperChicken.jpg
+2,NonVeg,Starters,Chicken 555,Popular spicy chicken fry from Andhra cuisine.,415,Chicken555.jpg
+2,NonVeg,Starters,Chicken Fried Wings (9 Pcs),Crispy chicken wings fried golden.,415,ChickenFriedWings(9Pcs).jpg
+2,NonVeg,Starters,Cashew Chicken,Chicken cooked with roasted cashews.,440,CashewChicken.jpg
+2,NonVeg,Starters,Crispy Chicken,Deep fried chicken strips with crispy coating.,440,CrispyChicken.jpg
+2,NonVeg,Starters,Crunchy Chicken,Crispy fried chicken with crunchy texture.,440,CrunchyChicken.jpg
+2,NonVeg,Starters,Dragon Chicken,Spicy Indo-Chinese style dragon chicken.,440,DragonChicken.jpg
+2,Veg,Starters,Baby Corn 65,South Indian style spiced and fried baby corn.,230,BabyCorn65.jpg
+2,Veg,Starters,Baby Corn Manchurian,Baby corn fritters cooked in manchurian sauce.,230,BabyCornManchurian.jpg
+2,Veg,Starters,Chilly Mushroom,Stir-fried mushrooms with chili sauce.,255,ChilliMushroom.jpg
+2,Veg,Starters,Chilly Paneer,Paneer cubes cooked with chili and bell peppers.,260,chillipaneer.jpg
+2,Veg,Starters,Chilly Baby Corn,Baby corn stir-fried with spicy chili sauce.,230,ChillyBabyCorn.jpg
+2,Veg,Starters,Crispy American Corn,Crispy fried American corn tossed with spices.,230,CrispyAmericanCorn.jpg
+2,Veg,Starters,Crispy Baby Corn,Golden fried baby corn in a crunchy coating.,260,CrispyBabyCorn.jpg
+2,Veg,Starters,French Fries,Crispy golden fries served hot.,200,FrenchFries.jpg
+2,Veg,Starters,KFC Paneer,Crispy battered paneer with a crunchy coating.,360,kfcpaneer.jpg
+2,Veg,Starters,Mushroom 65,Crispy fried mushrooms in a spiced batter.,255,Mushroom65.jpg
+2,Veg,Starters,Mushroom Manchurian,Mushroom balls in flavorful manchurian sauce.,250,MushroomManchurian.jpg
+2,Veg,Starters,Paneer 65,Deep-fried paneer cubes tossed with spices.,260,paneer65.jpg
+2,Veg,Starters,Paneer Fingers,Crunchy paneer sticks served with dip.,360,paneerfingers.jpg
+2,Veg,Starters,Paneer Manchurian,Paneer cubes tossed in savory manchurian sauce.,260,PaneerManchurian.jpg
+2,Veg,Starters,Veg Manchurian,Crispy veg dumplings tossed in tangy manchurian sauce.,230,VegManchurian.jpg
+3,General,Hot Beverages,Special Coffee,Freshly brewed coffee.,50,
+3,General,Hot Beverages,Special Tea,Fragrant hot tea.,50,
+3,General,Hot Beverages,Hot Badam Milk,Warm almond milk.,120,
+3,NonVeg,Tandoor Starters,Tandoori Chicken Full,Full portion of classic tandoori chicken.,630,TandooriChickenFull.jpg
+3,NonVeg,Tandoor Starters,Tangdi Kabab Half,"Half portion of tangdi kabab, smoky & juicy.",230,chickenthangdikababhalf.jpg
+3,NonVeg,Tandoor Starters,Tandoori Chicken Half,Half portion of classic tandoori chicken.,370,TandooriChickenHalf.jpg
+3,NonVeg,Tandoor Starters,Chicken Tikka 8 pcs,Tender chicken pieces grilled with spices.,390,ChickenTikka8pcs.jpg
+3,NonVeg,Tandoor Starters,Murg Malai Kabab 8 pcs,Creamy marinated chicken cooked in tandoor.,415,MurgMalaiKabab8pcs.jpg
+3,NonVeg,Tandoor Starters,Tandoori Prawn,Juicy prawns marinated and grilled in tandoor.,450,TandooriPrawn.jpg
+3,NonVeg,Tandoor Starters,Tangdi Kabab Full,"Full portion of tangdi kabab, smoky & juicy.",450,chickenthangdikababfull.jpg
+3,Veg,Tandoor Starters,Paneer Tikka,Marinated paneer cubes grilled in tandoor.,400,paneertikka.jpg
+3,Veg,Tandoor Starters,Paneer Malai Tikka,Creamy marinated paneer cooked in clay oven.,415,paneermalaitikka.jpg
+4,General,Cold Beverages,Water Bottle,Refreshing bottled water.,25,
+4,General,Cold Beverages,Nimboo Pani,Chilled lemon drink with a sweet-salty kick.,70,
+4,General,Cold Beverages,Cold Badam Milk,Chilled almond-flavored milk.,120,
+4,General,Cold Beverages,Mango Milk Shake,Creamy mango milkshake.,120,
+4,Veg,Biryanis,Veg Biryani,Fragrant biryani with seasonal vegetables.,275,
+4,Veg,Biryanis,Avakai Biryani,Spicy veg biryani with avakai pickle flavor.,325,
+4,Veg,Biryanis,Ulavacharu Biryani,Traditional veg biryani with ulavacharu.,325,
+4,Veg,Biryanis,Cashew Biryani,Biryani with cashew nut richness.,365,
+4,Veg,Biryanis,Spl. Veg Biryani,Special biryani with paneer/mixed veg/mushroom.,375,
+5,NonVeg,Sea Food,Apollo Fish,Crispy fried fish tossed in tangy masala.,440,ApolloFish.jpg
+5,NonVeg,Sea Food,Loose Prawns,Simple fried prawns seasoned to perfection.,465,LoosePrawns.jpg
+5,NonVeg,Sea Food,Prawn Roast,Dry-roasted prawns coated in spicy masala.,465,PrawnsRoast.jpg
+5,NonVeg,Sea Food,Chilly Garlic Fish,Fish in a spicy garlic-chili sauce.,350,chilligarlicfish.jpg
+5,NonVeg,Sea Food,Butter Garlic Fish,Golden fried fish with butter-garlic glaze.,440,ButterGarlicFish.jpg
+5,NonVeg,Sea Food,Butter Garlic Prawn,Juicy prawns glazed with butter and garlic.,440,ButterGarlicPrawn.jpg
+5,NonVeg,Sea Food,Chilly Garlic Prawn,Prawns tossed in zesty garlic-chili sauce.,440,ChillyGarlicPrawn.jpg
+5,NonVeg,Sea Food,Schezwan Prawn,Prawns cooked in fiery Schezwan sauce.,440,SchezwanPrawn.jpg
+5,Veg,Curries,Dal Fry,Yellow lentils tempered with spices.,220,
+5,Veg,Curries,Dal Thadka,Spicy tempered dal preparation.,230,
+5,Veg,Curries,Green Peas Masala,Green peas cooked in spiced gravy.,250,
+5,Veg,Curries,Kadai Veg,Vegetable curry cooked in kadai spices.,250,
+5,Veg,Curries,Mixed Veg Curry,Mixed vegetables cooked in curry sauce.,250,
+5,Veg,Curries,Veg Butter Masala,Rich buttery curry with mixed veggies.,250,
+5,Veg,Curries,Babycorn Masala,Babycorn cooked in flavorful masala.,270,
+5,Veg,Curries,Veg Chettinad,Chettinad-style spicy vegetable curry.,280,
+5,Veg,Curries,Veg Jaipoori,Traditional Jaipuri style vegetable curry.,280,
+5,Veg,Curries,Veg Kolhapuri,Fiery veg curry in Kolhapuri style.,280,
+5,Veg,Curries,Mushroom Masala,Spiced curry made with mushrooms.,285,
+5,Veg,Curries,Kadai Paneer,Paneer cooked in kadai style spices.,290,
+5,Veg,Curries,Mutter Paneer Masala,Green peas and paneer cooked in gravy.,290,
+5,Veg,Curries,Paneer Butter Masala,Classic rich butter gravy with paneer.,290,
+5,Veg,Curries,Methi Chaman,Paneer and greens cooked in spiced curry.,320,
+5,Veg,Curries,Paneer Chettinad,Chettinad style paneer curry.,320,
+5,Veg,Curries,Cashew Tomato Curry,Cashew and tomato-based curry.,350,
+5,Veg,Curries,Paneer Keema Masala,Paneer cooked like keema in spicy gravy.,350,
+5,Veg,Curries,Cashew Masala,Cashew nut curry in a spiced base.,375,
+5,Veg,Curries,Cashew Paneer,Paneer cooked with cashew-rich gravy.,375,
 6,NonVeg,Biryanis,Chi. Boneless Biryani,Fragrant biryani with tender boneless chicken.,350,ChickenBonelessBiryani.jpg
 6,NonVeg,Biryanis,Chi. Dum Biryani,Classic chicken dum biryani cooked on a slow flame.,315,ChickenDumBiryani.jpg
 6,NonVeg,Biryanis,Chi. Fry Biryani,Biryani served with crispy fried chicken pieces.,325,ChickenFryBiryani.jpg
@@ -46,6 +128,14 @@ Sorter_by_Category,Type,Category,Name,Description,Price,ImageURL
 6,NonVeg,Biryanis,Mutton Mughlai Biryani,Rich Mughlai-style mutton biryani.,500,
 6,NonVeg,Biryanis,Mutton Ulavacharu Biryani,Mutton biryani blended with ulavacharu.,500,
 6,NonVeg,Biryanis,Mixed Mughlai Biryani,Assorted meats in a decadent Mughlai biryani.,525,
+6,Veg,Rices,Plain Rice,Steamed plain rice.,110,
+6,Veg,Rices,Steam Rice,Simple steamed rice.,120,
+6,Veg,Rices,Curd Rice,Cooling rice with yogurt.,180,
+6,Veg,Rices,Veg Fried Rice,Classic fried rice with vegetables.,300,
+6,Veg,Rices,Cashew Fried Rice,Rice tossed with cashew nuts.,350,
+6,Veg,Rices,Jeera Rice,Rice flavored with cumin seeds.,350,
+6,Veg,Rices,Sweet Corn Fried Rice,Fried rice with sweet corn.,350,
+6,Veg,Rices,Spl. Fried Rice,"Special fried rice with paneer, mushroom or babycorn.",360,
 7,NonVeg,Curries,Mutton Fry,Fried mutton pieces.,500,muttonfry.jpg
 7,NonVeg,Curries,Egg Bhurji,Scrambled eggs cooked with spices.,200,
 7,NonVeg,Curries,Egg Masala,Egg curry in spiced masala gravy.,225,
@@ -74,93 +164,3 @@ Sorter_by_Category,Type,Category,Name,Description,Price,ImageURL
 8,NonVeg,Rices,Spl. Chicken Fried Rice,Signature chicken fried rice with extra flavor.,365,
 8,NonVeg,Rices,Spl. Prawn Fried Rice,Special prawn fried rice with bold seasoning.,390,
 8,NonVeg,Rices,Mix. Non Veg Fried Rice,Combination fried rice with assorted meats.,435,
-5,NonVeg,Sea Food,Apollo Fish,Crispy fried fish tossed in tangy masala.,440,ApolloFish.jpg
-5,NonVeg,Sea Food,Loose Prawns,Simple fried prawns seasoned to perfection.,465,LoosePrawns.jpg
-5,NonVeg,Sea Food,Prawn Roast,Dry-roasted prawns coated in spicy masala.,465,PrawnsRoast.jpg
-5,NonVeg,Sea Food,Chilly Garlic Fish,Fish in a spicy garlic-chili sauce.,350,chilligarlicfish.jpg
-5,NonVeg,Sea Food,Butter Garlic Fish,Golden fried fish with butter-garlic glaze.,440,ButterGarlicFish.jpg
-5,NonVeg,Sea Food,Butter Garlic Prawn,Juicy prawns glazed with butter and garlic.,440,ButterGarlicPrawn.jpg
-5,NonVeg,Sea Food,Chilly Garlic Prawn,Prawns tossed in zesty garlic-chili sauce.,440,ChillyGarlicPrawn.jpg
-5,NonVeg,Sea Food,Schezwan Prawn,Prawns cooked in fiery Schezwan sauce.,440,SchezwanPrawn.jpg
-1,NonVeg,Soups,Chicken Hot & Sour Soup,Spicy and tangy chicken broth with vegetables.,180,ChickenHotandSourceSoup.jpg
-1,NonVeg,Soups,Lemon Coriander Chicken Soup,Light chicken soup flavored with lemon and coriander.,180,ChickenLemonCorriandorSoup.jpg
-1,NonVeg,Soups,Chicken Manchow Soup,A hearty chicken soup with bold Indo-Chinese spices.,180,ChickenManchowSoup.jpg
-1,NonVeg,Soups,Chicken Sweetcorn Soup,Classic chicken and sweet corn soup.,180,ChickenSweetcornSoup.jpg
-2,NonVeg,Starters,Chicken 65,South Indian style fried chicken with spices.,340,Chicken65.jpg
-2,NonVeg,Starters,Chicken Manchurian,Crispy chicken balls in tangy manchurian sauce.,340,ChickenManchurian.jpg
-2,NonVeg,Starters,Chilly Chicken,Stir-fried chicken tossed in chili sauce.,340,ChillyChicken.jpg
-2,NonVeg,Starters,Garlic Chicken,Flavorful chicken stir-fried with garlic.,350,GarlicChicken.jpg
-2,NonVeg,Starters,Ginger Chicken,Chicken tossed in a ginger-based sauce.,350,GingerChicken.jpg
-2,NonVeg,Starters,Lemon Chicken,Crispy chicken flavored with lemon.,350,LemonChicken.jpg
-2,NonVeg,Starters,Chicken Drumsticks (6 Pcs),Juicy chicken drumsticks fried to perfection.,365,ChickenDrumsticks(6Pcs).jpg
-2,NonVeg,Starters,Chicken Lollypop (6 Pcs),Crispy chicken lollipops served with spicy sauce.,365,ChickenLollypop(6Pcs).jpg
-2,NonVeg,Starters,Chicken Chilly Wings,Spicy chicken wings tossed with chili sauce.,365,ChickenChillyWings.jpg
-2,NonVeg,Starters,Schezwan Chicken,Chicken stir-fried with bold schezwan flavors.,375,SchezwanChicken.jpg
-2,NonVeg,Starters,Pepper Chicken,Pepper spiced chicken fry.,390,PepperChicken.jpg
-2,NonVeg,Starters,Chicken 555,Popular spicy chicken fry from Andhra cuisine.,415,Chicken555.jpg
-2,NonVeg,Starters,Chicken Fried Wings (9 Pcs),Crispy chicken wings fried golden.,415,ChickenFriedWings(9Pcs).jpg
-2,NonVeg,Starters,Cashew Chicken,Chicken cooked with roasted cashews.,440,CashewChicken.jpg
-2,NonVeg,Starters,Crispy Chicken,Deep fried chicken strips with crispy coating.,440,CrispyChicken.jpg
-2,NonVeg,Starters,Crunchy Chicken,Crispy fried chicken with crunchy texture.,440,CrunchyChicken.jpg
-2,NonVeg,Starters,Dragon Chicken,Spicy Indo-Chinese style dragon chicken.,440,DragonChicken.jpg
-3,NonVeg,Tandoor Starters,Tandoori Chicken Full,Full portion of classic tandoori chicken.,630,TandooriChickenFull.jpg
-3,NonVeg,Tandoor Starters,Tangdi Kabab Half,"Half portion of tangdi kabab, smoky & juicy.",230,chickenthangdikababhalf.jpg
-3,NonVeg,Tandoor Starters,Tandoori Chicken Half,Half portion of classic tandoori chicken.,370,TandooriChickenHalf.jpg
-3,NonVeg,Tandoor Starters,Chicken Tikka 8 pcs,Tender chicken pieces grilled with spices.,390,ChickenTikka8pcs.jpg
-3,NonVeg,Tandoor Starters,Murg Malai Kabab 8 pcs,Creamy marinated chicken cooked in tandoor.,415,MurgMalaiKabab8pcs.jpg
-3,NonVeg,Tandoor Starters,Tandoori Prawn,Juicy prawns marinated and grilled in tandoor.,450,TandooriPrawn.jpg
-3,NonVeg,Tandoor Starters,Tangdi Kabab Full,"Full portion of tangdi kabab, smoky & juicy.",450,chickenthangdikababfull.jpg
-4,Veg,Biryanis,Veg Biryani,Fragrant biryani with seasonal vegetables.,275,
-4,Veg,Biryanis,Avakai Biryani,Spicy veg biryani with avakai pickle flavor.,325,
-4,Veg,Biryanis,Ulavacharu Biryani,Traditional veg biryani with ulavacharu.,325,
-4,Veg,Biryanis,Cashew Biryani,Biryani with cashew nut richness.,365,
-4,Veg,Biryanis,Spl. Veg Biryani,Special biryani with paneer/mixed veg/mushroom.,375,
-5,Veg,Curries,Dal Fry,Yellow lentils tempered with spices.,220,
-5,Veg,Curries,Dal Thadka,Spicy tempered dal preparation.,230,
-5,Veg,Curries,Green Peas Masala,Green peas cooked in spiced gravy.,250,
-5,Veg,Curries,Kadai Veg,Vegetable curry cooked in kadai spices.,250,
-5,Veg,Curries,Mixed Veg Curry,Mixed vegetables cooked in curry sauce.,250,
-5,Veg,Curries,Veg Butter Masala,Rich buttery curry with mixed veggies.,250,
-5,Veg,Curries,Babycorn Masala,Babycorn cooked in flavorful masala.,270,
-5,Veg,Curries,Veg Chettinad,Chettinad-style spicy vegetable curry.,280,
-5,Veg,Curries,Veg Jaipoori,Traditional Jaipuri style vegetable curry.,280,
-5,Veg,Curries,Veg Kolhapuri,Fiery veg curry in Kolhapuri style.,280,
-5,Veg,Curries,Mushroom Masala,Spiced curry made with mushrooms.,285,
-5,Veg,Curries,Kadai Paneer,Paneer cooked in kadai style spices.,290,
-5,Veg,Curries,Mutter Paneer Masala,Green peas and paneer cooked in gravy.,290,
-5,Veg,Curries,Paneer Butter Masala,Classic rich butter gravy with paneer.,290,
-5,Veg,Curries,Methi Chaman,Paneer and greens cooked in spiced curry.,320,
-5,Veg,Curries,Paneer Chettinad,Chettinad style paneer curry.,320,
-5,Veg,Curries,Cashew Tomato Curry,Cashew and tomato-based curry.,350,
-5,Veg,Curries,Paneer Keema Masala,Paneer cooked like keema in spicy gravy.,350,
-5,Veg,Curries,Cashew Masala,Cashew nut curry in a spiced base.,375,
-5,Veg,Curries,Cashew Paneer,Paneer cooked with cashew-rich gravy.,375,
-6,Veg,Rices,Plain Rice,Steamed plain rice.,110,
-6,Veg,Rices,Steam Rice,Simple steamed rice.,120,
-6,Veg,Rices,Curd Rice,Cooling rice with yogurt.,180,
-6,Veg,Rices,Veg Fried Rice,Classic fried rice with vegetables.,300,
-6,Veg,Rices,Cashew Fried Rice,Rice tossed with cashew nuts.,350,
-6,Veg,Rices,Jeera Rice,Rice flavored with cumin seeds.,350,
-6,Veg,Rices,Sweet Corn Fried Rice,Fried rice with sweet corn.,350,
-6,Veg,Rices,Spl. Fried Rice,"Special fried rice with paneer, mushroom or babycorn.",360,
-1,Veg,Soups,Lemon Coriander Soup,Refreshing soup with lemon zest and coriander aroma.,180,LemonCorriandorSoup.jpg
-1,Veg,Soups,Veg. Hot & Sour Soup,Spicy and sour vegetable soup with a perfect balance of flavors.,180,VegHotandSourceSoup.jpg
-1,Veg,Soups,Veg. Manchow Soup,A hot and tangy vegetable soup with Indo-Chinese flavors.,180,VegManchowSoup.jpg
-1,Veg,Soups,Veg. Sweetcorn Soup,Creamy sweet corn blended with fresh vegetables.,180,VegSweetcornSoup.jpg
-2,Veg,Starters,Baby Corn 65,South Indian style spiced and fried baby corn.,230,BabyCorn65.jpg
-2,Veg,Starters,Baby Corn Manchurian,Baby corn fritters cooked in manchurian sauce.,230,BabyCornManchurian.jpg
-2,Veg,Starters,Chilly Mushroom,Stir-fried mushrooms with chili sauce.,255,ChilliMushroom.jpg
-2,Veg,Starters,Chilly Paneer,Paneer cubes cooked with chili and bell peppers.,260,chillipaneer.jpg
-2,Veg,Starters,Chilly Baby Corn,Baby corn stir-fried with spicy chili sauce.,230,ChillyBabyCorn.jpg
-2,Veg,Starters,Crispy American Corn,Crispy fried American corn tossed with spices.,230,CrispyAmericanCorn.jpg
-2,Veg,Starters,Crispy Baby Corn,Golden fried baby corn in a crunchy coating.,260,CrispyBabyCorn.jpg
-2,Veg,Starters,French Fries,Crispy golden fries served hot.,200,FrenchFries.jpg
-2,Veg,Starters,KFC Paneer,Crispy battered paneer with a crunchy coating.,360,kfcpaneer.jpg
-2,Veg,Starters,Mushroom 65,Crispy fried mushrooms in a spiced batter.,255,Mushroom65.jpg
-2,Veg,Starters,Mushroom Manchurian,Mushroom balls in flavorful manchurian sauce.,250,MushroomManchurian.jpg
-2,Veg,Starters,Paneer 65,Deep-fried paneer cubes tossed with spices.,260,paneer65.jpg
-2,Veg,Starters,Paneer Fingers,Crunchy paneer sticks served with dip.,360,paneerfingers.jpg
-2,Veg,Starters,Paneer Manchurian,Paneer cubes tossed in savory manchurian sauce.,260,PaneerManchurian.jpg
-2,Veg,Starters,Veg Manchurian,Crispy veg dumplings tossed in tangy manchurian sauce.,230,VegManchurian.jpg
-3,Veg,Tandoor Starters,Paneer Tikka,Marinated paneer cubes grilled in tandoor.,400,paneertikka.jpg
-3,Veg,Tandoor Starters,Paneer Malai Tikka,Creamy marinated paneer cooked in clay oven.,415,paneermalaitikka.jpg
