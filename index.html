@@ -60,6 +60,7 @@
          padding: 1rem 1.5rem;
          color: var(--dark-gray);
          position: relative;
+         padding-top: 120px;
          }
          section {
          margin-bottom: 2rem;
@@ -90,8 +91,13 @@
          justify-content: center; /* center align on desktop */
          padding: 0px;            /* <-- space around the group */
          overflow: hidden;        /* keeps corners tidy */
-         background: var(--dark-grey); /* or a color if you want colored separators */
+         background: var(--dark-gray); /* or a color if you want colored separators */
          font-weight: 750;
+         position: sticky;
+         top: 0;
+         z-index: 10;
+         background: var(--dark-green);
+         padding: 0.5rem 0;
          }
          /* Category sub-tabs - desktop */
          .category-tabs {
@@ -109,13 +115,16 @@
          border-bottom: 0;            /* was adding a line; keep 0 for no underline */
          box-shadow: none;
          border-radius: 0;
+         position: sticky;
+         top: 60px;
+         background: var(--light-gray);
          }
          .category-tabs button {
          padding: 8px 18px;
          border-radius: 25px;
          border: 2px solid var(--black);
-         background: var(--dark-grey);
-         color: var(--dark-grey);
+         background: var(--dark-gray);
+         color: var(--dark-gray);
          font-size: 0.95rem;
          font-weight: 600;
          cursor: pointer;
@@ -175,8 +184,11 @@
          }
          .menu-item-controls {
          display: flex;
-         align-items: center;
-         justify-content: space-between;
+         flex-direction: column;
+         align-items: flex-end;
+         justify-content: flex-end;
+         gap: 8px;
+         white-space: nowrap;
          }
          .item-thumb {
          width: 60px;
@@ -189,14 +201,14 @@
          }
          .item-thumb.empty { display: none; }
          .menu-image {
-         width: 100px;
+         width: 120px;
          height: auto;
          border-radius: 8px;
          margin-bottom: 8px;
          object-fit: cover;
          display: block;
          margin-left: 8px;
-         margin-right: 10px; Okk
+         margin-right: 10px; 
          }
          .menu-image.empty {
          background-color: #f0f0f0;
@@ -205,7 +217,7 @@
          }
          .item-name {
          font-weight: 700;
-         font-size: 1.15rem;
+         font-size: 1.3rem;
          color: var(--dark-green);
          }
          .item-desc {
@@ -217,7 +229,7 @@
          .item-price {
          font-weight: 700;
          font-size: 1.1rem;
-         margin-right: 1rem;
+         margin-right: 0;
          color: var(--orange);
          min-width: 75px;
          text-align: right;
@@ -387,11 +399,32 @@
          background-color: var(--white);
          padding: 14px; /* equal padding for round shape */
          border-radius: 50%;
-         color: white;
+         color: var(--dark-green);
          font-size: 1.5rem;
-         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
          cursor: pointer;
          z-index: 100;
+         transition: all 0.3s ease;
+         display: none;
+         position: relative;
+         }
+         #cartButton::after {
+         content: attr(data-count);
+         position: absolute;
+         top: -5px;
+         right: -5px;
+         background: var(--light-orange);
+         color: #fff;
+         border-radius: 50%;
+         width: 20px;
+         height: 20px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 0.8rem;
+         }
+         #cartButton.visible {
+         display: block;
          }
          @media (max-width: 720px) {
          .item-info {
@@ -423,6 +456,13 @@
          bottom: 12px;
          right: 12px;
          }
+         #cartButton::after {
+         top: -3px;
+         right: -3px;
+         width: 18px;
+         height: 18px;
+         font-size: 0.7rem;
+         }
          /* Menu item stacking */
          .menu-item {
          display: flex;
@@ -447,6 +487,13 @@
          color: #555;
          margin-top: 0.2rem;
          }
+         .item-name {
+         font-size: 1.1rem;
+         max-width: 100%;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+         }
          /* Right column: price on top, qty/add at bottom, right-aligned */
          .menu-item-controls {
          align-self: stretch;
@@ -459,6 +506,48 @@
          .quantity-selector, .add-btn { order: 1; }
          .quantity-selector { display: inline-flex; align-items: center; gap: 8px; }
          #orderList { max-height: 140px; }
+         .category-tabs {
+         top: 50px; /* below header */
+         z-index: 9;
+         display: flex;
+         gap: 8px;
+         overflow-x: auto;
+         white-space: nowrap;
+         padding: 12px 0px;
+         background: transparent;
+         border-bottom: 0;
+         font-weight: 600;
+         box-shadow: none;
+         justify-content: left
+         margin: 0
+         }
+         .category-tabs::-webkit-scrollbar { height: 6px; }
+         .category-tabs button {
+         flex: 0 0 auto;
+         border: 1px solid rgba(0, 0, 0, 0.15);
+         background: #f0f0f0;
+         padding: 8px 14px;
+         border-radius: 20px;
+         font-size: 13px;
+         font-weight: 500;
+         cursor: pointer;
+         transition: all 0.2s ease;
+         font-weight: 600;
+         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+         justify-content: left 	
+         }
+         .category-tabs button:hover {
+         background: var(--dark-green);
+         color: #fff;
+         }
+         .category-tabs button.active {
+         background: var(--dark-green);
+         color: #fff;
+         font-size: 13px;
+         font-weight: 500;
+         border-color: var(--dark-green);
+         box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
+         }
          }
          @media (max-width: 768px) {
          .order-summary-footer { gap: 8px; }
@@ -485,7 +574,7 @@
          }
          /* Sticky horizontal category sub-tabs */
          .category-tabs {
-         top: 60px; /* below header */
+         top: 50px; /* below header */
          z-index: 9;
          display: flex;
          gap: 8px;
@@ -539,91 +628,87 @@
       </header>
       <main>
          <!-- Menu Section -->
-         <section aria-label="Menu Section" id="menuSection"
-         <p style="margin: 0; font-style: italic; font-size: 0.1rem; font-weight: 1; color: #555; "> </p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Food is freshly prepared in our Cloud Kitchen.</p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Items subject to availability.</p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Delivery time: Minimum 20 mins.</p>
-         <p style="margin:0;font-style:italic;font-size:0.9rem;font-weight:200;color:#555;">
-            - Concerns? : .   
-            <!-- WhatsApp Button -->
-            <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               aria-label="Chat on WhatsApp at 9985908131" 
-               style="display:inline-flex;align-items:center;gap:8px;margin-right:15px;text-decoration:none;color:inherit;">
-               <svg viewBox="0 0 32 32" aria-hidden="true" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
-                  <path fill="#25D366" d="M19.11 17.12c-.28-.14-1.64-.81-1.89-.9-.26-.1-.45-.14-.64.14-.19.28-.73.9-.9 1.08-.17.2-.33.21-.61.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.56-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.28-1 1-1 2.43 0 1.43 1.03 2.8 1.17 2.99.14.2 2.02 3.09 4.88 4.33.68.3 1.2.48 1.6.62.67.21 1.27.18 1.75.11.53-.08 1.64-.67 1.87-1.32.23-.64.23-1.19.16-1.32-.08-.12-.25-.2-.53-.35z"/>
-                  <path fill="#25D366" d="M27.1 4.9A14 14 0 0 0 4.9 27.1L3 29l2.12-.55A14 14 0 1 0 27.1 4.9zm-6.02 19.92c-2.35 1.08-5.08 1.2-7.57.34-2.5-.87-4.61-2.6-5.87-4.9A11.2 11.2 0 0 1 7.3 8.13a11.13 11.13 0 0 1 15.74 0 11.15 11.15 0 0 1 0 15.74 10.9 10.9 0 0 1-1.96 1.95z"/>
-               </svg>
-               <span style="color:#25D366;">WhatsApp</span>
-            </a>
-            <!-- Call Button -->
-            <a href="tel:+919985908131" 
-               aria-label="Call 9985908131" 
-               style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit;">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
-                  fill="#007BFF" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
-                  <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.59.09.32.03.68-.24 1.01l-2.21 2.19z"/>
-               </svg>
-               <span style="color:#007BFF;">Call</span>
-            </a>
-         </p>
-      
-         <hr style="border: none; border-top: 1px solid #ddd; margin: 8px 0;">
-
-            
-         <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
-         <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
-         <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tanindex="2">General</button>
-         </nav>
-         <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
-            <p style="font-style: italic; color: #777;">Loading menu…</p>
-         </div>
+         <section aria-label="Menu Section" id="menuSection">
+            <p style="margin: 0; font-style: italic; font-size: 0.1rem; font-weight: 1; color: #555; "> </p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Food is freshly prepared in our Cloud Kitchen.</p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Items subject to availability.</p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Delivery time: Minimum 20 mins.</p>
+            <p style="margin:0;font-style:italic;font-size:0.9rem;font-weight:200;color:#555;">
+               - Concerns? : .   
+               <!-- WhatsApp Button -->
+               <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  aria-label="Chat on WhatsApp at 9985908131" 
+                  style="display:inline-flex;align-items:center;gap:8px;margin-right:15px;text-decoration:none;color:inherit;">
+                  <svg viewBox="0 0 32 32" aria-hidden="true" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
+                     <path fill="#25D366" d="M19.11 17.12c-.28-.14-1.64-.81-1.89-.9-.26-.1-.45-.14-.64.14-.19.28-.73.9-.9 1.08-.17.2-.33.21-.61.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.56-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.28-1 1-1 2.43 0 1.43 1.03 2.8 1.17 2.99.14.2 2.02 3.09 4.88 4.33.68.3 1.2.48 1.6.62.67.21 1.27.18 1.75.11.53-.08 1.64-.67 1.87-1.32.23-.64.23-1.19.16-1.32-.08-.12-.25-.2-.53-.35z"/>
+                     <path fill="#25D366" d="M27.1 4.9A14 14 0 0 0 4.9 27.1L3 29l2.12-.55A14 14 0 1 0 27.1 4.9zm-6.02 19.92c-2.35 1.08-5.08 1.2-7.57.34-2.5-.87-4.61-2.6-5.87-4.9A11.2 11.2 0 0 1 7.3 8.13a11.13 11.13 0 0 1 15.74 0 11.15 11.15 0 0 1 0 15.74 10.9 10.9 0 0 1-1.96 1.95z"/>
+                  </svg>
+                  <span style="color:#25D366;">WhatsApp</span>
+               </a>
+               <!-- Call Button -->
+               <a href="tel:+919985908131" 
+                  aria-label="Call 9985908131" 
+                  style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                     fill="#007BFF" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
+                     <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.59.09.32.03.68-.24 1.01l-2.21 2.19z"/>
+                  </svg>
+                  <span style="color:#007BFF;">Call</span>
+               </a>
+            </p>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 8px 0;">
+            <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
+            <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
+            <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tabindex="-1">General</button>
+            </nav>
+            <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
+               <p style="font-style: italic; color: #777;">Loading menu…</p>
+            </div>
          </section>
          <!-- Menu Section -->
          <!-- Order Summary Section -->
          <section id="orderSummarySection">
             <h2 style="color: var(--primary);">Order Summary</h2>
             <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-               <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-               <!-- Order list (dynamic rows inserted here) -->
-               <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
-                  <li>No items selected</li>
-               </ul>
-               <!-- Total -->
-               <div class="order-summary-footer">
-                  <div class="summary-line">
-                     <span class="label">Subtotal: </span>
-                     <span class="value">₹<span id="subtotal">0.00</span></span>
-                  </div>
-                  <div class="summary-line">
-                     <span class="label">GST (5%): </span>
-                     <span class="value">₹<span id="gst">0.00</span></span>
-                  </div>
-                  <div class="summary-line total">
-                     <span class="label">Total: </span>
-                     <span class="value"><span id="orderTotal">0.00</span></span>
-                  </div>
+            <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
+            <!-- Order list (dynamic rows inserted here) -->
+            <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
+               <li>No items selected</li>
+            </ul>
+            <!-- Total -->
+            <div class="order-summary-footer">
+               <div class="summary-line">
+                  <span class="label">Subtotal: </span>
+                  <span class="value">₹<span id="subtotal">0.00</span></span>
                </div>
+               <div class="summary-line">
+                  <span class="label">GST (5%): </span>
+                  <span class="value">₹<span id="gst">0.00</span></span>
+               </div>
+               <div class="summary-line total">
+                  <span class="label">Total: </span>
+                  <span class="value"><span id="orderTotal">0.00</span></span>
+               </div>
+            </div>
          </section>
          <!-- End Order Summary Section -->
          <!-- Guest Information Section -->
          <section id="guestInfo" class="card">
-         <h2>Guest Information</h2>
-         <label for="guestName">Guest Name: *</label>
-         <input type="text" id="guestName" required placeholder="Enter your name">
-         <label for="roomNumber">Room Number: *</label>
-         <input type="number" id="roomNumber" required placeholder="Enter your room number" min="101" max="501">
-         <label for="Whatsappnum">WhatsApp Number: *</label>
-         <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number">
-         <div style="text-align: center;">
-         <button id="confirmOrder"  
-            style="width: 45%; padding: 0.5rem; background: var(--dark-green); color: #fff; font-weight: 650; font-size: 1rem; border: none; border-radius: 20px; cursor: pointer;">
-         Confirm Order  
-         </button>
-         </div>
-         </div>
+            <h2>Guest Information</h2>
+            <label for="guestName">Guest Name: *</label>
+            <input type="text" id="guestName" required placeholder="Enter your name">
+            <label for="roomNumber">Room Number: *</label>
+            <input type="number" id="roomNumber" required placeholder="Enter your room number" min="101" max="501">
+            <label for="Whatsappnum">WhatsApp Number: *</label>
+            <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number">
+            <div style="text-align: center;">
+               <button id="confirmOrder"  
+                  style="width: 45%; padding: 0.5rem; background: var(--dark-green); color: #fff; font-weight: 650; font-size: 1rem; border: none; border-radius: 20px; cursor: pointer;">
+               Confirm Order  
+               </button>
+            </div>
          </section>
          <!-- Guest Information Section -->
       </main>
@@ -634,8 +719,14 @@
       <!-- Floating Cart Button -->
       <script>
          (() => {
-                   
-                
+         function safeId(name) {
+         return name.replace(/[^a-zA-Z0-9]/g, '_');
+         }
+         
+         function sanitizeInput(str) {
+         return str.replace(/[<>]/g, '');
+         }
+         
            const menuContainer = document.getElementById('menuContainer');
            const tabVegBtn = document.getElementById('tabVeg');
            const tabNonVegBtn = document.getElementById('tabNonVeg');
@@ -645,7 +736,7 @@
          const confirmOrderBtn = document.getElementById('confirmOrder');
            const guestNameEl = document.getElementById('guestName');
          const roomNumberEl = document.getElementById('roomNumber');
-         const whatsappEl = document.getElementById('guestWhatsApp');
+         const guestWhatsAppEl = document.getElementById('guestWhatsApp');
          
            let menuData = { veg:{}, nonveg:{}, general:{} };
            let currentTab = 'veg';
@@ -669,7 +760,7 @@
          }
          
          const obj = {};
-         headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
+         headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "";
          return obj;
          });
          }
@@ -709,7 +800,7 @@
          </div>
          <div class="menu-item-controls">
           <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-          <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+          <div class="quantity-selector" id="qty-${safeId(item.Name)}">
             ${qty > 0 
               ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
                  <span class="qty-val">${qty}</span>
@@ -765,8 +856,8 @@
          
          //Function to update quantity in the menu list (live update)
          function updateMenuQty(name) {
-         const safeId = `#qty-${name.replace(/\s+/g, '_')}`;
-         const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeId)} .qty-val`);
+         const safeIdValue = `#qty-${safeId(name)}`;
+         const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeIdValue)} .qty-val`);
          
          if (qtyValElem) {
          const updatedQty = currentOrder[name]?.qty || 0;
@@ -913,9 +1004,9 @@
          
          confirmOrderBtn.addEventListener('click', () => {
          // Get guest info from inputs
-         const guestName = document.getElementById('guestName').value.trim();
-         const roomNumber = document.getElementById('roomNumber').value.trim();
-         const guestWhatsApp = document.getElementById('guestWhatsApp').value.trim();
+         const guestName = sanitizeInput(document.getElementById('guestName').value.trim());
+         const roomNumber = sanitizeInput(document.getElementById('roomNumber').value.trim());
+         const guestWhatsApp = sanitizeInput(document.getElementById('guestWhatsApp').value.trim());
          
          // Validate guest info fields
          if (!guestName || !roomNumber || !guestWhatsApp) {
@@ -931,7 +1022,7 @@
          let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
          
          // Open WhatsApp with the prefilled message
-         window.open(`https://wa.me/${+917702483811}?text=${encodeURIComponent(msg)}`, '_blank');
+         window.open(`https://wa.me/+917702483811?text=${encodeURIComponent(msg)}`, '_blank');
          });
          
          })();
@@ -944,8 +1035,12 @@
          
          window.updateCartButton = function() {
          const total = parseFloat(orderTotalEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+         const itemCount = Object.values(currentOrder).reduce((sum, item) => sum + item.qty, 0);
          console.log("Order Total inside updateCartButton:", total);
          cartButton.style.display = total > 0 ? 'block' : 'none';
+         cartButton.setAttribute('data-count', itemCount > 0 ? itemCount : '');
+         if (total > 0) cartButton.classList.add('visible');
+         else cartButton.classList.remove('visible');
          };
          
          cartButton.addEventListener('click', () => {
