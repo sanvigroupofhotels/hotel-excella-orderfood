@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <title>Hotel Excella - Food Ordering</title>
+      <style>
+         :root {
+            --primary: #2e7d32;
+            --accent: #f9a825;
+            --orange: #f9a825;
+            --light-orange: #FDAA48;
+            --dark-green: #2e7d32;
+            --yellow: #fff176;
+            --black: #000000;
+            --bg-black: #000000;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-main-size: 1rem;
+         }
+         body {
+            margin: 0;
+            font-family: var(--font-family);
+            background-color: var(--bg-black);
+            color: var(--white);
+            line-height: 1.6;
+            font-size: var(--font-main-size);
+         }
+         header {
+            text-align: center;
+            padding: 1rem 0;
+            background: var(--dark-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+         }
+         header img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 0.5rem;
+         }
+         header h1 {
+            margin: 0;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--orange);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+         }
+         header p {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--yellow);
+         }
+         main {
+            max-width: 900px;
+            margin: 1rem auto 4rem auto;
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            color: var(--dark-gray);
+            position: relative;
+            padding-top: 120px;
+         }
+         section {
+            margin-bottom: 2rem;
+         }
+         h2 {
+            border-bottom: 0px solid var(--orange);
+            padding-bottom: 0 rem;
+            color: var(--dark-green);
+         }
+         #guestInfo label {
+            display: block;
+            font-weight: 750;
+            margin-bottom: 4px;
+            color: var(--primary);
+         }
+         #guestInfo input {
+            width: 90%;
+            padding: 10px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+         }
+         /* Container */
+         #menuTabs {
+            display: flex;
+            border-radius: 30px;
+            justify-content: center;
+            padding: 0px;
+            overflow: hidden;
+            background: var(--dark-gray);
+            font-weight: 750;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--dark-green);
+            padding: 0.5rem 0;
+         }
+         /* Category sub-tabs - desktop */
+         .category-tabs {
+            position: sticky;
+            top: 60px;
+            z-index: 9;
+            display: flex;
+            gap: 16px;
+            padding: 12px 0;
+            margin: 0;
+            justify-content: left;
+            background: var(--light-gray);
+            border: 0;
+            border-bottom: 0;
+            box-shadow: none;
+            border-radius: 0;
+         }
+         .category-tabs button {
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 2px solid var(--black);
+            background: var(--dark-gray);
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            justify-content: left;
+         }
+         .category-tabs button:hover {
+            background: var(--dark-green);
+            color: #fff;
+         }
+         .category-tabs button.active {
+            background: var(--dark-green);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-color: var(--dark-green);
+         }
+         .tab-btn {
+            flex: 1;
+            padding: 0.6rem 0.9rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--dark-green);
+            text-align: center;
+            cursor: pointer;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 16px;
+            transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease;
+            user-select: none;
+         }
+         .tab-btn.active {
+            color: #fff;
+            background: var(--light-orange);
+            border-bottom: 3px solid var(--light-orange);
+            color: var(--dark-green);
+         }
+         .tab-btn:focus-visible {
+            outline: 3px solid var(--light-orange);
+         }
+         .menu-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dotted var(--dark-green);
+         }
+         .menu-item:last-child { border-bottom: none; }
+         .menu-item-details {
+            flex-grow: 1;
+            margin-right: 10px;
+         }
+         .menu-item-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+            gap: 8px;
+            white-space: nowrap;
+         }
+         .item-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            background-position: center;
+            background-size: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--dark-green);
+         }
+         .item-thumb.empty { display: none; }
+         .menu-image {
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            object-fit: cover;
+            display: block;
+            margin-left: 8px;
+            margin-right: 10px;
+         }
+         .menu-image.empty {
+            background-color: #f0f0f0;
+            width: 100px;
+            height: 100px;
+         }
+         .item-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--dark-green);
+         }
+         .item-desc {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 0.2rem;
+         }
+         .item-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: 0;
+            color: var(--orange);
+            min-width: 75px;
+            text-align: right;
+         }
+         .quantity-selector {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+         }
+         .quantity-selector button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+         }
+         .quantity-selector .inc-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+         }
+         .quantity-selector .dec-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 6px;
+            background: #e53935;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+         }
+         .quantity-selector button:hover { background: #218838; }
+         .quantity-selector .qty-val {
+            min-width: 20px;
+            text-align: center;
+            color: #000;
+            font-weight: 600;
+            font-size: 1rem;
+            font-style: normal;
+         }
+         #orderBox {
+            background: var(--dark-green);
+            color: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+         }
+         #orderBox h3 {
+            color: var(--yellow);
+            margin-top: 0;
+            margin-bottom: 1rem;
+         }
+         #orderList {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            list-style-type: disc;
+            max-height: 200px;
+            overflow-y: auto;
+         }
+         #orderList li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+         }
+         .order-item-name { flex: 1; }
+         .order-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 90px;
+            justify-content: center;
+         }
+         .order-item-price {
+            min-width: 70px;
+            text-align: right;
+            font-weight: 600;
+         }
+         .dec-btn {
+            padding: 2px 6px;
+            border: none;
+            border-radius: 5px;
+            background: #e53935;
+            color: #fff;
+            cursor: pointer;
+         }
+         .inc-btn {
+            padding: 2px 6px;
+            border: none;
+            border-radius: 5px;
+            background: #43a047;
+            color: #fff;
+            cursor: pointer;
+         }
+         #orderTotal::before { content: "₹ "; font-weight: bold; }
+         #orderTotal {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            border-top: 2px solid var(--yellow);
+            padding-top: 0.5rem;
+            text-align: right;
+         }
+         .order-summary-footer {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+         }
+         .summary-line {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin: 4px 0;
+            font-size: 1rem;
+         }
+         .summary-line .label {
+            font-weight: 500;
+            text-align: right;
+         }
+         .summary-line .value {
+            font-variant-numeric: tabular-nums;
+            text-align: right;
+            min-width: 60px;
+         }
+         .summary-line.total {
+            border-top: 2px solid var(--accent);
+            margin-top: 6px;
+            padding-top: 6px;
+            font-weight: 700;
+            font-size: 1.2rem;
+         }
+         .summary-line.total .value { color: #fff; }
+         #confirmOrder {
+            width: 60%;
+            padding: 0.8rem;
+            background: var(--light-orange);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+         }
+         #confirmOrder:disabled {
+            background: #bbb;
+            cursor: not-allowed;
+         }
+         .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0,0,0,0) !important;
+            border: 0 !important;
+         }
+         #cartButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--white);
+            padding: 14px;
+            border-radius: 50%;
+            color: var(--dark-green);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: none;
+            position: relative;
+         }
+         #cartButton::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--light-orange);
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+         }
+         #cartButton.visible {
+            display: block;
+         }
+         @media (max-width: 720px) {
+            .item-info {
+               flex-direction: column;
+               gap: 0.35rem;
+            }
+            .item-name { font-size: 1rem; }
+            .menu-item { padding: 0.3rem 0; }
+            #orderSummary { padding: 0.75rem; }
+         }
+      </style>
+      <!-- Mobile Overrides -->
+      <style id="mobile-responsive-overrides">
+         @media (max-width: 768px) {
+            header {
+               flex-direction: row;
+               align-items: center;
+               gap: 10px;
+            }
+            header img { height: 50px; }
+            .hotel-name { font-size: 1rem; }
+            .tagline { font-size: 0.9rem; }
+         }
+         @media (max-width: 600px) {
+            #cartButton {
+               font-size: 1.2rem;
+               padding: 10px;
+               bottom: 12px;
+               right: 12px;
+            }
+            #cartButton::after {
+               top: -3px;
+               right: -3px;
+               width: 18px;
+               height: 18px;
+               font-size: 0.7rem;
+            }
+            .menu-item {
+               display: flex;
+               gap: 12px;
+               align-items: start;
+            }
+            .menu-image {
+               width: 70px;
+               height: 70px;
+               object-fit: cover;
+               border-radius: 10px;
+               align-self: center;
+            }
+            .menu-item-details {
+               flex: 1;
+               min-width: 0;
+            }
+            .item-desc {
+               font-style: italic;
+               white-space: wrap;
+               font-size: 0.9rem;
+               color: #555;
+               margin-top: 0.2rem;
+            }
+            .item-name {
+               font-size: 1.1rem;
+               max-width: 100%;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+            }
+            .menu-item-controls {
+               align-self: stretch;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-between;
+               align-items: flex-end;
+               gap: 8px;
+               white-space: nowrap;
+            }
+            .item-price { font-size: 0.95rem; order: 0; margin: 0; font-weight: 700; }
+            .quantity-selector, .add-btn { order: 1; }
+            .quantity-selector { display: inline-flex; align-items: center; gap: 8px; }
+            #orderList { max-height: 140px; }
+            .category-tabs {
+               top: 50px;
+               z-index: 9;
+               display: flex;
+               gap: 8px;
+               overflow-x: auto;
+               white-space: nowrap;
+               padding: 12px 0px;
+               background: transparent;
+               border-bottom: 0;
+               font-weight: 600;
+               box-shadow: none;
+               justify-content: left;
+               margin: 0;
+            }
+            .category-tabs::-webkit-scrollbar { height: 6px; }
+            .category-tabs button {
+               flex: 0 0 auto;
+               border: 1px solid rgba(0, 0, 0, 0.15);
+               background: #f0f0f0;
+               padding: 8px 14px;
+               border-radius: 20px;
+               font-size: 13px;
+               font-weight: 500;
+               cursor: pointer;
+               transition: all 0.2s ease;
+               font-weight: 600;
+               box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+               justify-content: left;
+            }
+            .category-tabs button:hover {
+               background: var(--dark-green);
+               color: #fff;
+            }
+            .category-tabs button.active {
+               background: var(--dark-green);
+               color: #fff;
+               font-size: 13px;
+               font-weight: 500;
+               border-color: var(--dark-green);
+               box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
+            }
+         }
+         @media (max-width: 768px) {
+            .order-summary-footer { gap: 8px; }
+            .order-summary-footer > div { font-size: 1rem; }
+         }
+         @media (max-width: 600px) {
+            .footer-actions,
+            .cart-actions,
+            .actions,
+            #orderActions {
+               position: static !important;
+               display: flex !important;
+               flex-direction: column !important;
+               gap: 8px !important;
+               padding: 8px 10px !important;
+               width: 100% !important;
+               box-sizing: border-box;
+            }
+            #confirmOrder { width: 100% !important; }
+            #confirmBtn,
+            #confirmOrderBtn {
+               order: 2 !important;
+               width: 100% !important;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <img src="images/hotelexcellalogo.png" alt="Hotel Logo">
+         <div>
+            <h1 class="hotel-name">HOTEL EXCELLA</h1>
+            <p class="tagline">IN-HOUSE ROOM SERVICE MENU</p>
+         </div>
+      </header>
+      <main>
+         <section aria-label="Menu Section" id="menuSection">
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555;">- Food is freshly prepared in our Cloud Kitchen.</p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555;">- Items subject to availability.</p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555;">- Delivery time: Minimum 20 mins.</p>
+            <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555;">- Concerns? : 
+               <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp at 9985908131" style="display:inline-flex;align-items:center;gap:8px;margin-right:15px;text-decoration:none;color:inherit;">
+                  <svg viewBox="0 0 32 32" aria-hidden="true" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
+                     <path fill="#25D366" d="M19.11 17.12c-.28-.14-1.64-.81-1.89-.9-.26-.1-.45-.14-.64.14-.19.28-.73.9-.9 1.08-.17.2-.33.21-.61.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.56-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.28-1 1-1 2.43 0 1.43 1.03 2.8 1.17 2.99.14.2 2.02 3.09 4.88 4.33.68.3 1.2.48 1.6.62.67.21 1.27.18 1.75.11.53-.08 1.64-.67 1.87-1.32.23-.64.23-1.19.16-1.32-.08-.12-.25-.2-.53-.35z"/>
+                     <path fill="#25D366" d="M27.1 4.9A14 14 0 0 0 4.9 27.1L3 29l2.12-.55A14 14 0 1 0 27.1 4.9zm-6.02 19.92c-2.35 1.08-5.08 1.2-7.57.34-2.5-.87-4.61-2.6-5.87-4.9A11.2 11.2 0 0 1 7.3 8.13a11.13 11.13 0 0 1 15.74 0 11.15 11.15 0 0 1 0 15.74 10.9 10.9 0 0 1-1.96 1.95z"/>
+                  </svg>
+                  <span style="color:#25D366;">WhatsApp</span>
+               </a>
+               <a href="tel:+919985908131" aria-label="Call 9985908131" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#007BFF" style="width:1.35em;height:1.35em;flex:0 0 auto;vertical-align:-2px;">
+                     <path d="M6.62 10.79a15.053 15.05
