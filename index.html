@@ -232,42 +232,65 @@
          align-items: center;
          gap: 0.3rem;
          }
-         .quantity-selector button {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #28a745;
-         color: #fff;
-         cursor: pointer;
-         font-size: 0.9rem;
-         }
-         .quantity-selector .inc-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #28a745; /* green */
-         color: #fff;
-         cursor: pointer;
-         font-size: 0.9rem;
-         }
-         .quantity-selector .dec-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #e53935; /* red */
-         color: #fff;
-         cursor: pointer;
-         font-size: 0.9rem;
-         }
-         .quantity-selector button:hover { background: #218838; }
-         .quantity-selector .qty-val {
-         min-width: 20px;
-         text-align: center;
-         color: #000; 
-         font-weight: 600;
-         font-size: 1rem;
-         font-style: normal;
-         }
+
+.quantity-selector .add-btn {
+  font-size: 1rem;          /* bigger text */
+  font-weight: 500;
+  padding: 10px 20px;         /* increase clickable area */
+  border-radius: 8px;
+  background: #28a745;        /* same green as + button */
+  color: #fff;
+  cursor: pointer;
+  min-width: px;        /* touch-friendly */
+  min-height: 25px;          /* touch-friendly */
+  text-align: center;
+  transition: background 0.2s ease, transform 0.1s ease;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.quantity-selector .add-btn:hover {
+  background: #218838;        /* darker green on hover */
+}
+
+.quantity-selector .add-btn:active {
+  transform: scale(0.96);     /* subtle press effect */
+}
+
+
+
+        /* + button (bigger) */
+.quantity-selector .inc-btn {
+  padding: 10px 14px;        /* was 4px 8px */
+  border: none;
+  border-radius: 8px;        /* was 6px */
+  background: #28a745;       /* green */
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;         /* was 0.9rem */
+  min-width: 30px;        /* touch-friendly */
+  min-height: 30px;          /* touch-friendly */
+  line-height: 1;
+}
+
+/* − button (bigger) */
+.quantity-selector .dec-btn {
+  padding: 10px 14px;        /* was 4px 8px */
+  border: none;
+  border-radius: 8px;        /* was 6px */
+  background: #e53935;       /* red */
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;         /* was 0.9rem */
+  min-width: 25px;        /* touch-friendly */
+  min-height: 25px;          /* touch-friendly */
+  line-height: 1;
+}
+
+/* Optional: hover states tuned per button */
+.quantity-selector .inc-btn:hover { background: #218838; }
+.quantity-selector .dec-btn:hover { background: #c62828; }
+
          #orderBox {
          background: var(--dark-green);
          color: #fff;
@@ -564,8 +587,7 @@
          .item-name {
          font-weight: 700;
          font-size: 1rem;
-         color: var(--dark-green);
-	 white-space: nowrap;                   /* Prevent line breaks */
+         color: var(--dark-green);	 
          }
          .item-desc {
          font-style: italic;
@@ -583,7 +605,7 @@
          gap: 8px;
          }
          .item-price {
-         font-size: 1rem;
+         font-size: 1.1rem;
          font-weight: 700;
          margin: 0;
          padding: 0;
@@ -591,7 +613,7 @@
          }
          .add-btn,
          .quantity-selector {
-         font-size: 1rem;
+         font-size: 1.1rem;
          line-height: 1;
          display: inline-flex;
          align-items: baseline;
