@@ -1081,20 +1081,16 @@
          alert("Please enter a valid room number (101–106, 201–206, 301–306, 401–406).");
          return;
          }
-	 
- 	
-  const activeItems = Object.entries(window.currentOrder || {})
-    .filter(([_, item]) => Number(item?.qty || 0) > 0);
+	          
+         // Construct the order message with each item on a new line
+         let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
+         let total = orderTotalEl.textContent;
 
-  if (activeItems.length === 0) {
+	  if (orderDetails.length === 0) {
     alert('Please add at least one item to your order.');
     return;
   }
 
-         
-         // Construct the order message with each item on a new line
-         let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
-         let total = orderTotalEl.textContent;
          
          // Use template literals and encodeURIComponent for proper line breaks and URL encoding
          let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
