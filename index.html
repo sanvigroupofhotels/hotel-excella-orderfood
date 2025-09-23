@@ -147,7 +147,6 @@
          background: var(--light-gray);         /* Light gray background */
          color: var(--dark-green);              /* Text color */
          border: none;                           /* Remove all borders */
-         /*border-bottom: 3px solid var(--light-orange);*/ /* Optional bottom border */
          border-radius: 16px;                    /* Slight rounding for hover effect */
          transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
          user-select: none;                      /* Prevent text selection */
@@ -157,7 +156,6 @@
          font-color: #fff;                       /* Incorrect property (should be 'color') */
          color: #fff;                            /* White text */
          background: var(--light-orange);       /* Orange background for active tab */
-         border-bottom: 3px solid var(--light-orange); /* Bottom border for active tab */
          color: var(--dark-green);              /* Overwrites white text (conflicting) */
          }
          /* Focus-visible state for accessibility */
@@ -170,8 +168,8 @@
          flex-wrap: wrap;
          align-items: center;
          justify-content: space-between;
-         padding: 0.5rem 0;
-         border-bottom: 1px dotted var(--dark-green);
+         padding: 5rem 0;
+         border-bottom: 1.2px dotted var(--dark-green);
          }
          .menu-item:last-child { border-bottom: none; }
          .menu-item-details {
@@ -444,7 +442,6 @@
          color: var(--dark-green);              /* Text color */
          flex-wrap: wrap;                       /* Allow wrapping to next line */
          overflow-x: auto;                      /* Enable horizontal scroll if needed */
-         border-bottom: 1px solid #ccc;         /* Light bottom border */
          }
          /* Mobile tab button styles */
          .tab-btn {
@@ -458,7 +455,6 @@
          background: var(--light-gray);         /* Light gray background */
          color: var(--dark-green);              /* Text color */
          border: none;                           /* Remove all borders */
-         /*border-bottom: 3px solid var(--light-orange);*/ /* Optional bottom border */
          border-radius: 16px;                    /* Slight rounding for hover effect */
          transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
          user-select: none;                      /* Prevent text selection */
@@ -493,7 +489,6 @@
          overflow-x: auto;                      /* Enable horizontal scroll */
          white-space: nowrap;                   /* Prevent line breaks */
          padding: 12px 0px;                     /* Vertical padding */
-         border-bottom: 1px solid #eee;         /* Light bottom border */
          font-weight: 600;                      /* Bold text */
          box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* Subtle shadow for elevation */
          }
