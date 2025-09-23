@@ -83,7 +83,7 @@
          margin-bottom: 15px;
          font-size: 1rem;
          }
-         /* Container */
+         /* Container for main tabs */
          #menuTabs {
          display: flex;
          border-radius: 30px;
@@ -93,72 +93,77 @@
          background: var(--dark-grey); /* or a color if you want colored separators */
          font-weight: 750;
          }
-         /* Category sub-tabs - desktop */
+         /* Sub-category tabs container */
          .category-tabs {
-         /*position: sticky;*/
-         top: var(--menuTabs-h, 0);   /* keep sticky if you need; adjust or remove */
-         z-index: 9;
-         display: flex;
-         gap: 16px;
-         padding: 12px 0;              /* keep vertical rhythm without a box */
-         margin: 0;
-         justify-content: left;
-         /* 🔻 remove box look */
-         background: transparent;
-         border: 0;
-         border-bottom: 0;            /* was adding a line; keep 0 for no underline */
-         box-shadow: none;
-         border-radius: 0;
+         position: sticky;                    /* Sticky behavior */
+         top: var(--menuTabs-h, 0);             /* Top offset using a CSS variable fallback to 0 */
+         z-index: 9;                             /* Layering above other elements */
+         display: flex;                          /* Horizontal layout for buttons */
+         gap: 16px;                              /* Space between buttons */
+         padding: 12px 0;                        /* Vertical padding only */
+         margin: 0;                              /* No margin around the container */
+         justify-content: left;                 /* Align buttons to the left */
+         background: transparent;               /* No background color */
+         border: 0;                              /* Remove all borders */
+         border-bottom: 0;                       /* Prevent bottom border line */
+         box-shadow: none;                      /* Remove any shadow effects */
+         border-radius: 0;                      /* No rounded corners */
          }
+         /* Individual sub-category buttons */
          .category-tabs button {
-         padding: 8px 18px;
-         border-radius: 25px;
-         border: 2px solid var(--black);
-         background: var(--dark-grey);
-         color: var(--dark-grey);
-         font-size: 0.95rem;
-         font-weight: 600;
-         cursor: pointer;
-         transition: all 0.2s ease;
-         justify-content: left
+         padding: 8px 18px;                      /* Internal spacing for click area */
+         border-radius: 25px;                    /* Rounded pill-style buttons */
+         border: 2px solid var(--black);         /* Solid border using CSS variable */
+         background: var(--dark-grey);          /* Button background color */
+         color: var(--dark-grey);               /* Text color matches background (invisible?) */
+         font-size: 0.95rem;                     /* Slightly smaller font size */
+         font-weight: 600;                       /* Bold text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         transition: all 0.2s ease;              /* Smooth transition for hover effects */
+         justify-content: left;                 /* Align content inside button to the left */
          }
+         /* Hover effect for sub-category buttons */
          .category-tabs button:hover {
-         background: var(--dark-green);
-         color: #fff;
+         background: var(--dark-green);         /* Change background to dark green */
+         color: #fff;                            /* Change text color to white */
          }
+         /* Active state for sub-category buttons */
          .category-tabs button.active {
-         background: var(--dark-green);
-         color: #fff;
-         font-size: 0.95rem;
-         font-weight: 600;
-         border-color: var(--dark-green);
+         background: var(--dark-green);         /* Dark green background for active tab */
+         color: #fff;                            /* White text for active tab */
+         font-size: 0.95rem;                     /* Maintain font size */
+         font-weight: 600;                       /* Maintain boldness */
+         border-color: var(--dark-green);       /* Border matches background */
          }
+         /* Main tab button styles */
          .tab-btn {
-         flex: 1;	 
-         padding: 0.6rem 0.9rem;
-         font-weight: 700;
-         font-size: 1.1rem;
-         font-color: var(--dark-green);
-         text-align: center;
-         cursor: pointer;
-         background: var(--light-gray);
-         color: var(--dark-green);
-         border: none;                 /* no side/top borders */
-         /*border-bottom: 3px solid var(--light-orange);*/
-         border-radius: 16px;          /* optional subtle rounding on hover background */
-         transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease;
-         user-select: none;
+         flex: 1;                                /* Each tab takes equal width */
+         padding: 0.6rem 0.9rem;                 /* Internal spacing */
+         font-weight: 700;                       /* Bold text */
+         font-size: 1.1rem;                      /* Slightly larger font size */
+         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
+         text-align: center;                     /* Center-align text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         background: var(--light-gray);         /* Light gray background */
+         color: var(--dark-green);              /* Text color */
+         border: none;                           /* Remove all borders */
+         /*border-bottom: 3px solid var(--light-orange);*/ /* Optional bottom border */
+         border-radius: 16px;                    /* Slight rounding for hover effect */
+         transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
+         user-select: none;                      /* Prevent text selection */
          }
+         /* Active state for main tab buttons */
          .tab-btn.active {
-         font-color: #fff;
-         color: #fff;
-         background: var(--light-orange);
-         border-bottom: 3px solid var(--light-orange);
-         color: var(--dark-green);
+         font-color: #fff;                       /* Incorrect property (should be 'color') */
+         color: #fff;                            /* White text */
+         background: var(--light-orange);       /* Orange background for active tab */
+         border-bottom: 3px solid var(--light-orange); /* Bottom border for active tab */
+         color: var(--dark-green);              /* Overwrites white text (conflicting) */
          }
+         /* Focus-visible state for accessibility */
          .tab-btn:focus-visible {
-         outline: 3px solid var(--light-orange);
-         font-color: var(--dark-green);
+         outline: 3px solid var(--light-orange); /* Orange outline when focused via keyboard */
+         font-color: var(--dark-green);          /* Incorrect property (should be 'color') */
          }
          .menu-item {
          display: flex;
@@ -190,7 +195,7 @@
          .item-thumb.empty { display: none; }
          .menu-image {
          width: 100px;
-         height: auto;
+         height: 100px;
          border-radius: 8px;
          margin-bottom: 8px;
          object-fit: cover;
@@ -423,41 +428,165 @@
          bottom: 12px;
          right: 12px;
          }
-         /* Menu item stacking */
+         /* Sticky tab container for mobile */
+         #type-tabs {
+         position: sticky;                      /* Keeps tabs fixed at top during scroll */
+         top: 0px;                             /* Offset from top (adjust for header height) */
+         z-index: 1000;                         /* High stacking order */
+         background: #fff;                      /* White background */
+         padding: 16px 0;                       /* Vertical padding */
+         display: flex;                         /* Horizontal layout */
+         gap: 10px;                             /* Space between buttons */
+         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
+         text-align: center;                     /* Center-align text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         background: var(--light-gray);         /* Light gray background */
+         color: var(--dark-green);              /* Text color */
+         flex-wrap: wrap;                       /* Allow wrapping to next line */
+         overflow-x: auto;                      /* Enable horizontal scroll if needed */
+         border-bottom: 1px solid #ccc;         /* Light bottom border */
+         }
+         /* Mobile tab button styles */
+         .tab-btn {
+         flex: 1;                                /* Each tab takes equal width */
+         padding: 0.6rem 0.9rem;                 /* Internal spacing */
+         font-weight: 700;                       /* Bold text */
+         font-size: 1.1rem;                      /* Slightly larger font size */
+         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
+         text-align: center;                     /* Center-align text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         background: var(--light-gray);         /* Light gray background */
+         color: var(--dark-green);              /* Text color */
+         border: none;                           /* Remove all borders */
+         /*border-bottom: 3px solid var(--light-orange);*/ /* Optional bottom border */
+         border-radius: 16px;                    /* Slight rounding for hover effect */
+         transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
+         user-select: none;                      /* Prevent text selection */
+         white-space: nowrap;                   /* Prevent line breaks */
+         }
+         /* Hover effect for mobile tab buttons */
+         .tab-btn:hover {
+         background-color: var(--dark-green);   /* Dark green background on hover */
+         color: white;                          /* White text on hover */
+         }
+         /* Active state for mobile tab buttons */
+         .tab-btn.active {
+         font-color: #fff;                       /* Incorrect property (should be 'color') */
+         color: #fff;                            /* White text */
+         background: var(--light-orange);       /* Orange background for active tab */
+         border-bottom: 3px solid var(--light-orange); /* Bottom border for active tab */
+         color: var(--dark-green);              /* Overwrites white text (conflicting) */
+         }
+         /* Focus-visible state for accessibility */
+         .tab-btn:focus-visible {
+         outline: 3px solid var(--light-orange); /* Orange outline when focused via keyboard */
+         font-color: var(--dark-green);          /* Incorrect property (should be 'color') */
+         }
+         /* Sticky horizontal category sub-tabs for mobile */
+         .category-tabs {
+         position: sticky;                      /* Sticky positioning */
+         top: 10px;                             /* Offset from top */
+         z-index: 10;                           /* Layering above other content */
+         background: #fff;                      /* White background */
+         display: flex;                         /* Horizontal layout */
+         gap: 8px;                              /* Space between buttons */
+         overflow-x: auto;                      /* Enable horizontal scroll */
+         white-space: nowrap;                   /* Prevent line breaks */
+         padding: 12px 0px;                     /* Vertical padding */
+         border-bottom: 1px solid #eee;         /* Light bottom border */
+         font-weight: 600;                      /* Bold text */
+         box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* Subtle shadow for elevation */
+         }
+         /* Custom scrollbar for mobile tabs */
+         .category-tabs::-webkit-scrollbar {
+         height: 6px;                           /* Thin scrollbar height */
+         }
+         /* Individual category buttons for mobile */
+         .category-tabs button {
+         flex: 0 0 auto;                        /* Prevent buttons from stretching */
+         border: 1px solid rgba(0, 0, 0, 0.15); /* Light border */
+         background: #f0f0f0;                   /* Light gray background */
+         padding: 8px 14px;                     /* Internal spacing */
+         border-radius: 20px;                   /* Rounded corners */
+         font-size: 13px;                       /* Smaller font size */
+         font-weight: 500;                      /* Medium-bold text */
+         cursor: pointer;                       /* Pointer cursor */
+         transition: all 0.2s ease;             /* Smooth transitions */
+         font-weight: 600;                      /* Bold text (duplicate declaration) */
+         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+         justify-content: left;                /* Align content to the left */
+         }
+         /* Hover effect for category buttons */
+         .category-btn:hover {
+         background-color: var(--dark-green);   /* Dark green background */
+         color: white;                          /* White text */
+         }
+         /* Active state for category buttons */
+         .category-btn.active {
+         background-color: var(--dark-green);   /* Dark green background */
+         color: white;                          /* White text */
+         border-color: var(--dark-green);       /* Border matches background */
+         }         /* Menu item stacking */
          .menu-item {
-         display: flex;
-         grid-template-k: 84px 1fr auto; /* image | text | price/qty */
+         display: grid;
+         grid-template-columns: 84px 1fr;
+         grid-template-rows: auto auto;
          gap: 12px;
-         align-items: start;                    /* row height defined by content */
+         align-items: center; /* vertical centering */
          }
-         /* Vertically center the image in its cell */
-         .menu-item img,  
-         .menu-image {
-         width: 70px; height: 70px; object-fit: cover; border-radius: 10px;
-         align-self: center;
+         /* Vertically and horizontally center the image in its cell */
+         .menu-item img {
+         grid-row: 1 / span 2;
+         grid-column: 1;
+         width: 85px;
+         height: 85px;
+         object-fit: cover;
+         border-radius: 10px;
+         align-self: center;     /* vertical centering */
+         justify-self: center;   /* horizontal centering */
          }
-         .menu-item-details { 
-         flex: 1;
-         min-width: 0; 
-         } /* prevent text from pushing layout */
+         .menu-item-details {
+         grid-row: 1;
+         grid-column: 2;
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
+         }
+         .item-name {
+         font-weight: 700;
+         font-size: 1.15rem;
+         color: var(--dark-green);
+         }
          .item-desc {
          font-style: italic;
-         white-space: wrap;
          font-size: 0.9rem;
          color: #555;
          margin-top: 0.2rem;
          }
-         /* Right column: price on top, qty/add at bottom, right-aligned */
          .menu-item-controls {
-         align-self: stretch;
-         display: flex; flex-direction: column;
-         justify-content: space-between;        /* top ↔ bottom */
-         align-items: flex-end;                 /* right align */
-         gap: 8px; white-space: nowrap;
+         grid-row: 2;
+         grid-column: 2;
+         display: flex;
+         flex-direction: row;
+         justify-content: flex-end;
+         align-items: baseline; /* Aligns text like price and "Add" on the same line */
+         gap: 8px;
          }
-         .item-price { font-size: 0.95rem; order: 0; margin: 0; font-weight: 700; }
-         .quantity-selector, .add-btn { order: 1; }
-         .quantity-selector { display: inline-flex; align-items: center; gap: 8px; }
+         .item-price {
+         font-size: 1rem;
+         font-weight: 700;
+         margin: 0;
+         padding: 0;
+         line-height: 1;
+         }
+         .add-btn,
+         .quantity-selector {
+         font-size: 1rem;
+         line-height: 1;
+         display: inline-flex;
+         align-items: baseline;
+         justify-content: center;
+         }
          #orderList { max-height: 140px; }
          }
          @media (max-width: 768px) {
@@ -483,48 +612,217 @@
          order: 2 !important;
          width: 100% !important;
          }
-         /* Sticky horizontal category sub-tabs */
+      </style>
+      <!-- Mobile Overrides --->
+      <style id="mobile-responsive-overrides">
+         @media (max-width: 768px) {
+         header {
+         flex-direction: row;
+         align-items: center;
+         gap: 10px;
+         }
+         header img { height: 50px; }
+         .hotel-name { font-size: 1rem; }
+         .tagline { font-size: 0.9rem; }
+         }
+         @media (max-width: 600px) {
+         /* Cart button smaller */
+         #cartButton {
+         font-size: 1.2rem;
+         padding: 10px;
+         bottom: 12px;
+         right: 12px;
+         }
+         /* Sticky tab container for mobile */
+         #type-tabs {
+         position: sticky;                      /* Keeps tabs fixed at top during scroll */
+         top: 60px;                             /* Offset from top (adjust for header height) */
+         z-index: 1000;                         /* High stacking order */
+         background: #fff;                      /* White background */
+         padding: 16px 0;                       /* Vertical padding */
+         display: flex;                         /* Horizontal layout */
+         gap: 10px;                             /* Space between buttons */
+         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
+         text-align: center;                     /* Center-align text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         background: var(--light-gray);         /* Light gray background */
+         color: var(--dark-green);              /* Text color */
+         flex-wrap: wrap;                       /* Allow wrapping to next line */
+         overflow-x: auto;                      /* Enable horizontal scroll if needed */
+         border-bottom: 1px solid #ccc;         /* Light bottom border */
+         }
+         /* Mobile tab button styles */
+         .tab-btn {
+         flex: 1;                                /* Each tab takes equal width */
+         padding: 0.6rem 0.9rem;                 /* Internal spacing */
+         font-weight: 700;                       /* Bold text */
+         font-size: 1.1rem;                      /* Slightly larger font size */
+         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
+         text-align: center;                     /* Center-align text */
+         cursor: pointer;                        /* Pointer cursor on hover */
+         background: var(--light-gray);         /* Light gray background */
+         color: var(--dark-green);              /* Text color */
+         border: none;                           /* Remove all borders */
+         /*border-bottom: 3px solid var(--light-orange);*/ /* Optional bottom border */
+         border-radius: 16px;                    /* Slight rounding for hover effect */
+         transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
+         user-select: none;                      /* Prevent text selection */
+         white-space: nowrap;                   /* Prevent line breaks */
+         }
+         /* Hover effect for mobile tab buttons */
+         .tab-btn:hover {
+         background-color: var(--dark-green);   /* Dark green background on hover */
+         color: white;                          /* White text on hover */
+         }
+         /* Active state for mobile tab buttons */
+         .tab-btn.active {
+         font-color: #fff;                       /* Incorrect property (should be 'color') */
+         color: #fff;                            /* White text */
+         background: var(--light-orange);       /* Orange background for active tab */
+         border-bottom: 3px solid var(--light-orange); /* Bottom border for active tab */
+         color: var(--dark-green);              /* Overwrites white text (conflicting) */
+         }
+         /* Focus-visible state for accessibility */
+         .tab-btn:focus-visible {
+         outline: 3px solid var(--light-orange); /* Orange outline when focused via keyboard */
+         font-color: var(--dark-green);          /* Incorrect property (should be 'color') */
+         }
+         /* Sticky horizontal category sub-tabs for mobile */
          .category-tabs {
-         top: 60px; /* below header */
-         z-index: 9;
-         display: flex;
-         gap: 8px;
-         overflow-x: auto;
-         white-space: nowrap;
-         padding: 12px 0px;
-         background: transparent;
-         border-bottom: 0;
-         font-weight: 600;
-         box-shadow: none;
-         justify-content: left
-         margin: 0
+         position: sticky;                      /* Sticky positioning */
+         top: 0px;                             /* Offset from top */
+         z-index: 10;                           /* Layering above other content */
+         background: #fff;                      /* White background */
+         display: flex;                         /* Horizontal layout */
+         gap: 8px;                              /* Space between buttons */
+         overflow-x: auto;                      /* Enable horizontal scroll */
+         white-space: nowrap;                   /* Prevent line breaks */
+         padding: 12px 0px;                     /* Vertical padding */
+         border-bottom: 1px solid #eee;         /* Light bottom border */
+         font-weight: 600;                      /* Bold text */
+         box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* Subtle shadow for elevation */
          }
-         .category-tabs::-webkit-scrollbar { height: 6px; }
+         /* Custom scrollbar for mobile tabs */
+         .category-tabs::-webkit-scrollbar {
+         height: 6px;                           /* Thin scrollbar height */
+         }
+         /* Individual category buttons for mobile */
          .category-tabs button {
-         flex: 0 0 auto;
-         border: 1px solid rgba(0, 0, 0, 0.15);
-         background: #f0f0f0;
-         padding: 8px 14px;
-         border-radius: 20px;
-         font-size: 13px;
-         font-weight: 500;
-         cursor: pointer;
-         transition: all 0.2s ease;
-         font-weight: 600;
-         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-         justify-content: left 	
+         flex: 0 0 auto;                        /* Prevent buttons from stretching */
+         border: 1px solid rgba(0, 0, 0, 0.15); /* Light border */
+         background: #f0f0f0;                   /* Light gray background */
+         padding: 8px 14px;                     /* Internal spacing */
+         border-radius: 20px;                   /* Rounded corners */
+         font-size: 13px;                       /* Smaller font size */
+         font-weight: 500;                      /* Medium-bold text */
+         cursor: pointer;                       /* Pointer cursor */
+         transition: all 0.2s ease;             /* Smooth transitions */
+         font-weight: 600;                      /* Bold text (duplicate declaration) */
+         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+         justify-content: left;                /* Align content to the left */
          }
-         .category-tabs button:hover {
-         background: var(--dark-green);
-         color: #fff;
+         /* Hover effect for category buttons */
+         .category-btn:hover {
+         background-color: var(--dark-green);   /* Dark green background */
+         color: white;                          /* White text */
          }
-         .category-tabs button.active {
-         background: var(--dark-green);
-         color: #fff;
-         font-size: 13px;
-         font-weight: 500;
-         border-color: var(--dark-green);
-         box-shadow: 0 2px 6px rgba(255, 111, 0, 0.3);
+         /* Active state for category buttons */
+         .category-btn.active {
+         background-color: var(--dark-green);   /* Dark green background */
+         color: white;                          /* White text */
+         border-color: var(--dark-green);       /* Border matches background */
+         }         /* Menu item stacking */
+         .menu-item {
+         display: grid;
+         grid-template-columns: auto 1fr auto; /* image | text | price/qty */
+         grid-template-rows: auto auto;
+         gap: 12px;
+         align-items: start;                    /* row height defined by content */
+         }
+         /* Vertically center the image in its cell */
+         .menu-item img,  
+         .menu-image {
+         width: 90px; height: 90px; object-fit: cover; border-radius: 10px;
+         align-self: center;     /* vertical centering */
+         justify-self: center;   /* horizontal centering */
+         }
+         /* Vertically and horizontally center the image in its cell */
+         .menu-item img {
+         grid-row: 1 / span 2;
+         grid-column: 1;
+         width: 85px;
+         height: 85px;
+         object-fit: cover;
+         border-radius: 10px;
+         align-self: center;     /* vertical centering */
+         justify-self: center;   /* horizontal centering */
+         }
+         .menu-item-details {
+         grid-row: 1;
+         grid-column: 2;
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
+         }
+         .item-name {
+         font-weight: 700;
+         font-size: 1.15rem;
+         color: var(--dark-green);
+         }
+         .item-desc {
+         font-style: italic;
+         font-size: 0.9rem;
+         color: #555;
+         margin-top: 0.2rem;
+         }
+         .menu-item-controls {
+         grid-row: 2;
+         grid-column: 2;
+         display: flex;
+         flex-direction: row;
+         justify-content: flex-end;
+         align-items: baseline; /* Aligns text like price and "Add" on the same line */
+         gap: 8px;
+         }
+         .item-price {
+         font-size: 1rem;
+         font-weight: 700;
+         margin: 0;
+         padding: 0;
+         line-height: 1;
+         }
+         .add-btn,
+         .quantity-selector {
+         font-size: 1rem;
+         line-height: 1;
+         display: inline-flex;
+         align-items: baseline;
+         justify-content: center;
+         }
+         #orderList { max-height: 140px; }
+         }
+         @media (max-width: 768px) {
+         .order-summary-footer { gap: 8px; }
+         .order-summary-footer > div { font-size: 1rem; }
+         }
+         @media (max-width: 600px) {
+         .footer-actions,
+         .cart-actions,
+         .actions,
+         #orderActions {
+         position: static !important;
+         display: flex !important;
+         flex-direction: column !important;
+         gap: 8px !important;
+         padding: 8px 10px !important;
+         width: 100% !important;
+         box-sizing: border-box;
+         }
+         #confirmOrder { width: 100% !important; }
+         #confirmBtn,
+         #confirmOrderBtn {
+         order: 2 !important;
+         width: 100% !important;
          }
       </style>
       <!-- mobile responsiveness code styling ends -->
@@ -541,11 +839,10 @@
          <!-- Menu Section -->
          <section aria-label="Menu Section" id="menuSection"
          <p style="margin: 0; font-style: italic; font-size: 0.1rem; font-weight: 1; color: #555; "> </p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Food is freshly prepared in our Cloud Kitchen.</p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Items subject to availability.</p>
+         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Food is freshly prepared in our Cloud Kitchen; Items subject to availability.</p>
          <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Delivery time: Minimum 20 mins.</p>
          <p style="margin:0;font-style:italic;font-size:0.9rem;font-weight:200;color:#555;">
-            - Concerns? : .   
+            - Feedback/concerns: .   
             <!-- WhatsApp Button -->
             <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" 
                target="_blank" 
@@ -569,14 +866,12 @@
                <span style="color:#007BFF;">Call</span>
             </a>
          </p>
-      
-         <hr style="border: none; border-top: 1px solid #ddd; margin: 8px 0;">
-
-            
-         <button aria-controls="panelVeg" aria-selected="true" class="tab-btn active" id="tabVeg" role="tab" tabindex="0">Veg</button>
-         <button aria-controls="panelNonVeg" aria-selected="false" class="tab-btn" id="tabNonVeg" role="tab" tabindex="-1">Non Veg</button>
-         <button aria-controls="panelGeneral" aria-selected="true" class="tab-btn" id="tabGeneral" role="tab" tanindex="2">General</button>
-         </nav>
+         <p style="margin: 0; font-style: italic; font-size: 0.4rem; font-weight: 1; color: #555; "> .</p>
+         <div id="type-tabs">
+            <button id="tabVeg" class="tab-btn active" onclick="filterMenu('Veg')">Veg</button>
+            <button id="tabNonVeg" class="tab-btn" onclick="filterMenu('Non Veg')">Non Veg</button>
+            <button id="tabGeneral" class="tab-btn" onclick="filterMenu('General')">General</button>
+         </div>
          <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
             <p style="font-style: italic; color: #777;">Loading menu…</p>
          </div>
@@ -622,6 +917,9 @@
             style="width: 45%; padding: 0.5rem; background: var(--dark-green); color: #fff; font-weight: 650; font-size: 1rem; border: none; border-radius: 20px; cursor: pointer;">
          Confirm Order  
          </button>
+         <p style="font-size: 0.85rem; color: #777;">
+         Clicking Confirm will open WhatsApp with your order details pre-filled.
+         </p>
          </div>
          </div>
          </section>
@@ -780,8 +1078,7 @@
          }
          }
          
-         
-         
+                  
          
          // This function handles quantity change inputs
          function onQtyChange(e) {
@@ -794,6 +1091,31 @@
          updateOrderSummary();
          }
          
+         function sanitizeInput(str) {
+         if (!str) return "";
+         str = str.replace(/[<>]/g, "");       // Remove angle brackets
+         str = str.replace(/["'`]/g, "");      // Remove quotes and backticks
+         str = str.replace(/\s+/g, " ").trim(); // Collapse whitespace
+         return str;
+         }
+         
+         
+         
+         function isValidRoomNumber(room) {
+         const validRooms = [];
+         [100, 200, 300, 400].forEach(floor => {
+         for (let i = 1; i <= 6; i++) {
+         validRooms.push(floor + i);
+         }
+         });
+         return validRooms.includes(parseInt(room));
+         }
+         
+         
+         function isValidPhoneNumber(number) {
+         // Accepts Indian mobile numbers starting with 6-9 and 10 digits long
+         return /^[6-9]\d{9}$/.test(number);
+         }
          
          
          
@@ -913,13 +1235,26 @@
          
          confirmOrderBtn.addEventListener('click', () => {
          // Get guest info from inputs
-         const guestName = document.getElementById('guestName').value.trim();
-         const roomNumber = document.getElementById('roomNumber').value.trim();
-         const guestWhatsApp = document.getElementById('guestWhatsApp').value.trim();
+         const guestNameE = document.getElementById('guestName').value.trim();
+         const roomNumberE = document.getElementById('roomNumber').value.trim();
+         const guestWhatsAppE = document.getElementById('guestWhatsApp').value.trim();
+         
+         //revert back to the same variables names after sanitization
+         const guestName = sanitizeInput(guestNameE);
+         const roomNumber = sanitizeInput(roomNumberE);
+         const guestWhatsApp = sanitizeInput(guestWhatsAppE);
          
          // Validate guest info fields
          if (!guestName || !roomNumber || !guestWhatsApp) {
          alert('Please fill all guest details.');
+         return;
+         }
+         if (!isValidPhoneNumber(guestWhatsApp)) {
+         alert("Please enter your valid 10-digit WhatsApp number.");
+         return;
+         }
+         if (!isValidRoomNumber(roomNumber)) {
+         alert("Please enter a valid room number (101–106, 201–206, 301–306, 401–406).");
          return;
          }
          
