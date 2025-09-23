@@ -4,7 +4,7 @@
       <meta charset="utf-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <title>Hotel Excella - Food Ordering</title>
-      <style>
+           <style>
          :root {
          --primary: #2e7d32; /* or your theme color */
          --accent: #f9a825;
@@ -232,65 +232,42 @@
          align-items: center;
          gap: 0.3rem;
          }
-
-.quantity-selector .add-btn {
-  font-size: 1rem;          /* bigger text */
-  font-weight: 500;
-  padding: 10px 20px;         /* increase clickable area */
-  border-radius: 8px;
-  background: #28a745;        /* same green as + button */
-  color: #fff;
-  cursor: pointer;
-  min-width: px;        /* touch-friendly */
-  min-height: 25px;          /* touch-friendly */
-  text-align: center;
-  transition: background 0.2s ease, transform 0.1s ease;
-  align-items: baseline;
-  justify-content: center;
-}
-
-.quantity-selector .add-btn:hover {
-  background: #218838;        /* darker green on hover */
-}
-
-.quantity-selector .add-btn:active {
-  transform: scale(0.96);     /* subtle press effect */
-}
-
-
-
-        /* + button (bigger) */
-.quantity-selector .inc-btn {
-  padding: 10px 14px;        /* was 4px 8px */
-  border: none;
-  border-radius: 8px;        /* was 6px */
-  background: #28a745;       /* green */
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;         /* was 0.9rem */
-  min-width: 30px;        /* touch-friendly */
-  min-height: 30px;          /* touch-friendly */
-  line-height: 1;
-}
-
-/* − button (bigger) */
-.quantity-selector .dec-btn {
-  padding: 10px 14px;        /* was 4px 8px */
-  border: none;
-  border-radius: 8px;        /* was 6px */
-  background: #e53935;       /* red */
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;         /* was 0.9rem */
-  min-width: 25px;        /* touch-friendly */
-  min-height: 25px;          /* touch-friendly */
-  line-height: 1;
-}
-
-/* Optional: hover states tuned per button */
-.quantity-selector .inc-btn:hover { background: #218838; }
-.quantity-selector .dec-btn:hover { background: #c62828; }
-
+         .quantity-selector button {
+         padding: 4px 8px;
+         border: none;
+         border-radius: 6px;
+         background: #28a745;
+         color: #fff;
+         cursor: pointer;
+         font-size: 1.1rem;
+         }
+         .quantity-selector .inc-btn {
+         padding: 4px 8px;
+         border: none;
+         border-radius: 6px;
+         background: #28a745; /* green */
+         color: #fff;
+         cursor: pointer;
+         font-size: 1.1rem;
+         }
+         .quantity-selector .dec-btn {
+         padding: 4px 8px;
+         border: none;
+         border-radius: 6px;
+         background: #e53935; /* red */
+         color: #fff;
+         cursor: pointer;
+         font-size: 1.1rem;
+         }
+         .quantity-selector button:hover { background: #218838; }
+         .quantity-selector .qty-val {
+         min-width: 20px;
+         text-align: center;
+         color: #000; 
+         font-weight: 700;
+         font-size: 1.1rem;
+         font-style: normal;
+         }
          #orderBox {
          background: var(--dark-green);
          color: #fff;
@@ -319,10 +296,8 @@
          .order-item-name { flex: 1; }
          .order-item-controls {
          display: flex;
-         align-items: center;
          gap: 6px;
-         min-width: 90px;
-         justify-content: center;
+         min-width: 100px;
          }
          .order-item-price {
          min-width: 70px;
@@ -456,7 +431,7 @@
          /* Sticky tab container for mobile */
          #type-tabs {
          position: sticky;                      /* Keeps tabs fixed at top during scroll */
-         top: 60px;                             /* Offset from top (adjust for header height) */
+         top: 0px;                             /* Offset from top (adjust for header height) */
          z-index: 1000;                         /* High stacking order */
          background: #fff;                      /* White background */
          padding: 16px 0;                       /* Vertical padding */
@@ -510,7 +485,7 @@
          /* Sticky horizontal category sub-tabs for mobile */
          .category-tabs {
          position: sticky;                      /* Sticky positioning */
-         top: 0px;                             /* Offset from top */
+         top: 65px;                             /* Offset from top */
          z-index: 10;                           /* Layering above other content */
          background: #fff;                      /* White background */
          display: flex;                         /* Horizontal layout */
@@ -586,12 +561,12 @@
          }
          .item-name {
          font-weight: 700;
-         font-size: 1rem;
-         color: var(--dark-green);	 
+         font-size: 1.1rem;
+         color: var(--dark-green);
          }
          .item-desc {
          font-style: italic;
-         font-size: 0.9rem;
+         font-size: 1rem;
          color: #000000;
          margin-top: 0.2rem;
          }
@@ -605,20 +580,52 @@
          gap: 8px;
          }
          .item-price {
-         font-size: 1.1rem;
+         font-size: 1.3rem;
          font-weight: 700;
          margin: 0;
          padding: 0;
          line-height: 1;
          }
-         .add-btn,
-         .quantity-selector {
-         font-size: 1.1rem;
+         .quantity-selector,
+	 .add-btn {
+         font-size: 1.3rem;
+         font-weight: 700;
+         line-height: 1.3;
+         display: inline-flex;
+         align-items: baseline;
+	 width: 80px;
+	 height: 30px;
+         justify-content: center;
+         }
+         .quantity-selector .inc-btn {
+         padding: 4px 8px;
+         border: none;
+         border-radius: 6px;
+         background: #28a745; /* green */
+         color: #fff;
+         cursor: pointer;
+	 width: 80px;
+	 height: 30px;
+         font-size: 1.3rem;
          line-height: 1;
          display: inline-flex;
          align-items: baseline;
-         justify-content: center;
          }
+         .quantity-selector .dec-btn {
+         padding: 4px 8px;
+         border: none;
+         border-radius: 6px;
+         background: #e53935; /* red */
+         color: #fff;
+         cursor: pointer;
+	 width: 80px;
+	 height: 30px;
+         font-size: 1.3rem;
+         line-height: 1;
+         display: inline-flex;
+         align-items: baseline;
+         }
+
          #orderList { max-height: 140px; }
          }
          @media (max-width: 768px) {
@@ -646,6 +653,8 @@
          }
       </style>
       <!-- mobile responsiveness code styling ends -->
+
+
    </head>
    <body>
       <header style="display: flex; align-items: left; padding: 10px;">
