@@ -1,0 +1,149 @@
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cart-button:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (min-contrast: more) {
+  :root {
+    --dark-gray: #000000;
+    --accent: #d97800;
+    --light-orange: #d97800;
+  }
+
+  button {
+    border: 1px solid currentColor;
+  }
+
+  input {
+    border-width: 2px;
+  }
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: var(--primary);
+}
+
+.form-group label span {
+  color: var(--error);
+}
+
+.form-group input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  width: 100%;
+  max-width: 100%;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(249, 168, 37, 0.1);
+}
+
+.form-group input:invalid:not(:placeholder-shown) {
+  border-color: var(--error);
+  background-color: rgba(211, 47, 47, 0.05);
+}
+
+.error-message {
+  color: var(--error);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  margin-top: 2px;
+  min-height: 1.2rem;
+}
+
+[role="status"],
+[aria-live],
+[aria-atomic] {
+  min-height: 1px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form-group input {
+    background-color: #2d2d2d;
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  .form-group input:focus {
+    box-shadow: 0 0 0 3px rgba(249, 168, 37, 0.2);
+  }
+
+  .error-message {
+    color: #ff6b6b;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-group label {
+    font-size: var(--font-size-base);
+  }
+
+  .form-group input {
+    font-size: 16px;
+    padding: 12px 12px;
+  }
+}
+
+@media (forced-colors: active) {
+  button,
+  input {
+    border: 1px solid CanvasText;
+  }
+
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+
+  .tab-btn.active,
+  .category-tabs button.active {
+    background: SelectedItem;
+    color: SelectedItemText;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .menu-info,
+  .order-box,
+  .notification {
+    background: solid colors without gradients;
+  }
+}

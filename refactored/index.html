@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Excella - Food Ordering</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/menu.css">
+  <link rel="stylesheet" href="styles/order-summary.css">
+  <link rel="stylesheet" href="styles/cart-button.css">
+  <link rel="stylesheet" href="styles/form.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/accessibility.css">
+</head>
+<body>
+  <header role="banner">
+    <img src="../images/hotelexcellalogo.png" alt="Hotel Excella Logo" class="header-logo">
+    <div class="header-content">
+      <h1 class="hotel-name">HOTEL EXCELLA</h1>
+      <p class="tagline">IN-HOUSE ROOM SERVICE MENU</p>
+    </div>
+  </header>
+
+  <main role="main" class="main-container">
+    <section aria-label="Menu Information" id="menuInfo" class="menu-info">
+      <p class="info-text">Food is freshly prepared in our Cloud Kitchen.</p>
+      <p class="info-text">Items subject to availability.</p>
+      <p class="info-text">Delivery time: Minimum 20 mins.</p>
+      <p class="info-text">
+        Questions?
+        <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please"
+           target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" class="contact-link whatsapp-link">WhatsApp</a>
+        or <a href="tel:+919985908131" aria-label="Call 9985908131" class="contact-link phone-link">Call</a>
+      </p>
+    </section>
+
+    <section aria-label="Food Categories" id="categorySection" class="category-section">
+      <div id="menuTabs" role="tablist" aria-label="Food type tabs" class="menu-tabs">
+        <button id="tabVeg" role="tab" class="tab-btn active" aria-selected="true">Veg</button>
+        <button id="tabNonVeg" role="tab" class="tab-btn" aria-selected="false">Non Veg</button>
+        <button id="tabGeneral" role="tab" class="tab-btn" aria-selected="false">General</button>
+      </div>
+
+      <div id="menuContainer" aria-live="polite" aria-atomic="true" role="region" aria-label="Menu items" class="menu-container">
+        <div class="loading-state" aria-label="Loading menu items">
+          <p class="loading-text">Loading menu…</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Order Summary" id="orderSummarySection" class="order-summary-section">
+      <h2>Order Summary</h2>
+      <div id="orderBox" class="order-box">
+        <h3 class="order-title">Selected Items</h3>
+        <ul id="orderList" class="order-list">
+          <li class="empty-message">No items selected</li>
+        </ul>
+
+        <div class="order-footer">
+          <div class="summary-line">
+            <span class="summary-label">Subtotal:</span>
+            <span class="summary-value">₹<span id="subtotal">0.00</span></span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-label">GST (5%):</span>
+            <span class="summary-value">₹<span id="gst">0.00</span></span>
+          </div>
+          <div class="summary-line total">
+            <span class="summary-label">Total:</span>
+            <span class="summary-value">₹<span id="orderTotal">0.00</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Guest Details Form" id="guestInfoSection" class="guest-info-section">
+      <h2>Guest Information</h2>
+      <form id="guestForm" class="guest-form" novalidate>
+        <div class="form-group">
+          <label for="guestName">Guest Name <span aria-label="required">*</span></label>
+          <input type="text" id="guestName" required placeholder="Enter your name" aria-required="true">
+          <span class="error-message" id="guestNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="roomNumber">Room Number <span aria-label="required">*</span></label>
+          <input type="number" id="roomNumber" required placeholder="Enter your room number" min="101" max="501" aria-required="true">
+          <span class="error-message" id="roomNumberError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="guestWhatsApp">WhatsApp Number <span aria-label="required">*</span></label>
+          <input type="tel" id="guestWhatsApp" required placeholder="Enter your 10-digit WhatsApp number" aria-required="true">
+          <span class="error-message" id="guestWhatsAppError"></span>
+        </div>
+
+        <div class="form-actions">
+          <button id="confirmOrder" type="submit" class="confirm-btn" aria-label="Confirm and place order" disabled>
+            Confirm Order
+          </button>
+          <button id="clearOrder" type="button" class="clear-btn" aria-label="Clear cart">
+            Clear Cart
+          </button>
+        </div>
+        <p class="form-hint">Clicking Confirm will open WhatsApp with your order details pre-filled.</p>
+      </form>
+    </section>
+  </main>
+
+  <button id="cartButton" class="cart-button" aria-label="View cart" role="button">
+    🛒
+    <span class="cart-badge" aria-label="Items in cart"></span>
+  </button>
+
+  <div id="notification" class="notification" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/constants.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/csv-parser.js"></script>
+  <script src="js/menu-manager.js"></script>
+  <script src="js/order-manager.js"></script>
+  <script src="js/ui-manager.js"></script>
+  <script src="js/form-validator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
