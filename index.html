@@ -155,11 +155,15 @@
       display: flex;
       gap: .55rem;
       overflow-x: auto;
+      overflow-y: hidden;
       padding-bottom: .15rem;
       scrollbar-width: thin;
+      max-width: 100%;
+      min-width: 0;
     }
 
     .category-tabs button {
+      flex: 0 0 auto;
       border: 1px solid rgba(212,175,98,.28);
       background: var(--surface-soft);
       color: var(--text-muted);
@@ -184,9 +188,15 @@
       min-width: 0;
     }
 
+    #menuContainer {
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: clip;
+    }
+
     .menu-item {
       display: grid;
-      grid-template-columns: 94px 1fr auto;
+      grid-template-columns: 94px minmax(0, 1fr) auto;
       gap: .8rem;
       align-items: center;
       padding: .75rem;
@@ -407,7 +417,7 @@
     @media (max-width: 780px) {
       .gold-divider { display: none; }
       .menu-item {
-        grid-template-columns: 74px 1fr;
+        grid-template-columns: 74px minmax(0, 1fr);
         align-items: start;
       }
       .menu-image { width: 74px; height: 74px; }
