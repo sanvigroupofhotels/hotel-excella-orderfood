@@ -22,6 +22,12 @@
 
     * { box-sizing: border-box; }
 
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -175,6 +181,7 @@
     #categoryContent {
       display: grid;
       gap: .8rem;
+      min-width: 0;
     }
 
     .menu-item {
@@ -187,6 +194,7 @@
       background: linear-gradient(180deg, rgba(34,34,34,.9), rgba(25,25,25,.95));
       border: 1px solid rgba(255,255,255,0.05);
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      min-width: 0;
     }
 
     .menu-item:hover {
@@ -204,8 +212,9 @@
       background: #131313;
     }
 
-    .item-name { font-weight: 700; font-size: 1.05rem; }
-    .item-desc { color: var(--text-muted); font-size: .88rem; margin-top: .2rem; }
+    .menu-item-details { min-width: 0; }
+    .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
+    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; }
     .item-price {
       color: var(--gold-soft);
       font-size: 1.05rem;
@@ -220,6 +229,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: .6rem;
+      min-width: 0;
     }
 
     .quantity-selector {
@@ -406,6 +416,8 @@
         justify-content: space-between;
         margin-top: .2rem;
       }
+      .item-name { font-size: 1.06rem; }
+      .item-desc { font-size: .98rem; }
       #type-tabs { top: 74px; }
     }
   </style>
@@ -413,7 +425,7 @@
 <body>
   <header class="site-header">
     <div class="header-wrap">
-      <img class="header-logo" src="images/hotelexcellalogo.png" alt="Hotel Excella logo" />
+      <img class="header-logo" src="images/hotelexcellalogo1.png" alt="Hotel Excella logo" />
       <div class="header-content">
         <h1>Room Dining</h1>
         <p>Freshly prepared food to your room</p>
@@ -524,12 +536,48 @@
 
         let tabsHtml = '<div class="category-tabs">';
         for (const category of Object.keys(data)) {
-          tabsHtml += `<button type="button" data-category="${category}" onclick="showCategory('${category.replace(/'/g, "\\'")}')">${category}</button>`;
+          tabsHtml += `<button type="button" data-category="${category}">${category}</button>`;
         }
         tabsHtml += '</div><div id="categoryContent"></div>';
         menuContainer.innerHTML = tabsHtml;
+        menuContainer.querySelectorAll('.category-tabs button').forEach(button => {
+          button.addEventListener('click', () => showCategory(button.dataset.category));
+        });
         showCategory(Object.keys(data)[0]);
       }
+
+      function buildImageFallbacks(fileName) {
+        if (!fileName) return [];
+        const base = fileName.replace(/^images\//i, '').trim();
+        const extIndex = base.lastIndexOf('.');
+        if (extIndex < 0) return [`images/${base}`];
+
+        const nameOnly = base.slice(0, extIndex);
+        const ext = base.slice(extIndex + 1);
+        const variants = new Set([
+          `images/${base}`,
+          `images/${nameOnly}.${ext.toLowerCase()}`,
+          `images/${nameOnly}.${ext.toUpperCase()}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext.toLowerCase()}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext.toUpperCase()}`
+        ]);
+        return [...variants];
+      }
+
+      window.handleImageError = function (imgElement) {
+        const remaining = (imgElement.dataset.fallbacks || '')
+          .split('|')
+          .filter(Boolean);
+        if (remaining.length === 0) {
+          imgElement.style.display = 'none';
+          return;
+        }
+
+        const next = remaining.shift();
+        imgElement.dataset.fallbacks = remaining.join('|');
+        imgElement.src = next;
+      };
 
       window.showCategory = function (category) {
         const items = menuData[currentTab][category] || [];
@@ -539,7 +587,14 @@
         items.forEach(item => {
           const qty = currentOrder[item.Name]?.qty || 0;
           const imageFile = item.ImageURL?.trim();
-          const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image" alt="${item.Name}">` : '<div class="menu-image" aria-hidden="true"></div>';
+          const imageTag = imageFile
+            ? (() => {
+                const candidates = buildImageFallbacks(imageFile).map(path => encodeURI(path));
+                const first = candidates.shift();
+                const fallbackData = candidates.join('|');
+                return `<img src="${first}" class="menu-image" alt="${item.Name}" loading="lazy" decoding="async" onerror="handleImageError(this)" data-fallbacks="${fallbackData}">`;
+              })()
+            : '<div class="menu-image" aria-hidden="true"></div>';
 
           container.innerHTML += `
             <div class="menu-item">
