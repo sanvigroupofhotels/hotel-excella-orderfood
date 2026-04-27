@@ -93,6 +93,7 @@
       padding: 0 1rem;
       display: grid;
       gap: 1rem;
+      overflow-x: hidden;
     }
 
     .panel {
@@ -101,6 +102,7 @@
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       padding: 1rem;
+      overflow-x: hidden;
     }
 
     .notes {
@@ -123,6 +125,8 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: .5rem;
+      width: 100%;
+      max-width: 100%;
       padding: .35rem;
       border-radius: 999px;
       background: var(--surface-soft);
@@ -136,6 +140,8 @@
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-muted);
+      width: 100%;
+      min-width: 0;
       border-radius: 999px;
       padding: .65rem .5rem;
       font-weight: 700;
@@ -160,6 +166,7 @@
       scrollbar-width: thin;
       max-width: 100%;
       min-width: 0;
+      -webkit-overflow-scrolling: touch;
     }
 
     .category-tabs button {
@@ -224,7 +231,7 @@
 
     .menu-item-details { min-width: 0; }
     .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
-    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; }
+    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: anywhere; }
     .item-price {
       color: var(--gold-soft);
       font-size: 1.05rem;
@@ -435,7 +442,7 @@
 <body>
   <header class="site-header">
     <div class="header-wrap">
-      <img class="header-logo" src="images/hotelexcellalogo1.png" alt="Hotel Excella logo" />
+      <img class="header-logo" src="images/hotelexcellalogo.png" alt="Hotel Excella logo" />
       <div class="header-content">
         <h1>Room Dining</h1>
         <p>Freshly prepared food to your room</p>
