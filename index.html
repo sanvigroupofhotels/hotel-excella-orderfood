@@ -234,16 +234,12 @@
     }
     .menu-image:hover { transform: scale(1.02); box-shadow: 0 0 0 1px rgba(212,175,98,.24); }
     .menu-item.no-image {
-      grid-template-columns: minmax(0, 1fr);
-      gap: .55rem;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
       padding: .85rem .9rem;
     }
     .menu-item.no-image .menu-item-details { grid-column: 1; }
-    .menu-item.no-image .menu-item-controls {
-      grid-column: 1;
-      justify-content: flex-end;
-      width: 100%;
-    }
+    .menu-item.no-image .menu-item-controls { grid-column: 2; }
 
     .menu-item-details { min-width: 0; }
     .item-name { font-weight: 700; font-size: 1.04rem; line-height: 1.35; }
@@ -262,18 +258,27 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: .6rem;
+      gap: .45rem;
       min-width: 0;
       margin-left: auto;
+      white-space: nowrap;
     }
 
     .quantity-selector {
-      min-width: 105px;
       display: inline-flex;
       align-items: center;
       justify-content: flex-end;
       gap: .35rem;
       margin-left: auto;
+      min-width: 0;
+    }
+
+    .quantity-selector.is-active {
+      min-width: 105px;
+    }
+
+    .quantity-selector.is-empty {
+      margin-left: 0;
     }
 
     .qty-val {
@@ -539,6 +544,11 @@
     #cartButton .cart-count.hidden { display: none; }
     #orderSummarySection { scroll-margin-top: calc(var(--sticky-offset, 86px) + 6px); }
 
+    .quantity-selector.is-empty .add-btn {
+      min-width: 66px;
+      padding-inline: .78rem;
+    }
+
     .centered { text-align: center; }
     .image-preview-modal {
       position: fixed;
@@ -601,11 +611,11 @@
       .item-name { font-size: 1.06rem; }
       .item-desc { font-size: .88rem; overflow-wrap: break-word; word-break: normal; }
       #type-tabs { top: 74px; }
-      .menu-item.no-image .menu-item-controls {
-        justify-content: flex-end;
-      }
+      .menu-item.no-image .menu-item-controls { grid-column: 1 / -1; }
       .item-price { font-size: 1.06rem; min-width: 76px; }
       .quantity-selector { min-width: 98px; }
+      .quantity-selector.is-active { min-width: 98px; }
+      .quantity-selector.is-empty { min-width: 0; }
       .add-btn,
       .inc-btn,
       .dec-btn {
@@ -886,7 +896,7 @@
               </div>
               <div class="menu-item-controls">
                 <div class="item-price" aria-label="Price">₹${itemPrice.toFixed(2)}</div>
-                <div class="quantity-selector" id="qty-${rawName.replace(/\s+/g, '_')}">
+                <div class="quantity-selector ${qty > 0 ? 'is-active' : 'is-empty'}" id="qty-${rawName.replace(/\s+/g, '_')}">
                   ${qty > 0
                     ? `<button type="button" class="dec-btn" aria-label="Decrease ${itemName}" data-name="${escapeHtml(rawName)}" data-price="${itemPrice}">-</button>
                        <span class="qty-val">${qty}</span>
