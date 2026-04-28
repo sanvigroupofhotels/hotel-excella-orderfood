@@ -227,7 +227,13 @@
       object-fit: cover;
       border: 1px solid rgba(212,175,98,.2);
       background: #131313;
+      cursor: zoom-in;
+      transition: transform .18s ease, box-shadow .18s ease;
     }
+    .menu-image:hover { transform: scale(1.02); box-shadow: 0 0 0 1px rgba(212,175,98,.24); }
+    .menu-item.no-image { grid-template-columns: minmax(0, 1fr) auto; }
+    .menu-item.no-image .menu-item-details { grid-column: 1; }
+    .menu-item.no-image .menu-item-controls { grid-column: 2; }
 
     .menu-item-details { min-width: 0; }
     .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
@@ -420,6 +426,49 @@
     }
 
     .centered { text-align: center; }
+    .image-preview-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(0,0,0,.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .image-preview-modal.open { display: flex; opacity: 1; }
+    .image-preview-content {
+      position: relative;
+      width: min(92vw, 760px);
+      max-height: 88vh;
+      transform: translateY(10px);
+      transition: transform .2s ease;
+    }
+    .image-preview-modal.open .image-preview-content { transform: translateY(0); }
+    .image-preview-content img {
+      display: block;
+      width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid rgba(212,175,98,.35);
+      background: #050505;
+    }
+    .image-preview-close {
+      position: absolute;
+      top: -12px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(12,12,12,.9);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
 
     @media (max-width: 780px) {
       .gold-divider { display: none; }
@@ -427,6 +476,7 @@
         grid-template-columns: 74px minmax(0, 1fr);
         align-items: start;
       }
+      .menu-item.no-image { grid-template-columns: minmax(0, 1fr); }
       .menu-image { width: 74px; height: 74px; }
       .menu-item-controls {
         grid-column: 1 / -1;
@@ -512,6 +562,12 @@
   </main>
 
   <button id="cartButton" type="button" aria-label="Go to order summary">🛒</button>
+  <div id="imagePreviewModal" class="image-preview-modal" aria-hidden="true">
+    <div class="image-preview-content">
+      <button type="button" class="image-preview-close" id="imagePreviewClose" aria-label="Close image preview">×</button>
+      <img id="imagePreviewImg" alt="Menu item preview" />
+    </div>
+  </div>
 
   <script>
     (() => {
@@ -522,6 +578,12 @@
       const orderList = document.getElementById('orderList');
       const orderTotalEl = document.getElementById('orderTotal');
       const confirmOrderBtn = document.getElementById('confirmOrder');
+      const imagePreviewModal = document.getElementById('imagePreviewModal');
+      const imagePreviewImg = document.getElementById('imagePreviewImg');
+      const imagePreviewClose = document.getElementById('imagePreviewClose');
+      const availableImages = new Set([
+        "ApolloFish.jpg","BabyCorn65.jpg","BabyCornManchurian.jpg","ButterGarlicFish.jpg","ButterGarlicPrawn.jpg","CashewChicken.jpg","Chicken555.jpg","Chicken65.jpg","ChickenBonelessBiryani.jpg","ChickenChillyWings.jpg","ChickenDrumsticks(6Pcs).jpg","ChickenDumBiryani.JPG","ChickenFriedWings(9Pcs).jpg","ChickenFryBiryani.jpg","ChickenHotandSourceSoup.jpg","ChickenLemonCorriandorSoup.jpg","ChickenLollypop(6Pcs).jpg","ChickenManchowSoup.jpg","ChickenManchurian.JPG","ChickenMughalaiBiryani.jpg","ChickenSweetcornSoup.jpg","ChickenTikka8pcs.jpg","ChilliMushroom.jpg","ChillyBabyCorn.jpg","ChillyChicken.jpg","ChillyGarlicPrawn.jpg","CrispyAmericanCorn.jpg","CrispyBabyCorn.jpg","CrispyChicken.jpg","CrunchyChicken.jpg","DragonChicken.jpg","FrenchFries.jpg","GarlicChicken.jpg","GingerChicken.jpg","LemonChicken.jpg","LemonCorriandorSoup.jpg","LoosePrawns.jpg","MurgMalaiKabab8pcs.jpg","Mushroom65.jpg","MushroomManchurian.jpg","PaneerManchurian.jpg","PepperChicken.jpg","PrawnsRoast.jpg","SchezwanChicken.jpg","SchezwanPrawn.jpg","TandooriChickenFull.jpg","TandooriChickenHalf.jpg","TandooriDoubleJointBiryani.jpg","TandooriPrawn.jpg","VegHotandSourceSoup.jpg","VegManchowSoup.jpg","VegManchurian.jpg","VegSweetcornSoup.jpg","chickenthangdikababfull.jpg","chickenthangdikababhalf.jpg","chilligarlicfish.jpg","chillipaneer.jpg","garlic_bread.jpg","header_background6.jpg","hotelexcellalogo.jpg","hotelexcellalogo.png","hotelexcellalogo1.png","hotelexcellalogosmall.png","kfcpaneer.jpg","menu_icon.png","muttonfry.jpg","paneer65.jpg","paneerfingers.jpg","paneermalaitikka.jpg","paneertikka.jpg","sanvigrouplogo.jpg","spring_rolls.jpg"
+      ]);
 
       let menuData = { veg: {}, nonveg: {}, general: {} };
       let currentTab = 'veg';
@@ -582,19 +644,28 @@
         return [...variants];
       }
 
-      window.handleImageError = function (imgElement) {
-        const remaining = (imgElement.dataset.fallbacks || '')
-          .split('|')
-          .filter(Boolean);
-        if (remaining.length === 0) {
-          imgElement.style.display = 'none';
-          return;
-        }
+      function resolveImageSource(fileName) {
+        if (!fileName) return null;
+        const candidates = buildImageFallbacks(fileName).map(path => path.replace(/^images\//, ''));
+        const validName = candidates.find(name => availableImages.has(name));
+        return validName ? encodeURI(`images/${validName}`) : null;
+      }
 
-        const next = remaining.shift();
-        imgElement.dataset.fallbacks = remaining.join('|');
-        imgElement.src = next;
-      };
+      function openImagePreview(src, altText) {
+        if (!src) return;
+        imagePreviewImg.src = src;
+        imagePreviewImg.alt = altText || 'Menu item preview';
+        imagePreviewModal.classList.add('open');
+        imagePreviewModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeImagePreview() {
+        imagePreviewModal.classList.remove('open');
+        imagePreviewModal.setAttribute('aria-hidden', 'true');
+        imagePreviewImg.removeAttribute('src');
+        document.body.style.overflow = '';
+      }
 
       window.showCategory = function (category) {
         const items = menuData[currentTab][category] || [];
@@ -604,17 +675,14 @@
         items.forEach(item => {
           const qty = currentOrder[item.Name]?.qty || 0;
           const imageFile = item.ImageURL?.trim();
-          const imageTag = imageFile
-            ? (() => {
-                const candidates = buildImageFallbacks(imageFile).map(path => encodeURI(path));
-                const first = candidates.shift();
-                const fallbackData = candidates.join('|');
-                return `<img src="${first}" class="menu-image" alt="${item.Name}" loading="lazy" decoding="async" onerror="handleImageError(this)" data-fallbacks="${fallbackData}">`;
-              })()
-            : '<div class="menu-image" aria-hidden="true"></div>';
+          const validImageSrc = resolveImageSource(imageFile);
+          const imageTag = validImageSrc
+            ? `<img src="${validImageSrc}" class="menu-image previewable-image" alt="${item.Name}" loading="lazy" decoding="async" data-fullsrc="${validImageSrc}" data-alt="${item.Name}">`
+            : '';
+          const itemClass = validImageSrc ? 'menu-item' : 'menu-item no-image';
 
           container.innerHTML += `
-            <div class="menu-item">
+            <div class="${itemClass}">
               ${imageTag}
               <div class="menu-item-details">
                 <div class="item-name">${item.Name}</div>
@@ -662,6 +730,18 @@
             currentOrder[name] = { qty: 1, price: parseFloat(btn.dataset.price) };
             updateOrderSummary();
             updateMenuQty(name);
+          });
+        });
+
+        container.querySelectorAll('.previewable-image').forEach(img => {
+          img.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            openImagePreview(img.dataset.fullsrc, img.dataset.alt);
+          });
+          img.addEventListener('error', () => {
+            img.closest('.menu-item')?.classList.add('no-image');
+            img.remove();
           });
         });
       };
@@ -820,6 +900,22 @@
         const offset = orderSummary.getBoundingClientRect().top + window.scrollY - 72;
         window.scrollTo({ top: offset, behavior: 'smooth' });
       });
+
+      imagePreviewClose.addEventListener('click', closeImagePreview);
+      imagePreviewModal.addEventListener('click', (event) => {
+        if (event.target === imagePreviewModal) closeImagePreview();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && imagePreviewModal.classList.contains('open')) closeImagePreview();
+      });
+      let touchStartY = 0;
+      imagePreviewModal.addEventListener('touchstart', (event) => {
+        touchStartY = event.changedTouches[0].clientY;
+      }, { passive: true });
+      imagePreviewModal.addEventListener('touchend', (event) => {
+        const endY = event.changedTouches[0].clientY;
+        if (endY - touchStartY > 80) closeImagePreview();
+      }, { passive: true });
 
       updateCartButton();
     })();
