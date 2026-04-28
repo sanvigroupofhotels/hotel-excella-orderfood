@@ -1,1114 +1,924 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Hotel Excella - Food Ordering</title>
-      <style>
-         :root {
-         --primary: #2e7d32; /* or your theme color */
-         --accent: #f9a825;
-         --orange: #f9a825;
-         --light-orange: #FDAA48;
-         --dark-green: #2e7d32;
-         --yellow: #fff176;
-         --black: #000000;
-         --bg-black: #000000;
-         --white: #ffffff;
-         --light-gray: #f5f5f5;
-         --dark-gray: #333333;
-         --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-         --font-main-size: 1rem;
-         }
-         body {
-         margin: 0;
-         font-family: var(--font-family);
-         background-color: var(--bg-black);
-         color: var(--white);
-         line-height: 1.6;
-         font-size: var(--font-main-size);
-         }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hotel Excella - Room Dining</title>
+  <style>
+    :root {
+      --bg: #070707;
+      --bg-elevated: #101010;
+      --surface: #171717;
+      --surface-soft: #1f1f1f;
+      --text: #f7f7f7;
+      --text-muted: #ababab;
+      --gold: #d4af62;
+      --gold-soft: #f0ce83;
+      --danger: #b64b4b;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
 
-     header {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background: var(--dark-green);
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(212,175,98,0.08), transparent 38%),
+        radial-gradient(circle at bottom left, rgba(212,175,98,0.05), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 0.85rem 1rem;
+      background: linear-gradient(180deg, rgba(8,8,8,.96), rgba(8,8,8,.88));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(212, 175, 98, 0.25);
+    }
+
+    .header-wrap {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .header-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(212, 175, 98, 0.5);
+      box-shadow: 0 0 20px rgba(212,175,98,0.2);
+      flex-shrink: 0;
+    }
+
+    .header-content h1 {
+      margin: 0;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .header-content p {
+      margin: 0.2rem 0 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .gold-divider {
+      height: 1px;
+      flex: 1;
+      margin-left: .5rem;
+      background: linear-gradient(90deg, rgba(212,175,98,0.6), rgba(212,175,98,0));
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 1rem auto 5.5rem;
+      padding: 0 1rem;
+      display: grid;
+      gap: 1rem;
+      overflow-x: hidden;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(26,26,26,.95), rgba(15,15,15,.95));
+      border: 1px solid rgba(212, 175, 98, 0.14);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      overflow-x: hidden;
+    }
+
+    .notes {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .notes + .notes { margin-top: 0.3rem; }
+
+    .notes a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .notes a:hover { text-decoration: underline; }
+
+    #type-tabs {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .5rem;
+      width: 100%;
+      max-width: 100%;
+      padding: .35rem;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(212,175,98,.22);
+      position: sticky;
+      top: 77px;
+      z-index: 20;
+    }
+
+    .tab-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      width: 100%;
+      min-width: 0;
+      border-radius: 999px;
+      padding: .65rem .5rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .tab-btn:hover { color: var(--text); border-color: rgba(212,175,98,.35); }
+    .tab-btn.active {
+      color: #151515;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      box-shadow: 0 8px 20px rgba(212,175,98,0.28);
+    }
+
+    .category-tabs {
+      margin: 1rem 0;
+      display: flex;
+      gap: .55rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: .15rem;
+      scrollbar-width: thin;
+      max-width: 100%;
+      min-width: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-tabs button {
+      flex: 0 0 auto;
+      border: 1px solid rgba(212,175,98,.28);
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: .52rem .95rem;
+      font-size: .88rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .category-tabs button.active,
+    .category-tabs button:hover {
+      color: var(--text);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(212,175,98,.2), 0 0 16px rgba(212,175,98,.18);
+    }
+
+    #categoryContent {
+      display: grid;
+      gap: .8rem;
+      min-width: 0;
+    }
+
+    #menuContainer {
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: clip;
+    }
+
+    .menu-item {
+      display: grid;
+      grid-template-columns: 94px minmax(0, 1fr) auto;
+      gap: .8rem;
+      align-items: center;
+      padding: .75rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(34,34,34,.9), rgba(25,25,25,.95));
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      min-width: 0;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(212,175,98,.28);
+      box-shadow: 0 12px 24px rgba(0,0,0,.35), 0 0 12px rgba(212,175,98,.14);
+    }
+
+    .menu-image {
+      width: 94px;
+      height: 94px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(212,175,98,.2);
+      background: #131313;
+      cursor: zoom-in;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .menu-image:hover { transform: scale(1.02); box-shadow: 0 0 0 1px rgba(212,175,98,.24); }
+    .menu-item.no-image { grid-template-columns: minmax(0, 1fr) auto; }
+    .menu-item.no-image .menu-item-details { grid-column: 1; }
+    .menu-item.no-image .menu-item-controls { grid-column: 2; }
+
+    .menu-item-details { min-width: 0; }
+    .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
+    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: anywhere; }
+    .item-price {
+      color: var(--gold-soft);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-right: .7rem;
+      min-width: 76px;
+      text-align: right;
+    }
+
+    .menu-item-controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .6rem;
+      min-width: 0;
+    }
+
+    .quantity-selector {
+      min-width: 105px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+    }
+
+    .qty-val {
+      min-width: 18px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .add-btn,
+    .inc-btn,
+    .dec-btn,
+    #confirmOrder {
+      border: 1px solid rgba(212,175,98,.2);
+      border-radius: 999px;
+      color: #111;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      padding: .42rem .85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+    }
+
+    .inc-btn,
+    .dec-btn {
+      color: #101010;
+      min-width: 32px;
+      padding: .25rem 0;
+      border-radius: 10px;
+    }
+
+    .dec-btn { background: linear-gradient(180deg, #e6d0a2, #c99779); }
+
+    .add-btn:hover,
+    .inc-btn:hover,
+    .dec-btn:hover,
+    #confirmOrder:hover {
+      filter: brightness(1.03);
+      box-shadow: 0 0 16px rgba(212,175,98,.24);
+    }
+
+    .add-btn:active,
+    .inc-btn:active,
+    .dec-btn:active,
+    #confirmOrder:active { transform: scale(.97); }
+
+    #orderSummarySection h2,
+    #guestInfo h2 {
+      margin-top: 0;
+      margin-bottom: .9rem;
+      font-size: 1.15rem;
+      color: var(--gold-soft);
+    }
+
+    #orderBox {
+      background: var(--surface);
+      border: 1px solid rgba(212,175,98,.2);
+      border-radius: var(--radius-md);
+      padding: .95rem;
+    }
+
+    #orderBox h3 { margin: 0; color: var(--text); }
+
+    #orderList {
+      margin: .75rem 0;
+      padding: 0;
+      list-style: none;
+      max-height: 210px;
+      overflow: auto;
+    }
+
+    #orderList li {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .45rem 0;
+      border-bottom: 1px dashed rgba(255,255,255,.15);
+    }
+
+    .order-item-name { flex: 1; color: var(--text); }
+    .order-item-controls { display: flex; align-items: center; gap: .35rem; }
+    .order-item-price { min-width: 76px; text-align: right; color: var(--gold-soft); font-weight: 700; }
+
+    .order-summary-footer {
+      padding-top: .55rem;
+      border-top: 1px solid rgba(212,175,98,.22);
+      display: grid;
+      gap: .28rem;
+    }
+
+    .summary-line { display: flex; justify-content: space-between; color: var(--text-muted); }
+    .summary-line.total {
+      margin-top: .25rem;
+      padding-top: .4rem;
+      border-top: 1px solid rgba(212,175,98,.22);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.08rem;
+    }
+
+    #orderTotal::before { content: "₹"; margin-right: 2px; }
+
+    #guestInfo label {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    #guestInfo input {
+      width: 100%;
+      margin-bottom: .85rem;
+      padding: .72rem .78rem;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #141414;
+      color: var(--text);
+      outline: none;
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+
+    #guestInfo input:focus {
+      border-color: rgba(212,175,98,.65);
+      box-shadow: 0 0 0 3px rgba(212,175,98,.18);
+    }
+
+    #confirmOrder {
+      width: 100%;
+      max-width: 280px;
+      margin-top: .35rem;
+      font-size: 1rem;
+    }
+
+    #confirmOrder:disabled {
+      background: #555;
+      color: #bbb;
+      box-shadow: none;
+      border-color: transparent;
+      cursor: not-allowed;
+    }
+
+    .helper {
+      margin: .6rem 0 0;
+      color: var(--text-muted);
+      font-size: .84rem;
+    }
+
+    #cartButton {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 40;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,175,98,.4);
+      color: #101010;
+      font-size: 1.4rem;
+      background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+      box-shadow: 0 12px 28px rgba(0,0,0,.45), 0 0 14px rgba(212,175,98,.26);
+      display: none;
+      cursor: pointer;
+    }
+
+    .centered { text-align: center; }
+    .image-preview-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(0,0,0,.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+    .image-preview-modal.open { display: flex; opacity: 1; }
+    .image-preview-content {
+      position: relative;
+      width: min(92vw, 760px);
+      max-height: 88vh;
+      transform: translateY(10px);
+      transition: transform .2s ease;
+    }
+    .image-preview-modal.open .image-preview-content { transform: translateY(0); }
+    .image-preview-content img {
+      display: block;
+      width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid rgba(212,175,98,.35);
+      background: #050505;
+    }
+    .image-preview-close {
+      position: absolute;
+      top: -12px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(12,12,12,.9);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      .gold-divider { display: none; }
+      .menu-item {
+        grid-template-columns: 74px minmax(0, 1fr);
+        align-items: start;
       }
-
-      header img {
-        height: 60px;
-        margin-right: 15px;
+      .menu-item.no-image { grid-template-columns: minmax(0, 1fr); }
+      .menu-image { width: 74px; height: 74px; }
+      .menu-item-controls {
+        grid-column: 1 / -1;
+        justify-content: space-between;
+        margin-top: .2rem;
       }
+      .item-name { font-size: 1.06rem; }
+      .item-desc { font-size: .98rem; }
+      #type-tabs { top: 74px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-wrap">
+      <img class="header-logo" src="images/hotelexcellalogo.png" alt="Hotel Excella logo" />
+      <div class="header-content">
+        <h1>Room Dining</h1>
+        <p>Freshly prepared food to your room</p>
+      </div>
+      <div class="gold-divider" aria-hidden="true"></div>
+    </div>
+  </header>
 
-      header h1 {
-        margin: 0;
-        color: var(--orange);
-        font-size: 1.3rem;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-      }
+  <main>
+    <section class="panel" id="menuSection" aria-label="Menu Section">
+      <p class="notes">- Food is freshly prepared in our Cloud Kitchen; items subject to availability.</p>
+      <p class="notes">- Delivery time: Approx 45 mins.</p>
+      <p class="notes">- Feedback/concerns: <a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" target="_blank" rel="noopener noreferrer">WhatsApp</a> or <a href="tel:+919985908131">Call</a></p>
 
-      header p {
-        margin: 0;
-        color: var(--yellow);
-        font-weight: 600;
-      }
-         main {
-         max-width: 900px;
-         margin: 1rem auto 4rem auto;
-         background: var(--light-gray);
-         border-radius: 12px;
-         padding: 1rem 1.5rem;
-         color: var(--dark-gray);
-         position: relative;
-         }
-         section {
-         margin-bottom: 2rem;
-         }
-         h2 {
-         border-bottom: 0px solid var(--orange);
-         padding-bottom: 0 rem;
-         color: var(--dark-green);
-         }
-         #guestInfo label {
-         display: block;
-         font-weight: 750;
-         margin-bottom: 4px;
-         color: var(--primary);
-         }
-         #guestInfo input {
-         width: 90%;
-         padding: 10px;
-         border: 2px solid var(--primary);
-         border-radius: 6px;
-         margin-bottom: 15px;
-         font-size: 1rem;
-         }
-         /* Container for main tabs */
-         #menuTabs {
-         display: flex;
-         border-radius: 30px;
-         justify-content: center; /* center align on desktop */
-         padding: 0px;            /* <-- space around the group */
-         overflow: hidden;        /* keeps corners tidy */
-         background: var(--dark-grey); /* or a color if you want colored separators */
-         font-weight: 750;
-         }
-         /* Sub-category tabs container */
-         .category-tabs {
-         position: sticky;                    /* Sticky behavior */
-         top: var(--menuTabs-h, 0);             /* Top offset using a CSS variable fallback to 0 */
-         z-index: 9;                             /* Layering above other elements */
-         display: flex;                          /* Horizontal layout for buttons */
-         gap: 16px;                              /* Space between buttons */
-         padding: 12px 0;                        /* Vertical padding only */
-         margin: 0;                              /* No margin around the container */
-         justify-content: left;                 /* Align buttons to the left */
-         background: var(--dark-grey);     /* or a color if you want colored separators */
-         border: 0;                              /* Remove all borders */
-         border-bottom: 0;                       /* Prevent bottom border line */
-         box-shadow: none;                      /* Remove any shadow effects */
-         border-radius: 0;                      /* No rounded corners */
-         }
-         /* Individual sub-category buttons */
-         .category-tabs button {
-         padding: 8px 18px;                      /* Internal spacing for click area */
-         border-radius: 25px;                    /* Rounded pill-style buttons */
-         border: 2px solid var(--black);         /* Solid border using CSS variable */
-         background: var(--dark-grey);          /* Button background color */
-         color: var(--dark-grey);               /* Text color matches background (invisible?) */
-         font-size: 0.95rem;                     /* Slightly smaller font size */
-         font-weight: 600;                       /* Bold text */
-         cursor: pointer;                        /* Pointer cursor on hover */
-         transition: all 0.1s ease;              /* Smooth transition for hover effects */
-         justify-content: left;                 /* Align content inside button to the left */
-         }
-         /* Hover effect for sub-category buttons */
-         .category-tabs button:hover {
-         background: var(--dark-green);         /* Change background to dark green */
-         color: #fff;                            /* Change text color to white */
-         }
-         /* Active state for sub-category buttons */
-         .category-tabs button.active {
-         background: var(--dark-green);         /* Dark green background for active tab */
-         color: #fff;                            /* White text for active tab */
-         font-size: 0.95rem;                     /* Maintain font size */
-         font-weight: 600;                       /* Maintain boldness */
-         border-color: var(--dark-green);       /* Border matches background */
-         }
-         /* Main tab button styles */
-         .tab-btn {
-         flex: 1;                                /* Each tab takes equal width */
-         padding: 0.6rem 0.9rem;                 /* Internal spacing */
-         font-weight: 700;                       /* Bold text */
-         font-size: 1.1rem;                      /* Slightly larger font size */
-         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
-         text-align: center;                     /* Center-align text */
-         cursor: pointer;                        /* Pointer cursor on hover */
-         background: var(--light-gray);         /* Light gray background */
-         color: var(--dark-green);              /* Text color */
-         border: none;                           /* Remove all borders */
-         border-radius: 16px;                    /* Slight rounding for hover effect */
-         transition: color 0.1s ease, background 0.1s ease, border-color 0.1s ease; /* Smooth transitions */
-         user-select: none;                      /* Prevent text selection */
-         }
-         /* Active state for main tab buttons */
-         .tab-btn.active {
-         font-color: #fff;                       /* Incorrect property (should be 'color') */
-         color: #fff;                            /* White text */
-         background: var(--light-orange);       /* Orange background for active tab */
-         color: var(--dark-green);              /* Overwrites white text (conflicting) */
-         }
-         /* Focus-visible state for accessibility */
-         .tab-btn:focus-visible {
-         outline: 3px solid var(--light-orange); /* Orange outline when focused via keyboard */
-         font-color: var(--dark-green);          /* Incorrect property (should be 'color') */
-         }
-         /* MENU ITEM ROW */
-         .menu-item {
-         display: flex;
-         /* Remove constant wrapping on desktop; allow it only on small screens */
-         flex-wrap: nowrap;                 /* was: wrap */
-         align-items: center;
-         justify-content: space-between;
-         padding: 0.75rem 0;                /* was: 5rem 0  -> huge vertical gap */
-         gap: 12px;                         /* add horizontal spacing between children */
-         border-bottom: 1.2px dotted var(--dark-green);
-         }
-         .menu-item:last-child { border-bottom: none; }
-         .menu-item-details {
-         flex-grow: 1;
-         margin-right: 10px;
-         }
-         .menu-item-controls {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         }
-         .item-thumb {
-         width: 60px;
-         height: 60px;
-         border-radius: 6px;
-         background-position: center;
-         background-size: cover;
-         flex-shrink: 0;
-         border: 1px solid var(--dark-green);
-         }
-         .item-thumb.empty { display: none; }
-         .menu-image {
-         width: 100px;
-         height: 100px;
-         border-radius: 8px;
-         margin-bottom: 8px;
-         object-fit: cover;
-         display: block;
-         margin-left: 8px;
-         margin-right: 10px; Okk
-         }
-         .menu-image.empty {
-         background-color: #f0f0f0;
-         width: 100px;
-         height: 100px;
-         }
-         .item-name {
-         font-weight: 700;
-         font-size: 1.15rem;
-         color: var(--dark-green);
-         }
-         .item-desc {
-         font-style: italic;
-         font-size: 0.9rem;
-         color: #000000;
-         margin-top: 0.2rem;
-         }
-         .item-price {
-         font-weight: 700;
-         font-size: 1.1rem;
-         margin-right: 1rem;
-         color: var(--orange);
-         min-width: 75px;
-         text-align: right;
-         }
-         .quantity-selector {
-         display: inline-flex;
-         align-items: center;
-         gap: 0.3rem;
-         }
-         .quantity-selector button {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #28a745;
-         color: #fff;
-         cursor: pointer;
-         font-size: 1.1rem;
-         }
-         .quantity-selector .inc-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #28a745; /* green */
-         color: #fff;
-         cursor: pointer;
-         font-size: 1.1rem;
-         }
-         .quantity-selector .dec-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #e53935; /* red */
-         color: #fff;
-         cursor: pointer;
-         font-size: 1.1rem;
-         }
-         .quantity-selector button:hover { background: #218838; }
-         .quantity-selector .qty-val {
-         min-width: 20px;
-         text-align: center;
-         color: #000; 
-         font-weight: 700;
-         font-size: 1.1rem;
-         font-style: normal;
-         }
-         #orderBox {
-         background: var(--dark-green);
-         color: #fff;
-         border-radius: 8px;
-         padding: 1rem;
-         }
-         #orderBox h3 {
-         color: var(--yellow);
-         margin-top: 0;
-         margin-bottom: 1rem;
-         }
-         #orderList {
-         margin: 0.5rem 0;
-         padding-left: 1rem;
-         list-style-type: disc;
-         max-height: 200px;
-         overflow-y: auto;
-         }
-         #orderList li {
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         padding: 6px 0;
-         border-bottom: 1px dashed rgba(255,255,255,0.2);
-         }
-         .order-item-name { flex: 1; }
-         .order-item-controls {
-         display: flex;
-         gap: 6px;
-         min-width: 100px;
-         }
-         .order-item-price {
-         min-width: 70px;
-         text-align: right;
-         font-weight: 600;
-         }
-         .dec-btn {
-         padding: 2px 6px;
-         border: none;
-         border-radius: 5px;
-         background: #e53935;
-         color: #fff; 
-         cursor: pointer;
-         }
-         .inc-btn {
-         padding: 2px 6px;
-         border: none;
-         border-radius: 5px;
-         background: #43a047;
-         color: #fff;
-         cursor: pointer;
-         }
-         #orderTotal::before { content: "₹ "; font-weight: bold; }
-         #orderTotal {
-         font-weight: 700;
-         font-size: 1.2rem;
-         margin: 0.5rem 0;
-         border-top: 2px solid var(--yellow);
-         padding-top: 0.5rem;
-         text-align: right;
-         }
-         .order-summary-footer {
-         padding: 8px 12px;
-         background: rgba(255, 255, 255, 0.05);
-         border-radius: 6px;
-         }
-         .summary-line {
-         display: flex;
-         justify-content: flex-end;
-         gap: 6px;
-         margin: 4px 0;
-         font-size: 1rem;
-         }
-         .summary-line .label {
-         font-weight: 500;
-         text-align: right;
-         }
-         .summary-line .value {
-         font-variant-numeric: tabular-nums;
-         text-align: right;
-         min-width: 60px;
-         }
-         .summary-line.total {
-         border-top: 2px solid var(--accent);
-         margin-top: 6px;
-         padding-top: 6px;
-         font-weight: 700;
-         font-size: 1.2rem;
-         }
-         .summary-line.total .value { color: #fff; }
-         #confirmOrder {
-         width: 60%;
-         padding: 0.8rem;
-         background: var(--light-orange);
-         color: #fff;
-         font-weight: 700;
-         font-size: 1rem;
-         border: none;
-         border-radius: 8px;
-         cursor: pointer;
-         }
-         #confirmOrder:disabled {
-         background: #bbb;
-         cursor: not-allowed;
-         }
-         .sr-only {
-         position: absolute !important;
-         width: 1px !important;
-         height: 1px !important;
-         padding: 0 !important;
-         margin: -1px !important;
-         overflow: hidden !important;
-         clip: rect(0,0,0,0) !important;
-         border: 0 !important;
-         }
-         #cartButton {
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         background-color: var(--white);
-         padding: 14px; /* equal padding for round shape */
-         border-radius: 50%;
-         color: white;
-         font-size: 1.5rem;
-         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-         cursor: pointer;
-         z-index: 100;
-         }
-         @media (max-width: 720px) {
-         .item-info {
-         flex-direction: column;
-         gap: 0.1rem;
-         }
-         .item-name { font-size: 1rem; }
-         .menu-item { padding: 0.3rem 0; }
-         #orderSummary { padding: 0.75rem; }
-         }
-      </style>
-      <!-- Mobile Overrides --->
-      <style id="mobile-responsive-overrides">
-         @media (max-width: 768px) {
-         header {
-         flex-direction: row;
-         align-items: center;
-         gap: 10px;
-         }
-         header img { height: 50px; }
-         .hotel-name { font-size: 1rem; }
-         .tagline { font-size: 0.9rem; }
-         }
-         @media (max-width: 600px) {
-         /* Cart button smaller */
-         #cartButton {
-         font-size: 1.2rem;
-         padding: 10px;
-         bottom: 12px;
-         right: 12px;
-         }
-         /* Sticky tab container for mobile */
-         #type-tabs {
-         position: sticky;                      /* Keeps tabs fixed at top during scroll */
-         top: 0px;                             /* Offset from top (adjust for header height) */
-         z-index: 1000;                         /* High stacking order */
-         background: #fff;                      /* White background */
-         padding: 16px 0;                       /* Vertical padding */
-         display: flex;                         /* Horizontal layout */
-         gap: 10px;                             /* Space between buttons */
-         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
-         text-align: center;                     /* Center-align text */
-         cursor: pointer;                        /* Pointer cursor on hover */
-         background: var(--light-gray);         /* Light gray background */
-         color: var(--dark-green);              /* Text color */
-         flex-wrap: wrap;                       /* Allow wrapping to next line */
-         overflow-x: auto;                      /* Enable horizontal scroll if needed */
-         }
-         /* Mobile tab button styles */
-         .tab-btn {
-         flex: 1;                                /* Each tab takes equal width */
-         padding: 0.6rem 0.9rem;                 /* Internal spacing */
-         font-weight: 700;                       /* Bold text */
-         font-size: 1.1rem;                      /* Slightly larger font size */
-         font-color: var(--dark-green);         /* Incorrect property (should be 'color') */
-         text-align: center;                     /* Center-align text */
-         cursor: pointer;                        /* Pointer cursor on hover */
-         background: var(--light-gray);         /* Light gray background */
-         color: var(--dark-green);              /* Text color */
-         border: none;                           /* Remove all borders */
-         border-radius: 16px;                    /* Slight rounding for hover effect */
-         transition: color 0.1s ease, background 0.2s ease, border-color 0.2s ease; /* Smooth transitions */
-         user-select: none;                      /* Prevent text selection */
-         white-space: nowrap;                   /* Prevent line breaks */
-         }
-         /* Hover effect for mobile tab buttons */
-         .tab-btn:hover {
-         background-color: var(--dark-green);   /* Dark green background on hover */
-         color: white;                          /* White text on hover */
-         }
-         /* Active state for mobile tab buttons */
-         .tab-btn.active {
-         font-color: #fff;                       /* Incorrect property (should be 'color') */
-         color: #fff;                            /* White text */
-         background: var(--light-orange);       /* Orange background for active tab */
-         border-bottom: 3px solid var(--light-orange); /* Bottom border for active tab */
-         color: var(--dark-green);              /* Overwrites white text (conflicting) */
-         }
-         /* Focus-visible state for accessibility */
-         .tab-btn:focus-visible {
-         outline: 3px solid var(--light-orange); /* Orange outline when focused via keyboard */
-         font-color: var(--dark-green);          /* Incorrect property (should be 'color') */
-         }
-         /* Sticky horizontal category sub-tabs for mobile */
-         .category-tabs {
-         position: sticky;                      /* Sticky positioning */
-         top: 65px;                             /* Offset from top */
-         z-index: 10;                           /* Layering above other content */
-         background: var(--light-gray);         /* Gray background */
-         display: flex;                         /* Horizontal layout */
-         gap: 8px;                              /* Space between buttons */
-         overflow-x: auto;                      /* Enable horizontal scroll */
-         white-space: nowrap;                   /* Prevent line breaks */
-         padding: 12px 0px;                     /* Vertical padding */
-         font-weight: 600;                      /* Bold text */
-         box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* Subtle shadow for elevation */
-         }
-         /* Custom scrollbar for mobile tabs */
-         .category-tabs::-webkit-scrollbar {
-         height: 6px;                           /* Thin scrollbar height */
-         }
-         /* Individual category buttons for mobile */
-         .category-tabs button {
-         flex: 0 0 auto;                        /* Prevent buttons from stretching */
-         border: 1px solid rgba(0, 0, 0, 0.15); /* Light border */
-         background: #f0f0f0;                   /* Light gray background */
-         padding: 8px 14px;                     /* Internal spacing */
-         border-radius: 20px;                   /* Rounded corners */
-         font-size: 13px;                       /* Smaller font size */
-         font-weight: 500;                      /* Medium-bold text */
-         cursor: pointer;                       /* Pointer cursor */
-         transition: all 0.2s ease;             /* Smooth transitions */
-         font-weight: 600;                      /* Bold text (duplicate declaration) */
-         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-         justify-content: left;                /* Align content to the left */
-         }
-         /* Hover effect for category buttons */
-         .category-btn:hover {
-         background-color: var(--dark-green);   /* Dark green background */
-         color: white;                          /* White text */
-         }
-         /* Active state for category buttons */
-         .category-btn.active {
-         background-color: var(--dark-green);   /* Dark green background */
-         color: white;                          /* White text */
-         border-color: var(--dark-green);       /* Border matches background */
-         }         /* Menu item stacking */
-         .menu-item {
-         display: grid;
-         grid-template-columns: auto 1fr auto; /* image | text | price/qty */
-         grid-template-rows: auto auto;
-         gap: 12px;
-         align-items: start;                    /* row height defined by content */
-         }
-         /* Vertically center the image in its cell */
-         .menu-item img,  
-         .menu-image {
-         width: 100px; height: 100px; object-fit: cover; border-radius: 10px;
-         align-self: center;     /* vertical centering */
-         justify-self: center;   /* horizontal centering */
-         }
-         /* Vertically and horizontally center the image in its cell */
-         .menu-item img {
-         grid-row: 1 / span 2;
-         grid-column: 1;
-         width: 100px;
-         height: 100px;
-         object-fit: cover;
-         border-radius: 10px;
-         align-self: center;     /* vertical centering */
-         justify-self: center;   /* horizontal centering */
-         }
-         .menu-item-details {
-         grid-row: 1;
-         grid-column: 2;
-         display: flex;
-         flex-direction: column;
-         justify-content: flex-start;
-         }
-         .item-name {
-         font-weight: 700;
-         font-size: 1.1rem;
-         color: var(--dark-green);
-         }
-         .item-desc {
-         font-style: italic;
-         font-size: 1rem;
-         color: #000000;
-         margin-top: 0.2rem;
-         }
-         .menu-item-controls {
-         grid-row: 2;
-         grid-column: 2;
-         display: flex;
-         flex-direction: row;
-         justify-content: flex-end;
-         align-items: baseline; /* Aligns text like price and "Add" on the same line */
-         gap: 8px;
-         }
-         .item-price {
-         font-size: 1.2rem;
-         font-weight: 700;
-         margin: 0;
-         padding: 0;
-         line-height: 1;
-         }
-         .quantity-selector,
-         .add-btn {
-         font-size: 1.3rem;
-         font-weight: 700;
-         line-height: 1.3;
-         display: inline-flex;
-         align-items: baseline;
-         width: 80px;
-         height: 30px;
-         justify-content: center;
-         }
-         .quantity-selector .inc-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #28a745; /* green */
-         color: #fff;
-         cursor: pointer;
-         width: 80px;
-         height: 30px;
-         font-size: 1.3rem;
-         line-height: 1;
-         display: inline-flex;
-         align-items: baseline;
-         }
-         .quantity-selector .dec-btn {
-         padding: 4px 8px;
-         border: none;
-         border-radius: 6px;
-         background: #e53935; /* red */
-         color: #fff;
-         cursor: pointer;
-         width: 80px;
-         height: 30px;
-         font-size: 1.3rem;
-         line-height: 1;
-         display: inline-flex;
-         align-items: baseline;
-         }
-         #orderList { max-height: 140px; }
-         }
-         @media (max-width: 768px) {
-         .order-summary-footer { gap: 8px; }
-         .order-summary-footer > div { font-size: 1rem; }
-         }
-         @media (max-width: 600px) {
-         .footer-actions,
-         .cart-actions,
-         .actions,
-         #orderActions {
-         position: static !important;
-         display: flex !important;
-         flex-direction: column !important;
-         gap: 8px !important;
-         padding: 8px 10px !important;
-         width: 100% !important;
-         box-sizing: border-box;
-         }
-         #confirmOrder { width: 100% !important; }
-         #confirmBtn,
-         #confirmOrderBtn {
-         order: 2 !important;
-         width: 100% !important;
-         }
-      </style>
-      <!-- mobile responsiveness code styling ends -->
-   </head>
-   <body>
-      <header style="display: flex; align-items: left; padding: 10px;">
-         <img src="images/hotelexcellalogo.png" alt="Hotel Logo" style="height: 60px; margin-right: 15px;">
-         <div>
-            <h1 class="hotel-name"; style="margin: 0;">HOTEL EXCELLA</h1>
-            <p class="tagline"; style="margin: 0; color: black; font-weight: 700;">IN-HOUSE ROOM SERVICE MENU</p>
-         </div>
-      </header>
+      <div id="type-tabs" role="tablist" aria-label="Menu type tabs">
+        <button id="tabVeg" class="tab-btn active" type="button">Veg</button>
+        <button id="tabNonVeg" class="tab-btn" type="button">Non Veg</button>
+        <button id="tabGeneral" class="tab-btn" type="button">General</button>
+      </div>
 
-      <main>
-         <!-- Menu Section -->
-         <section aria-label="Menu Section" id="menuSection">
-         <p style="margin: 0; font-style: italic; font-size: 0.1rem; font-weight: 1; color: #555; "> </p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Food is freshly prepared in our Cloud Kitchen; Items subject to availability.</p>
-         <p style="margin: 0; font-style: italic; font-size: 0.9rem; font-weight: 200; color: #555; ">- Delivery time: Approx 45 mins.</p>
-	 <p style="margin:0;font-style:italic;font-size:0.9rem;font-weight:200;color:#555;">
-            - Feedback/concerns: 
-         <!-- WhatsApp Button -->  
-	<a href="https://wa.me/919985908131?text=Hello%20team%2C%20I%20found%20this%20link%20on%20Food%20Ordering%20page%20and%20I%20have%20a%20suggestion/feedback/concern%20please" target="_blank" style="color:#25D366;">WhatsApp</a>
-	 <!-- Call Button --> 
-          or <a href="tel:+919985908131" style="color:#007BFF;">Call</a>
-        </p>
-         <p style="margin: 0; font-style: italic; font-size: 0.4rem; font-weight: 1; color: #555; "> .</p>
-         <div id="type-tabs">
-            <button id="tabVeg" class="tab-btn active" onclick="filterMenu('Veg')">Veg</button>
-            <button id="tabNonVeg" class="tab-btn" onclick="filterMenu('Non Veg')">Non Veg</button>
-            <button id="tabGeneral" class="tab-btn" onclick="filterMenu('General')">General</button>
-         </div>
-         <div aria-atomic="true" aria-live="polite" id="menuContainer" tabindex="0">
-            <p style="font-style: italic; color: #777;">Loading menu…</p>
-         </div>
-         </section>
-         <!-- Menu Section -->
-         <!-- Order Summary Section -->
-         <section id="orderSummarySection">
-            <h2 style="color: var(--primary);">Order Summary</h2>
-            <div id="orderBox" style="background: var(--primary); color: #fff; border-radius: 8px; padding: 1rem;">
-               <h3 style="color: var(--accent); margin: 0; border-bottom: none;">Selected Items</h3>
-               <!-- Order list (dynamic rows inserted here) -->
-               <ul id="orderList" style="margin: 0.5rem 0; padding: 0; list-style-type: none; max-height: 200px; overflow-y: auto;">
-                  <li>No items selected</li>
-               </ul>
-               <!-- Total -->
-               <div class="order-summary-footer">
-                  <div class="summary-line">
-                     <span class="label">Subtotal: </span>
-                     <span class="value">₹<span id="subtotal">0.00</span></span>
-                  </div>
-                  <div class="summary-line">
-                     <span class="label">GST (5%): </span>
-                     <span class="value">₹<span id="gst">0.00</span></span>
-                  </div>
-                  <div class="summary-line total">
-                     <span class="label">Total: </span>
-                     <span class="value"><span id="orderTotal">0.00</span></span>
-                  </div>
-               </div>
-         </section>
-         <!-- End Order Summary Section -->
-         <!-- Guest Information Section -->
-         <section id="guestInfo" class="card">
-         <h2>Guest Information</h2>
-         <label for="guestName">Guest Name: *</label>
-         <input type="text" id="guestName" required placeholder="Enter your name">
-         <label for="roomNumber">Room Number: *</label>
-         <input type="number" id="roomNumber" required placeholder="Enter your room number" min="101" max="501">
-         <label for="Whatsappnum">WhatsApp Number: *</label>
-         <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number">
-         <div style="text-align: center;">
-         <button id="confirmOrder"  
-            style="width: 45%; padding: 0.5rem; background: var(--dark-green); color: #fff; font-weight: 650; font-size: 1rem; border: none; border-radius: 20px; cursor: pointer;">
-         Confirm Order  
-         </button>
-         <p style="font-size: 0.85rem; color: #777;">
-         Clicking Confirm will open WhatsApp with your order details pre-filled.
-         </p>
-         </div>
-         </div>
-         </section>
-         <!-- Guest Information Section -->
-      </main>
-      <!-- Floating Cart Button -->
-      <button id="cartButton" style="display: none; position: fixed; bottom: 20px; 	right: 20px;">
-      🛒
-      </button>
-      <!-- Floating Cart Button -->
-      <script>
-         (() => {
-                   
-                
-           const menuContainer = document.getElementById('menuContainer');
-           const tabVegBtn = document.getElementById('tabVeg');
-           const tabNonVegBtn = document.getElementById('tabNonVeg');
-           const tabGeneralBtn = document.getElementById('tabGeneral');
-         const orderList = document.getElementById('orderList');
-         const orderTotalEl = document.getElementById('orderTotal');
-         const confirmOrderBtn = document.getElementById('confirmOrder');
-           const guestNameEl = document.getElementById('guestName');
-         const roomNumberEl = document.getElementById('roomNumber');
-         const whatsappEl = document.getElementById('guestWhatsApp');
-         
-           let menuData = { veg:{}, nonveg:{}, general:{} };
-           let currentTab = 'veg';
-           let currentOrder = {};
-         
-         function parseCSV(text) {
-         const lines = text.trim().split('\n');
-         const headers = lines[0].split(',').map(h => h.trim());
-         
-         return lines.slice(1).map(line => {
-         const values = [];
-         let match;
-         const regex = /("([^"]*)"|[^,]+)/g; // match quoted "..." or unquoted text
-         
-         while ((match = regex.exec(line)) !== null) {
-         if (match[2] !== undefined) {
-         values.push(match[2]); // inside quotes
-         } else {
-         values.push(match[1]);
-         }
-         }
-         
-         const obj = {};
-         headers.forEach((h, i) => obj[h] = values[i] ? values[i].trim() : "");
-         return obj;
-         });
-         }
-         
-         
-           function renderMenu() {
-             const data = menuData[currentTab];
-             if (!data || Object.keys(data).length === 0) { menuContainer.innerHTML = '<p>No items</p>'; return; }
-             let tabsHtml = '<div class="category-tabs">';
-             for (const category of Object.keys(data)) {
-               tabsHtml += `<button data-category="${category}" onclick="showCategory('${category}')">${category}</button>`;
-             }
-             tabsHtml += '</div><div id="categoryContent"></div>';
-             menuContainer.innerHTML = tabsHtml;
-             const firstCategory = Object.keys(data)[0];
-             if (firstCategory) showCategory(firstCategory);
-           }
-         
-         window.showCategory = function(category) {
-         const items = menuData[currentTab][category] || [];
-         const container = document.getElementById('categoryContent');
-         container.innerHTML = ''; // Clear the content first
-         
-         
-         
-         items.forEach(item => {
-         const qty = currentOrder[item.Name]?.qty || 0;
-         const imageFile = item.ImageURL?.trim();
-         const imageTag = imageFile ? `<img src="images/${imageFile}" class="menu-image">` : "";
-         
-         container.innerHTML += `
-         <div class="menu-item">
-         ${imageTag}
-         <div class="menu-item-details">
-          <div class="item-name">${item.Name}</div>
-          <div class="item-desc">${item.Description}</div>
-         </div>
-         <div class="menu-item-controls">
-          <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-          <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
-            ${qty > 0 
-              ? `<button class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
-                 <span class="qty-val">${qty}</span>
-                 <button class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-              : `<button class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`
-            }
+      <div id="menuContainer" aria-live="polite" aria-atomic="true" tabindex="0">
+        <p class="notes">Loading menu…</p>
+      </div>
+    </section>
+
+    <section class="panel" id="orderSummarySection">
+      <h2>Order Summary</h2>
+      <div id="orderBox">
+        <h3>Selected Items</h3>
+        <ul id="orderList">
+          <li>No items selected</li>
+        </ul>
+
+        <div class="order-summary-footer">
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span>₹<span id="subtotal">0.00</span></span>
           </div>
-         </div>
-         </div>
-         `; 
-         
-         
-         // Highlight active sub tab
-         document.querySelectorAll('.category-tabs button').forEach(btn => {
-         if (btn.getAttribute('data-category') === category) {
-         btn.classList.add('active');
-         } else {
-         btn.classList.remove('active');
-         }
-         });
-         
-         // Attach increment/decrement events for each item in the menu
-         container.querySelectorAll('.inc-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = btn.dataset.name;
-         currentOrder[name].qty++;
-         updateOrderSummary();
-         updateMenuQty(name);
-         });
-         });
-         
-         container.querySelectorAll('.dec-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = btn.dataset.name;
-         currentOrder[name].qty--;
-         if (currentOrder[name].qty <= 0) delete currentOrder[name];
-         updateOrderSummary();
-         updateMenuQty(name);
-         });
-         });
-         
-         container.querySelectorAll('.add-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = btn.dataset.name;
-         const price = parseFloat(btn.dataset.price);
-         currentOrder[name] = { qty: 1, price };
-         updateOrderSummary();
-         updateMenuQty(name);
-         });
-         });
-         });
-         };
-         
-         //Function to update quantity in the menu list (live update)
-         function updateMenuQty(name) {
-         const safeId = `#qty-${name.replace(/\s+/g, '_')}`;
-         const qtyValElem = document.querySelector(`#categoryContent .menu-item ${CSS.escape(safeId)} .qty-val`);
-         
-         if (qtyValElem) {
-         const updatedQty = currentOrder[name]?.qty || 0;
-         qtyValElem.textContent = updatedQty;
-         }
-         
-         const activeCategoryBtn = document.querySelector('.category-tabs button.active');
-         const category = activeCategoryBtn?.dataset?.category;
-         if (category) {
-         showCategory(category); //re-render the current category
-         }
-         }
-         
-                  
-         
-         // This function handles quantity change inputs
-         function onQtyChange(e) {
-         const input = e.target;
-         const name = input.dataset.name;
-         const price = parseFloat(input.dataset.price);
-         const qty = parseInt(input.value) || 0;
-         if (qty > 0) currentOrder[name] = { qty, price };
-         else delete currentOrder[name];
-         updateOrderSummary();
-         }
-         
-         function sanitizeInput(str) {
-         if (!str) return "";
-         str = str.replace(/[<>]/g, "");       // Remove angle brackets
-         str = str.replace(/["'`]/g, "");      // Remove quotes and backticks
-         str = str.replace(/\s+/g, " ").trim(); // Collapse whitespace
-         return str;
-         }
-         
-         
-         
-         function isValidRoomNumber(room) {
-         const validRooms = [];
-         [100, 200, 300, 400].forEach(floor => {
-         for (let i = 1; i <= 6; i++) {
-         validRooms.push(floor + i);
-         }
-         });
-         return validRooms.includes(parseInt(room));
-         }
-         
-         
-         function isValidPhoneNumber(number) {
-         // Accepts Indian mobile numbers starting with 6-9 and 10 digits long
-         return /^[6-9]\d{9}$/.test(number);
-         }
-         
-         
-         
-         function updateOrderSummary() {
-         orderList.innerHTML = '';
-         let total = 0;
-         
-         for (const [name, item] of Object.entries(currentOrder)) {
-         const lineTotal = item.qty * item.price;
-         total += lineTotal;
-         
-         orderList.innerHTML += `
-         <li>
-         <span class="order-item-name">${name}</span>
-         <div class="order-item-controls">
-         <button class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
-         <span class="qty-val">${item.qty}</span>
-         <button class="inc-btn" data-name="${encodeURIComponent(name)}">+</button>
-         </div>
-         <span class="order-item-price">₹${lineTotal.toFixed(2)}</span>
-         </li>`;
-         
-         
-         }
-         
-         if (Object.keys(currentOrder).length === 0) {
-         orderList.innerHTML = '<li>No items selected</li>';
-         }
-         
-         // ✅ GST calculation
-         const gst = total * 0.05;
-         const grandTotal = total + gst;
-         
-         // ✅ Update totals
-         document.getElementById('subtotal').textContent = total.toFixed(2);
-         document.getElementById('gst').textContent = gst.toFixed(2);
-         orderTotalEl.textContent = grandTotal.toFixed(2);
-         
-                 
-         // Enable Confirm button when there's an order
-         confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
-         
-         // Update floating cart button
-         updateCartButton();
-         
-         // 👉 Bind increment/decrement events
-         orderList.querySelectorAll('.inc-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
-         currentOrder[name].qty++;
-         updateOrderSummary();
-         updateMenuQty(name);
-         });
-         });
-         
-         orderList.querySelectorAll('.dec-btn').forEach(btn => {
-         btn.addEventListener('click', () => {
-         const name = decodeURIComponent(btn.dataset.name); // 👈 decode here
-         currentOrder[name].qty--;
-         if (currentOrder[name].qty <= 0) delete currentOrder[name];
-         updateOrderSummary();
-         updateMenuQty(name);
-         });
-         });
-         
-         
-         }
-         
-         
-         
-         function removeFromCart(item) {
-         if (cart[item]) {
-         cart[item].quantity -= 1;
-         
-         if (cart[item].quantity <= 0) {
-            delete cart[item];
-         
-            // Show Add button again
-            const addBtn = document.getElementById("add-button-" + item);
-            if (addBtn) addBtn.style.display = "inline-block";
-         
-            // Hide quantity controls
-            const qtyControls = document.getElementById("quantity-controls-" + item);
-            if (qtyControls) qtyControls.style.display = "none";
-         }
-         }
-         
-         updateOrderSummary(); // Refresh Order Summary
-         }         
-         
-         
-         
-           // Tab switching
-         
-         
-           function switchActive(activeBtn) {
-             [tabVegBtn, tabNonVegBtn, tabGeneralBtn].forEach(btn => btn.classList.remove('active'));
-             activeBtn.classList.add('active');
-           }
-           tabVegBtn.addEventListener('click', () => { currentTab = 'veg'; switchActive(tabVegBtn); renderMenu(); });
-           tabNonVegBtn.addEventListener('click', () => { currentTab = 'nonveg'; switchActive(tabNonVegBtn); renderMenu(); });
-           tabGeneralBtn.addEventListener('click', () => { currentTab = 'general'; switchActive(tabGeneralBtn); renderMenu(); });
-         
-           // Load menu.csv
-           fetch('menu.csv')
-             .then(r => r.text())
-             .then(text => {
-               const rows = parseCSV(text);
-               rows.forEach(row => {
-                 const type = row.Type.toLowerCase();
-                 const category = row.Category || "Misc";
-                 if (!menuData[type][category]) menuData[type][category] = [];
-                 menuData[type][category].push(row);
-               });
-               renderMenu();
-             });
-         
-         confirmOrderBtn.addEventListener('click', () => {
-         // Get guest info from inputs
-         const guestNameE = document.getElementById('guestName').value.trim();
-         const roomNumberE = document.getElementById('roomNumber').value.trim();
-         const guestWhatsAppE = document.getElementById('guestWhatsApp').value.trim();
-         
-         //revert back to the same variables names after sanitization
-         const guestName = sanitizeInput(guestNameE);
-         const roomNumber = sanitizeInput(roomNumberE);
-         const guestWhatsApp = sanitizeInput(guestWhatsAppE);
-         
-         // Validate guest info fields
-         if (!guestName || !roomNumber || !guestWhatsApp) {
-         alert('Please fill all guest details.');
-         return;
-         }
-         if (!isValidPhoneNumber(guestWhatsApp)) {
-         alert("Please enter your valid 10-digit WhatsApp number.");
-         return;
-         }
-         if (!isValidRoomNumber(roomNumber)) {
-         alert("Please enter a valid room number (101–106, 201–206, 301–306, 401–406).");
-         return;
-         }
-           
-         // Construct the order message with each item on a new line
-         let orderDetails = Object.entries(currentOrder).map(([name, item]) => `${name} x ${item.qty}`).join('\n');
-         let total = orderTotalEl.textContent;
-         
-         if (orderDetails.length === 0) {
-         alert('Please add at least one item to your order.');
-         return;
-         }
-         
-         
-         // Use template literals and encodeURIComponent for proper line breaks and URL encoding
-         let msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
-         
-         // Open WhatsApp with the prefilled message
-         window.open(`https://wa.me/${+919985908131}?text=${encodeURIComponent(msg)}`, '_blank');
-         });
-         
-         })();
-         
-         // CartButton Functionality script starts    
-         
-         (() => {
-         const cartButton = document.getElementById('cartButton');
-         const orderTotalEl = document.getElementById('orderTotal');
-         
-         window.updateCartButton = function() {
-         const total = parseFloat(orderTotalEl.textContent.replace(/[^0-9.]/g, '')) || 0;
-         console.log("Order Total inside updateCartButton:", total);
-         cartButton.style.display = total > 0 ? 'block' : 'none';
-         };
-         
-         cartButton.addEventListener('click', () => {
-         const orderSummary = document.getElementById("orderSummarySection");
-         const offset = orderSummary.getBoundingClientRect().top + window.scrollY ;
-         window.scrollTo({ top: offset, behavior: "smooth" });
-         
-         
-         });
-         
-         updateCartButton(); // Initial check
-         })();
-         
-         // CartButton Functionality script ends
-         
-         
-      </script>
-   </body>
+          <div class="summary-line">
+            <span>GST (5%)</span>
+            <span>₹<span id="gst">0.00</span></span>
+          </div>
+          <div class="summary-line total">
+            <span>Total</span>
+            <span><span id="orderTotal">0.00</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="guestInfo">
+      <h2>Guest Information</h2>
+      <label for="guestName">Guest Name: *</label>
+      <input type="text" id="guestName" required placeholder="Enter your name" />
+
+      <label for="roomNumber">Room Number: *</label>
+      <input type="number" id="roomNumber" required placeholder="Enter your room number" min="101" max="501" />
+
+      <label for="guestWhatsApp">WhatsApp Number: *</label>
+      <input type="tel" id="guestWhatsApp" required placeholder="Enter your whatsapp number" />
+
+      <div class="centered">
+        <button id="confirmOrder" type="button">Confirm Order</button>
+        <p class="helper">Clicking Confirm opens WhatsApp with your order details pre-filled.</p>
+      </div>
+    </section>
+  </main>
+
+  <button id="cartButton" type="button" aria-label="Go to order summary">🛒</button>
+  <div id="imagePreviewModal" class="image-preview-modal" aria-hidden="true">
+    <div class="image-preview-content">
+      <button type="button" class="image-preview-close" id="imagePreviewClose" aria-label="Close image preview">×</button>
+      <img id="imagePreviewImg" alt="Menu item preview" />
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const menuContainer = document.getElementById('menuContainer');
+      const tabVegBtn = document.getElementById('tabVeg');
+      const tabNonVegBtn = document.getElementById('tabNonVeg');
+      const tabGeneralBtn = document.getElementById('tabGeneral');
+      const orderList = document.getElementById('orderList');
+      const orderTotalEl = document.getElementById('orderTotal');
+      const confirmOrderBtn = document.getElementById('confirmOrder');
+      const imagePreviewModal = document.getElementById('imagePreviewModal');
+      const imagePreviewImg = document.getElementById('imagePreviewImg');
+      const imagePreviewClose = document.getElementById('imagePreviewClose');
+      const availableImages = new Set([
+        "ApolloFish.jpg","BabyCorn65.jpg","BabyCornManchurian.jpg","ButterGarlicFish.jpg","ButterGarlicPrawn.jpg","CashewChicken.jpg","Chicken555.jpg","Chicken65.jpg","ChickenBonelessBiryani.jpg","ChickenChillyWings.jpg","ChickenDrumsticks(6Pcs).jpg","ChickenDumBiryani.JPG","ChickenFriedWings(9Pcs).jpg","ChickenFryBiryani.jpg","ChickenHotandSourceSoup.jpg","ChickenLemonCorriandorSoup.jpg","ChickenLollypop(6Pcs).jpg","ChickenManchowSoup.jpg","ChickenManchurian.JPG","ChickenMughalaiBiryani.jpg","ChickenSweetcornSoup.jpg","ChickenTikka8pcs.jpg","ChilliMushroom.jpg","ChillyBabyCorn.jpg","ChillyChicken.jpg","ChillyGarlicPrawn.jpg","CrispyAmericanCorn.jpg","CrispyBabyCorn.jpg","CrispyChicken.jpg","CrunchyChicken.jpg","DragonChicken.jpg","FrenchFries.jpg","GarlicChicken.jpg","GingerChicken.jpg","LemonChicken.jpg","LemonCorriandorSoup.jpg","LoosePrawns.jpg","MurgMalaiKabab8pcs.jpg","Mushroom65.jpg","MushroomManchurian.jpg","PaneerManchurian.jpg","PepperChicken.jpg","PrawnsRoast.jpg","SchezwanChicken.jpg","SchezwanPrawn.jpg","TandooriChickenFull.jpg","TandooriChickenHalf.jpg","TandooriDoubleJointBiryani.jpg","TandooriPrawn.jpg","VegHotandSourceSoup.jpg","VegManchowSoup.jpg","VegManchurian.jpg","VegSweetcornSoup.jpg","chickenthangdikababfull.jpg","chickenthangdikababhalf.jpg","chilligarlicfish.jpg","chillipaneer.jpg","garlic_bread.jpg","header_background6.jpg","hotelexcellalogo.jpg","hotelexcellalogo.png","hotelexcellalogo1.png","hotelexcellalogosmall.png","kfcpaneer.jpg","menu_icon.png","muttonfry.jpg","paneer65.jpg","paneerfingers.jpg","paneermalaitikka.jpg","paneertikka.jpg","sanvigrouplogo.jpg","spring_rolls.jpg"
+      ]);
+
+      let menuData = { veg: {}, nonveg: {}, general: {} };
+      let currentTab = 'veg';
+      let currentOrder = {};
+
+      function parseCSV(text) {
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim());
+
+        return lines.slice(1).map(line => {
+          const values = [];
+          let match;
+          const regex = /("([^"]*)"|[^,]+)/g;
+          while ((match = regex.exec(line)) !== null) {
+            values.push(match[2] !== undefined ? match[2] : match[1]);
+          }
+          const obj = {};
+          headers.forEach((h, i) => (obj[h] = values[i] ? values[i].trim() : ''));
+          return obj;
+        });
+      }
+
+      function renderMenu() {
+        const data = menuData[currentTab];
+        if (!data || Object.keys(data).length === 0) {
+          menuContainer.innerHTML = '<p class="notes">No items.</p>';
+          return;
+        }
+
+        let tabsHtml = '<div class="category-tabs">';
+        for (const category of Object.keys(data)) {
+          tabsHtml += `<button type="button" data-category="${category}">${category}</button>`;
+        }
+        tabsHtml += '</div><div id="categoryContent"></div>';
+        menuContainer.innerHTML = tabsHtml;
+        menuContainer.querySelectorAll('.category-tabs button').forEach(button => {
+          button.addEventListener('click', () => showCategory(button.dataset.category));
+        });
+        showCategory(Object.keys(data)[0]);
+      }
+
+      function buildImageFallbacks(fileName) {
+        if (!fileName) return [];
+        const base = fileName.replace(/^images\//i, '').trim();
+        const extIndex = base.lastIndexOf('.');
+        if (extIndex < 0) return [`images/${base}`];
+
+        const nameOnly = base.slice(0, extIndex);
+        const ext = base.slice(extIndex + 1);
+        const variants = new Set([
+          `images/${base}`,
+          `images/${nameOnly}.${ext.toLowerCase()}`,
+          `images/${nameOnly}.${ext.toUpperCase()}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext.toLowerCase()}`,
+          `images/${nameOnly.replace(/\s+/g, '')}.${ext.toUpperCase()}`
+        ]);
+        return [...variants];
+      }
+
+      function resolveImageSource(fileName) {
+        if (!fileName) return null;
+        const candidates = buildImageFallbacks(fileName).map(path => path.replace(/^images\//, ''));
+        const validName = candidates.find(name => availableImages.has(name));
+        return validName ? encodeURI(`images/${validName}`) : null;
+      }
+
+      function openImagePreview(src, altText) {
+        if (!src) return;
+        imagePreviewImg.src = src;
+        imagePreviewImg.alt = altText || 'Menu item preview';
+        imagePreviewModal.classList.add('open');
+        imagePreviewModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeImagePreview() {
+        imagePreviewModal.classList.remove('open');
+        imagePreviewModal.setAttribute('aria-hidden', 'true');
+        imagePreviewImg.removeAttribute('src');
+        document.body.style.overflow = '';
+      }
+
+      window.showCategory = function (category) {
+        const items = menuData[currentTab][category] || [];
+        const container = document.getElementById('categoryContent');
+        container.innerHTML = '';
+
+        items.forEach(item => {
+          const qty = currentOrder[item.Name]?.qty || 0;
+          const imageFile = item.ImageURL?.trim();
+          const validImageSrc = resolveImageSource(imageFile);
+          const imageTag = validImageSrc
+            ? `<img src="${validImageSrc}" class="menu-image previewable-image" alt="${item.Name}" loading="lazy" decoding="async" data-fullsrc="${validImageSrc}" data-alt="${item.Name}">`
+            : '';
+          const itemClass = validImageSrc ? 'menu-item' : 'menu-item no-image';
+
+          container.innerHTML += `
+            <div class="${itemClass}">
+              ${imageTag}
+              <div class="menu-item-details">
+                <div class="item-name">${item.Name}</div>
+                <div class="item-desc">${item.Description}</div>
+              </div>
+              <div class="menu-item-controls">
+                <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
+                <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+                  ${qty > 0
+                    ? `<button type="button" class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                       <span class="qty-val">${qty}</span>
+                       <button type="button" class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
+                    : `<button type="button" class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`}
+                </div>
+              </div>
+            </div>`;
+        });
+
+        document.querySelectorAll('.category-tabs button').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-category') === category);
+        });
+
+        container.querySelectorAll('.inc-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = btn.dataset.name;
+            currentOrder[name].qty++;
+            updateOrderSummary();
+            updateMenuQty(name);
+          });
+        });
+
+        container.querySelectorAll('.dec-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = btn.dataset.name;
+            currentOrder[name].qty--;
+            if (currentOrder[name].qty <= 0) delete currentOrder[name];
+            updateOrderSummary();
+            updateMenuQty(name);
+          });
+        });
+
+        container.querySelectorAll('.add-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = btn.dataset.name;
+            currentOrder[name] = { qty: 1, price: parseFloat(btn.dataset.price) };
+            updateOrderSummary();
+            updateMenuQty(name);
+          });
+        });
+
+        container.querySelectorAll('.previewable-image').forEach(img => {
+          img.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            openImagePreview(img.dataset.fullsrc, img.dataset.alt);
+          });
+          img.addEventListener('error', () => {
+            img.closest('.menu-item')?.classList.add('no-image');
+            img.remove();
+          });
+        });
+      };
+
+      function updateMenuQty(name) {
+        const activeCategoryBtn = document.querySelector('.category-tabs button.active');
+        if (activeCategoryBtn) showCategory(activeCategoryBtn.dataset.category);
+      }
+
+      function sanitizeInput(str) {
+        if (!str) return '';
+        return str.replace(/[<>"'`]/g, '').replace(/\s+/g, ' ').trim();
+      }
+
+      function isValidRoomNumber(room) {
+        const validRooms = [];
+        [100, 200, 300, 400].forEach(floor => {
+          for (let i = 1; i <= 6; i++) validRooms.push(floor + i);
+        });
+        return validRooms.includes(parseInt(room, 10));
+      }
+
+      function isValidPhoneNumber(number) {
+        return /^[6-9]\d{9}$/.test(number);
+      }
+
+      function updateOrderSummary() {
+        orderList.innerHTML = '';
+        let total = 0;
+
+        for (const [name, item] of Object.entries(currentOrder)) {
+          const lineTotal = item.qty * item.price;
+          total += lineTotal;
+
+          orderList.innerHTML += `
+            <li>
+              <span class="order-item-name">${name}</span>
+              <div class="order-item-controls">
+                <button type="button" class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
+                <span class="qty-val">${item.qty}</span>
+                <button type="button" class="inc-btn" data-name="${encodeURIComponent(name)}">+</button>
+              </div>
+              <span class="order-item-price">₹${lineTotal.toFixed(2)}</span>
+            </li>`;
+        }
+
+        if (Object.keys(currentOrder).length === 0) {
+          orderList.innerHTML = '<li>No items selected</li>';
+        }
+
+        const gst = total * 0.05;
+        const grandTotal = total + gst;
+        document.getElementById('subtotal').textContent = total.toFixed(2);
+        document.getElementById('gst').textContent = gst.toFixed(2);
+        orderTotalEl.textContent = grandTotal.toFixed(2);
+
+        confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
+        updateCartButton();
+
+        orderList.querySelectorAll('.inc-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = decodeURIComponent(btn.dataset.name);
+            currentOrder[name].qty++;
+            updateOrderSummary();
+            updateMenuQty(name);
+          });
+        });
+
+        orderList.querySelectorAll('.dec-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = decodeURIComponent(btn.dataset.name);
+            currentOrder[name].qty--;
+            if (currentOrder[name].qty <= 0) delete currentOrder[name];
+            updateOrderSummary();
+            updateMenuQty(name);
+          });
+        });
+      }
+
+      function switchActive(activeBtn) {
+        [tabVegBtn, tabNonVegBtn, tabGeneralBtn].forEach(btn => btn.classList.remove('active'));
+        activeBtn.classList.add('active');
+      }
+
+      tabVegBtn.addEventListener('click', () => {
+        currentTab = 'veg';
+        switchActive(tabVegBtn);
+        renderMenu();
+      });
+
+      tabNonVegBtn.addEventListener('click', () => {
+        currentTab = 'nonveg';
+        switchActive(tabNonVegBtn);
+        renderMenu();
+      });
+
+      tabGeneralBtn.addEventListener('click', () => {
+        currentTab = 'general';
+        switchActive(tabGeneralBtn);
+        renderMenu();
+      });
+
+      fetch('menu.csv')
+        .then(r => r.text())
+        .then(text => {
+          const rows = parseCSV(text);
+          rows.forEach(row => {
+            const type = row.Type.toLowerCase();
+            const category = row.Category || 'Misc';
+            if (!menuData[type][category]) menuData[type][category] = [];
+            menuData[type][category].push(row);
+          });
+          renderMenu();
+        });
+
+      confirmOrderBtn.addEventListener('click', () => {
+        const guestName = sanitizeInput(document.getElementById('guestName').value.trim());
+        const roomNumber = sanitizeInput(document.getElementById('roomNumber').value.trim());
+        const guestWhatsApp = sanitizeInput(document.getElementById('guestWhatsApp').value.trim());
+
+        if (!guestName || !roomNumber || !guestWhatsApp) {
+          alert('Please fill all guest details.');
+          return;
+        }
+        if (!isValidPhoneNumber(guestWhatsApp)) {
+          alert('Please enter your valid 10-digit WhatsApp number.');
+          return;
+        }
+        if (!isValidRoomNumber(roomNumber)) {
+          alert('Please enter a valid room number (101–106, 201–206, 301–306, 401–406).');
+          return;
+        }
+
+        const orderDetails = Object.entries(currentOrder)
+          .map(([name, item]) => `${name} x ${item.qty}`)
+          .join('\n');
+
+        if (!orderDetails) {
+          alert('Please add at least one item to your order.');
+          return;
+        }
+
+        const total = orderTotalEl.textContent;
+        const msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
+        window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+
+      const cartButton = document.getElementById('cartButton');
+      window.updateCartButton = function () {
+        const total = parseFloat(orderTotalEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+        cartButton.style.display = total > 0 ? 'block' : 'none';
+      };
+
+      cartButton.addEventListener('click', () => {
+        const orderSummary = document.getElementById('orderSummarySection');
+        const offset = orderSummary.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      });
+
+      imagePreviewClose.addEventListener('click', closeImagePreview);
+      imagePreviewModal.addEventListener('click', (event) => {
+        if (event.target === imagePreviewModal) closeImagePreview();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && imagePreviewModal.classList.contains('open')) closeImagePreview();
+      });
+      let touchStartY = 0;
+      imagePreviewModal.addEventListener('touchstart', (event) => {
+        touchStartY = event.changedTouches[0].clientY;
+      }, { passive: true });
+      imagePreviewModal.addEventListener('touchend', (event) => {
+        const endY = event.changedTouches[0].clientY;
+        if (endY - touchStartY > 80) closeImagePreview();
+      }, { passive: true });
+
+      updateCartButton();
+    })();
+  </script>
+</body>
 </html>

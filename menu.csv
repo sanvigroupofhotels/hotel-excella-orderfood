@@ -22,7 +22,7 @@ Sorter_by_Category,Type,Category,Name,Description,Price,ImageURL
 2,General,Sides,Green Salad,Fresh seasonal salad.,120,
 2,General,Sides,Omelette,Fluffy omelette made to order.,120,
 2,NonVeg,Starters,Chicken 65,South Indian style fried chicken with spices.,340,Chicken65.jpg
-2,NonVeg,Starters,Chicken Manchurian,Crispy chicken balls in tangy manchurian sauce.,340,ChickenManchurian.jpg
+2,NonVeg,Starters,Chicken Manchurian,Crispy chicken balls in tangy manchurian sauce.,340,ChickenManchurian.JPG
 2,NonVeg,Starters,Chilly Chicken,Stir-fried chicken tossed in chili sauce.,340,ChillyChicken.jpg
 2,NonVeg,Starters,Garlic Chicken,Flavorful chicken stir-fried with garlic.,350,GarlicChicken.jpg
 2,NonVeg,Starters,Ginger Chicken,Chicken tossed in a ginger-based sauce.,350,GingerChicken.jpg
@@ -103,7 +103,7 @@ Sorter_by_Category,Type,Category,Name,Description,Price,ImageURL
 5,Veg,Curries,Cashew Masala,Cashew nut curry in a spiced base.,375,
 5,Veg,Curries,Cashew Paneer,Paneer cooked with cashew-rich gravy.,375,
 6,NonVeg,Biryanis,Chi. Boneless Biryani,Fragrant biryani with tender boneless chicken.,350,ChickenBonelessBiryani.jpg
-6,NonVeg,Biryanis,Chi. Dum Biryani,Classic chicken dum biryani cooked on a slow flame.,315,ChickenDumBiryani.jpg
+6,NonVeg,Biryanis,Chi. Dum Biryani,Classic chicken dum biryani cooked on a slow flame.,315,ChickenDumBiryani.JPG
 6,NonVeg,Biryanis,Chi. Fry Biryani,Biryani served with crispy fried chicken pieces.,325,ChickenFryBiryani.jpg
 6,NonVeg,Biryanis,Chi. Mughlai Biryani,Rich chicken biryani infused with Mughlai spices.,375,ChickenMughalaiBiryani.jpg
 6,NonVeg,Biryanis,Tandoori Double Joint Biryani,Grand biryani topped with double tandoori joints.,550,TandooriDoubleJointBiryani.jpg
