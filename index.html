@@ -364,34 +364,37 @@
     }
 
     #orderList li {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) auto minmax(82px, .7fr);
       align-items: center;
-      gap: .5rem;
-      padding: .48rem .1rem;
+      gap: .45rem;
+      padding: .46rem .1rem;
       border-bottom: 1px dashed rgba(212,175,98,.22);
     }
 
     .order-item-name {
-      flex: 1;
+      min-width: 0;
       color: #f2f2f2;
       font-weight: 600;
-      font-size: .95rem;
+      font-size: .9rem;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
     }
     .order-item-controls { display: flex; align-items: center; gap: .35rem; }
     .order-item-price {
-      min-width: 86px;
+      min-width: 0;
       text-align: right;
       color: #f8f8f8;
       font-weight: 700;
-      font-size: .95rem;
+      font-size: .9rem;
     }
 
     #orderList .inc-btn,
     #orderList .dec-btn {
-      min-width: 32px;
-      min-height: 32px;
+      min-width: 30px;
+      min-height: 30px;
       border-radius: 8px;
-      font-size: .96rem;
+      font-size: .9rem;
       line-height: 1;
       padding: 0;
       border: none;
@@ -400,9 +403,9 @@
     #orderList .inc-btn { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); }
     #orderList .dec-btn { background: linear-gradient(180deg, #e4c897, #b86b60); }
     #orderList .qty-val {
-      min-width: 22px;
+      min-width: 20px;
       color: #f6f6f6;
-      font-size: 1rem;
+      font-size: .95rem;
       font-weight: 600;
       line-height: 1;
     }
@@ -632,6 +635,25 @@
       }
       #orderBox h3 {
         font-size: clamp(1rem, 5.4vw, 1.2rem);
+      }
+      #orderList li {
+        grid-template-columns: minmax(0, 1.55fr) auto minmax(78px, .62fr);
+        gap: .35rem;
+      }
+      .order-item-name {
+        font-size: .86rem;
+      }
+      .order-item-price {
+        font-size: .86rem;
+      }
+      #orderList .inc-btn,
+      #orderList .dec-btn {
+        min-width: 28px;
+        min-height: 28px;
+      }
+      #orderList .qty-val {
+        min-width: 18px;
+        font-size: .88rem;
       }
     }
   </style>
@@ -1154,7 +1176,15 @@
 
       cartButton.addEventListener('click', () => {
         const orderSummary = document.getElementById('orderSummarySection');
-        orderSummary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const stickyOffset = Number.parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue('--sticky-offset'),
+          10
+        ) || 0;
+        const targetTop = Math.max(
+          0,
+          window.scrollY + orderSummary.getBoundingClientRect().top - stickyOffset - 4
+        );
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
       });
 
       function syncStickyOffset() {
