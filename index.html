@@ -246,11 +246,11 @@
     }
 
     .menu-item-details { min-width: 0; }
-    .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
-    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: break-word; word-break: normal; }
+    .item-name { font-weight: 700; font-size: 1.04rem; line-height: 1.35; }
+    .item-desc { color: #d0d0d0; font-size: .92rem; margin-top: .22rem; line-height: 1.42; overflow-wrap: break-word; word-break: normal; }
     .item-price {
       color: var(--gold-soft);
-      font-size: 1.8rem;
+      font-size: 1.24rem;
       font-weight: 700;
       min-width: 0;
       text-align: right;
@@ -271,8 +271,9 @@
       min-width: 105px;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       gap: .35rem;
+      margin-left: auto;
     }
 
     .qty-val {
@@ -280,6 +281,7 @@
       text-align: center;
       font-weight: 700;
       color: var(--text);
+      font-size: .95rem;
     }
 
     .add-btn,
@@ -294,15 +296,18 @@
       font-weight: 700;
       cursor: pointer;
       transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
-      min-height: 40px;
+      min-height: 36px;
+      font-size: .88rem;
     }
 
     .inc-btn,
     .dec-btn {
       color: #101010;
-      min-width: 40px;
+      min-width: 34px;
       padding: .25rem 0;
       border-radius: 10px;
+      font-size: 1rem;
+      line-height: 1;
     }
 
     .dec-btn { background: linear-gradient(180deg, #e6d0a2, #c99779); }
@@ -323,24 +328,26 @@
     #orderSummarySection h2,
     #guestInfo h2 {
       margin-top: 0;
-      margin-bottom: 1rem;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      color: #2f8d38;
-      line-height: 1.05;
+      margin-bottom: .9rem;
+      font-size: clamp(1.35rem, 4.4vw, 1.85rem);
+      color: var(--gold-soft);
+      line-height: 1.2;
+      letter-spacing: .01em;
     }
 
     #orderBox {
-      background: #2f8d38;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      padding: 1.25rem;
+      background: linear-gradient(180deg, rgba(33,33,33,.96), rgba(19,19,19,.97));
+      border: 1px solid rgba(212, 175, 98, 0.28);
+      border-radius: 16px;
+      padding: .95rem;
     }
 
     #orderBox h3 {
       margin: 0;
-      color: #f4b545;
-      font-size: clamp(2rem, 4.7vw, 2.45rem);
-      line-height: 1.05;
+      color: var(--gold-soft);
+      font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+      line-height: 1.2;
+      font-weight: 700;
     }
 
     #orderList {
@@ -355,23 +362,23 @@
       display: flex;
       align-items: center;
       gap: .5rem;
-      padding: .55rem .1rem;
-      border-bottom: 1px dashed rgba(255,255,255,.24);
+      padding: .48rem .1rem;
+      border-bottom: 1px dashed rgba(212,175,98,.22);
     }
 
     .order-item-name {
       flex: 1;
-      color: #f8f8f8;
-      font-weight: 500;
-      font-size: 1.05rem;
+      color: #f2f2f2;
+      font-weight: 600;
+      font-size: .95rem;
     }
     .order-item-controls { display: flex; align-items: center; gap: .35rem; }
     .order-item-price {
-      min-width: 98px;
+      min-width: 86px;
       text-align: right;
       color: #f8f8f8;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: .95rem;
     }
 
     #orderList .inc-btn,
@@ -379,45 +386,46 @@
       min-width: 32px;
       min-height: 32px;
       border-radius: 8px;
-      font-size: 1.05rem;
+      font-size: .96rem;
       line-height: 1;
       padding: 0;
       border: none;
-      color: #fff;
+      color: #0d0d0d;
     }
-    #orderList .inc-btn { background: #45b34d; }
-    #orderList .dec-btn { background: #ea4a4a; }
+    #orderList .inc-btn { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); }
+    #orderList .dec-btn { background: linear-gradient(180deg, #e4c897, #b86b60); }
     #orderList .qty-val {
       min-width: 22px;
-      color: #fff;
-      font-size: 1.3rem;
-      font-weight: 500;
+      color: #f6f6f6;
+      font-size: 1rem;
+      font-weight: 600;
       line-height: 1;
     }
 
     .order-summary-footer {
       margin-top: .45rem;
-      padding: 1rem .95rem;
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
+      padding: .75rem .7rem;
+      border-radius: 11px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(212,175,98,.16);
       display: grid;
-      gap: .4rem;
+      gap: .3rem;
     }
 
     .summary-line {
       display: flex;
       justify-content: space-between;
       color: #f0f0f0;
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-size: .9rem;
+      font-weight: 600;
     }
     .summary-line.total {
       margin-top: .35rem;
-      padding-top: .65rem;
-      border-top: 2px solid #f1c24a;
-      color: #fff;
+      padding-top: .55rem;
+      border-top: 1px solid rgba(241,194,74,.65);
+      color: #fff9ea;
       font-weight: 700;
-      font-size: 1.3rem;
+      font-size: 1.05rem;
     }
 
     #orderTotal::before { content: "₹"; margin-right: 2px; }
@@ -425,20 +433,22 @@
     #guestInfo label {
       display: block;
       margin-bottom: .35rem;
-      color: var(--text);
+      color: #ececec;
       font-weight: 600;
+      font-size: .92rem;
     }
 
     #guestInfo input {
       width: 100%;
       margin-bottom: .85rem;
-      padding: .72rem .78rem;
-      border-radius: 11px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: #141414;
+      padding: .68rem .74rem;
+      border-radius: 9px;
+      border: 1px solid rgba(212,175,98,.22);
+      background: #111111;
       color: var(--text);
       outline: none;
       transition: border-color .16s ease, box-shadow .16s ease;
+      font-size: .92rem;
     }
 
     #guestInfo input:focus {
@@ -450,8 +460,8 @@
       width: 100%;
       max-width: 280px;
       margin-top: .35rem;
-      font-size: 1.05rem;
-      min-height: 46px;
+      font-size: .98rem;
+      min-height: 42px;
     }
 
     #confirmOrder:disabled {
@@ -466,6 +476,17 @@
       margin: .6rem 0 0;
       color: var(--text-muted);
       font-size: .84rem;
+    }
+    .form-error {
+      margin: -.45rem 0 .65rem;
+      color: #ff8f8f;
+      font-size: .78rem;
+      display: none;
+    }
+    .form-error.visible { display: block; }
+    .field-invalid {
+      border-color: rgba(255, 120, 120, .75) !important;
+      box-shadow: 0 0 0 3px rgba(220,80,80,.18) !important;
     }
 
     #cartButton {
@@ -578,18 +599,29 @@
         min-width: 0;
       }
       .item-name { font-size: 1.06rem; }
-      .item-desc { font-size: .98rem; overflow-wrap: break-word; word-break: normal; }
+      .item-desc { font-size: .88rem; overflow-wrap: break-word; word-break: normal; }
       #type-tabs { top: 74px; }
       .menu-item.no-image .menu-item-controls {
         justify-content: flex-end;
       }
-      .item-price { font-size: 1.95rem; min-width: 120px; }
+      .item-price { font-size: 1.06rem; min-width: 76px; }
+      .quantity-selector { min-width: 98px; }
+      .add-btn,
+      .inc-btn,
+      .dec-btn {
+        min-height: 34px;
+        font-size: .82rem;
+      }
+      .inc-btn,
+      .dec-btn {
+        min-width: 30px;
+      }
       #orderSummarySection h2,
       #guestInfo h2 {
-        font-size: clamp(1.95rem, 11vw, 3rem);
+        font-size: clamp(1.2rem, 7vw, 1.5rem);
       }
       #orderBox h3 {
-        font-size: clamp(1.85rem, 9.2vw, 2.4rem);
+        font-size: clamp(1rem, 5.4vw, 1.2rem);
       }
     }
   </style>
@@ -689,6 +721,9 @@
       const orderTotalEl = document.getElementById('orderTotal');
       const confirmOrderBtn = document.getElementById('confirmOrder');
       const cartCountBadge = document.getElementById('cartCount');
+      const guestNameInput = document.getElementById('guestName');
+      const roomNumberInput = document.getElementById('roomNumber');
+      const guestWhatsAppInput = document.getElementById('guestWhatsApp');
       const imagePreviewModal = document.getElementById('imagePreviewModal');
       const imagePreviewImg = document.getElementById('imagePreviewImg');
       const imagePreviewClose = document.getElementById('imagePreviewClose');
@@ -699,22 +734,69 @@
       let menuData = { veg: {}, nonveg: {}, general: {} };
       let currentTab = 'veg';
       let currentOrder = {};
+      let activeCategory = null;
+
+      [guestNameInput, roomNumberInput, guestWhatsAppInput].forEach((input) => {
+        const error = document.createElement('p');
+        error.className = 'form-error';
+        error.setAttribute('aria-live', 'polite');
+        input.insertAdjacentElement('afterend', error);
+      });
 
       function parseCSV(text) {
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim());
+        const rows = [];
+        let current = '';
+        let row = [];
+        let inQuotes = false;
+        const normalized = text.replace(/\r\n/g, '\n');
 
-        return lines.slice(1).map(line => {
-          const values = [];
-          let match;
-          const regex = /("([^"]*)"|[^,]+)/g;
-          while ((match = regex.exec(line)) !== null) {
-            values.push(match[2] !== undefined ? match[2] : match[1]);
+        for (let i = 0; i < normalized.length; i++) {
+          const char = normalized[i];
+          const next = normalized[i + 1];
+          if (char === '"' && inQuotes && next === '"') {
+            current += '"';
+            i++;
+            continue;
           }
+          if (char === '"') {
+            inQuotes = !inQuotes;
+            continue;
+          }
+          if (char === ',' && !inQuotes) {
+            row.push(current.trim());
+            current = '';
+            continue;
+          }
+          if (char === '\n' && !inQuotes) {
+            row.push(current.trim());
+            if (row.some(Boolean)) rows.push(row);
+            row = [];
+            current = '';
+            continue;
+          }
+          current += char;
+        }
+
+        if (current.length || row.length) {
+          row.push(current.trim());
+          if (row.some(Boolean)) rows.push(row);
+        }
+
+        const headers = (rows.shift() || []).map(h => h.trim());
+        return rows.map(values => {
           const obj = {};
           headers.forEach((h, i) => (obj[h] = values[i] ? values[i].trim() : ''));
           return obj;
         });
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
       }
 
       function renderMenu() {
@@ -733,7 +815,7 @@
         menuContainer.querySelectorAll('.category-tabs button').forEach(button => {
           button.addEventListener('click', () => showCategory(button.dataset.category));
         });
-        showCategory(Object.keys(data)[0]);
+        showCategory(activeCategory && data[activeCategory] ? activeCategory : Object.keys(data)[0]);
       }
 
       function buildImageFallbacks(fileName) {
@@ -779,69 +861,45 @@
       }
 
       window.showCategory = function (category) {
+        activeCategory = category;
         const items = menuData[currentTab][category] || [];
         const container = document.getElementById('categoryContent');
-        container.innerHTML = '';
-
-        items.forEach(item => {
-          const qty = currentOrder[item.Name]?.qty || 0;
+        const cards = items.map(item => {
+          const rawName = String(item.Name || '').trim();
+          const itemName = escapeHtml(rawName);
+          const itemDesc = escapeHtml(item.Description);
+          const itemPrice = Number.parseFloat(item.Price || 0);
+          const qty = currentOrder[rawName]?.qty || 0;
           const imageFile = item.ImageURL?.trim();
           const validImageSrc = resolveImageSource(imageFile);
           const imageTag = validImageSrc
-            ? `<img src="${validImageSrc}" class="menu-image previewable-image" alt="${item.Name}" loading="lazy" decoding="async" data-fullsrc="${validImageSrc}" data-alt="${item.Name}">`
+            ? `<img src="${validImageSrc}" class="menu-image previewable-image" alt="${itemName}" width="94" height="94" loading="lazy" decoding="async" data-fullsrc="${validImageSrc}" data-alt="${itemName}">`
             : '';
           const itemClass = validImageSrc ? 'menu-item' : 'menu-item no-image';
 
-          container.innerHTML += `
+          return `
             <div class="${itemClass}">
               ${imageTag}
               <div class="menu-item-details">
-                <div class="item-name">${item.Name}</div>
-                <div class="item-desc">${item.Description}</div>
+                <div class="item-name">${itemName}</div>
+                <div class="item-desc">${itemDesc}</div>
               </div>
               <div class="menu-item-controls">
-                <div class="item-price" aria-label="Price">₹${parseFloat(item.Price).toFixed(2)}</div>
-                <div class="quantity-selector" id="qty-${item.Name.replace(/\s+/g, '_')}">
+                <div class="item-price" aria-label="Price">₹${itemPrice.toFixed(2)}</div>
+                <div class="quantity-selector" id="qty-${rawName.replace(/\s+/g, '_')}">
                   ${qty > 0
-                    ? `<button type="button" class="dec-btn" data-name="${item.Name}" data-price="${item.Price}">-</button>
+                    ? `<button type="button" class="dec-btn" aria-label="Decrease ${itemName}" data-name="${escapeHtml(rawName)}" data-price="${itemPrice}">-</button>
                        <span class="qty-val">${qty}</span>
-                       <button type="button" class="inc-btn" data-name="${item.Name}" data-price="${item.Price}">+</button>`
-                    : `<button type="button" class="add-btn" data-name="${item.Name}" data-price="${item.Price}">Add</button>`}
+                       <button type="button" class="inc-btn" aria-label="Increase ${itemName}" data-name="${escapeHtml(rawName)}" data-price="${itemPrice}">+</button>`
+                    : `<button type="button" class="add-btn" aria-label="Add ${itemName}" data-name="${escapeHtml(rawName)}" data-price="${itemPrice}">Add</button>`}
                 </div>
               </div>
             </div>`;
         });
+        container.innerHTML = cards.join('');
 
         document.querySelectorAll('.category-tabs button').forEach(btn => {
           btn.classList.toggle('active', btn.getAttribute('data-category') === category);
-        });
-
-        container.querySelectorAll('.inc-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            currentOrder[name].qty++;
-            updateOrderSummary();
-            updateMenuQty(name);
-          });
-        });
-
-        container.querySelectorAll('.dec-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            currentOrder[name].qty--;
-            if (currentOrder[name].qty <= 0) delete currentOrder[name];
-            updateOrderSummary();
-            updateMenuQty(name);
-          });
-        });
-
-        container.querySelectorAll('.add-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            currentOrder[name] = { qty: 1, price: parseFloat(btn.dataset.price) };
-            updateOrderSummary();
-            updateMenuQty(name);
-          });
         });
 
         container.querySelectorAll('.previewable-image').forEach(img => {
@@ -858,8 +916,8 @@
       };
 
       function updateMenuQty(name) {
-        const activeCategoryBtn = document.querySelector('.category-tabs button.active');
-        if (activeCategoryBtn) showCategory(activeCategoryBtn.dataset.category);
+        if (name && currentOrder[name] && currentOrder[name].qty < 1) delete currentOrder[name];
+        if (activeCategory) showCategory(activeCategory);
       }
 
       function sanitizeInput(str) {
@@ -879,6 +937,46 @@
         return /^[6-9]\d{9}$/.test(number);
       }
 
+      function setFieldError(input, message = '') {
+        const errorEl = input.nextElementSibling;
+        if (!errorEl || !errorEl.classList.contains('form-error')) return;
+        input.classList.toggle('field-invalid', Boolean(message));
+        errorEl.textContent = message;
+        errorEl.classList.toggle('visible', Boolean(message));
+      }
+
+      function validateForm() {
+        const guestName = sanitizeInput(guestNameInput.value.trim());
+        const roomNumber = sanitizeInput(roomNumberInput.value.trim());
+        const guestWhatsApp = sanitizeInput(guestWhatsAppInput.value.trim());
+        let valid = true;
+
+        setFieldError(guestNameInput, guestName ? '' : 'Guest name is required.');
+        if (!guestName) valid = false;
+
+        if (!roomNumber) {
+          setFieldError(roomNumberInput, 'Room number is required.');
+          valid = false;
+        } else if (!isValidRoomNumber(roomNumber)) {
+          setFieldError(roomNumberInput, 'Valid rooms: 101–106, 201–206, 301–306, 401–406.');
+          valid = false;
+        } else {
+          setFieldError(roomNumberInput);
+        }
+
+        if (!guestWhatsApp) {
+          setFieldError(guestWhatsAppInput, 'WhatsApp number is required.');
+          valid = false;
+        } else if (!isValidPhoneNumber(guestWhatsApp)) {
+          setFieldError(guestWhatsAppInput, 'Enter a valid 10-digit Indian mobile number.');
+          valid = false;
+        } else {
+          setFieldError(guestWhatsAppInput);
+        }
+
+        return valid;
+      }
+
       function updateOrderSummary() {
         orderList.innerHTML = '';
         let total = 0;
@@ -886,10 +984,11 @@
         for (const [name, item] of Object.entries(currentOrder)) {
           const lineTotal = item.qty * item.price;
           total += lineTotal;
+          const safeName = escapeHtml(name);
 
           orderList.innerHTML += `
             <li>
-              <span class="order-item-name">${name}</span>
+              <span class="order-item-name">${safeName}</span>
               <div class="order-item-controls">
                 <button type="button" class="dec-btn" data-name="${encodeURIComponent(name)}">-</button>
                 <span class="qty-val">${item.qty}</span>
@@ -911,6 +1010,7 @@
 
         confirmOrderBtn.disabled = Object.keys(currentOrder).length === 0;
         updateCartButton();
+        saveOrderState();
 
         orderList.querySelectorAll('.inc-btn').forEach(btn => {
           btn.addEventListener('click', () => {
@@ -955,6 +1055,42 @@
         renderMenu();
       });
 
+      menuContainer.addEventListener('click', (event) => {
+        const actionButton = event.target.closest('.add-btn, .inc-btn, .dec-btn');
+        if (!actionButton) return;
+        const name = actionButton.dataset.name;
+        const price = Number.parseFloat(actionButton.dataset.price || 0);
+        if (!name || Number.isNaN(price)) return;
+
+        if (actionButton.classList.contains('add-btn')) {
+          currentOrder[name] = { qty: 1, price };
+        } else if (actionButton.classList.contains('inc-btn')) {
+          if (!currentOrder[name]) currentOrder[name] = { qty: 0, price };
+          currentOrder[name].qty++;
+        } else if (actionButton.classList.contains('dec-btn') && currentOrder[name]) {
+          currentOrder[name].qty--;
+          if (currentOrder[name].qty <= 0) delete currentOrder[name];
+        }
+
+        updateOrderSummary();
+        updateMenuQty(name);
+      });
+
+      function saveOrderState() {
+        localStorage.setItem('hotel_excella_order', JSON.stringify(currentOrder));
+      }
+
+      function loadOrderState() {
+        try {
+          const stored = JSON.parse(localStorage.getItem('hotel_excella_order') || '{}');
+          if (stored && typeof stored === 'object') currentOrder = stored;
+        } catch (error) {
+          currentOrder = {};
+        }
+      }
+
+      loadOrderState();
+
       fetch('menu.csv')
         .then(r => r.text())
         .then(text => {
@@ -966,25 +1102,17 @@
             menuData[type][category].push(row);
           });
           renderMenu();
+          updateOrderSummary();
+        })
+        .catch(() => {
+          menuContainer.innerHTML = '<p class="notes">Unable to load menu right now. Please refresh once.</p>';
         });
 
       confirmOrderBtn.addEventListener('click', () => {
-        const guestName = sanitizeInput(document.getElementById('guestName').value.trim());
-        const roomNumber = sanitizeInput(document.getElementById('roomNumber').value.trim());
-        const guestWhatsApp = sanitizeInput(document.getElementById('guestWhatsApp').value.trim());
-
-        if (!guestName || !roomNumber || !guestWhatsApp) {
-          alert('Please fill all guest details.');
-          return;
-        }
-        if (!isValidPhoneNumber(guestWhatsApp)) {
-          alert('Please enter your valid 10-digit WhatsApp number.');
-          return;
-        }
-        if (!isValidRoomNumber(roomNumber)) {
-          alert('Please enter a valid room number (101–106, 201–206, 301–306, 401–406).');
-          return;
-        }
+        const guestName = sanitizeInput(guestNameInput.value.trim());
+        const roomNumber = sanitizeInput(roomNumberInput.value.trim());
+        const guestWhatsApp = sanitizeInput(guestWhatsAppInput.value.trim());
+        if (!validateForm()) return;
 
         const orderDetails = Object.entries(currentOrder)
           .map(([name, item]) => `${name} x ${item.qty}`)
@@ -998,6 +1126,12 @@
         const total = orderTotalEl.textContent;
         const msg = `Guest: ${guestName}\nRoom: ${roomNumber}\nWhatsApp: ${guestWhatsApp}\nOrder:\n${orderDetails}\nTotal: ₹${total}`;
         window.open(`https://wa.me/919985908131?text=${encodeURIComponent(msg)}`, '_blank');
+      });
+
+      [guestNameInput, roomNumberInput, guestWhatsAppInput].forEach((input) => {
+        input.addEventListener('input', () => {
+          if (input.classList.contains('field-invalid')) validateForm();
+        });
       });
 
       const cartButton = document.getElementById('cartButton');
