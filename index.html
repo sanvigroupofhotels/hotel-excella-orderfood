@@ -207,7 +207,7 @@
       display: grid;
       grid-template-columns: 94px minmax(0, 1fr) auto;
       gap: .8rem;
-      align-items: center;
+      align-items: start;
       padding: .75rem;
       border-radius: var(--radius-md);
       background: linear-gradient(180deg, rgba(34,34,34,.9), rgba(25,25,25,.95));
@@ -233,28 +233,37 @@
       transition: transform .18s ease, box-shadow .18s ease;
     }
     .menu-image:hover { transform: scale(1.02); box-shadow: 0 0 0 1px rgba(212,175,98,.24); }
-    .menu-item.no-image { grid-template-columns: minmax(0, 1fr) auto; }
+    .menu-item.no-image {
+      grid-template-columns: minmax(0, 1fr);
+      gap: .55rem;
+      padding: .85rem .9rem;
+    }
     .menu-item.no-image .menu-item-details { grid-column: 1; }
-    .menu-item.no-image .menu-item-controls { grid-column: 2; }
+    .menu-item.no-image .menu-item-controls {
+      grid-column: 1;
+      justify-content: space-between;
+      width: 100%;
+    }
 
     .menu-item-details { min-width: 0; }
     .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
     .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: break-word; word-break: normal; }
     .item-price {
       color: var(--gold-soft);
-      font-size: 1.05rem;
+      font-size: 1.9rem;
       font-weight: 700;
-      margin-right: .7rem;
-      min-width: 76px;
-      text-align: right;
+      margin-right: .4rem;
+      min-width: 120px;
+      text-align: left;
+      letter-spacing: .01em;
     }
 
     .menu-item-controls {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: space-between;
       gap: .6rem;
-      min-width: 0;
+      min-width: 210px;
     }
 
     .quantity-selector {
@@ -322,7 +331,7 @@
       background: var(--surface);
       border: 1px solid rgba(212,175,98,.2);
       border-radius: var(--radius-md);
-      padding: .95rem;
+      padding: 1rem;
     }
 
     #orderBox h3 { margin: 0; color: var(--text); }
@@ -339,17 +348,20 @@
       display: flex;
       align-items: center;
       gap: .55rem;
-      padding: .55rem 0;
-      border-bottom: 1px dashed rgba(255,255,255,.15);
+      padding: .65rem .1rem;
+      border-bottom: 1px dashed rgba(255,255,255,.11);
     }
 
-    .order-item-name { flex: 1; color: var(--text); }
+    .order-item-name { flex: 1; color: var(--text); font-weight: 600; }
     .order-item-controls { display: flex; align-items: center; gap: .35rem; }
     .order-item-price { min-width: 76px; text-align: right; color: var(--gold-soft); font-weight: 700; }
 
     .order-summary-footer {
-      padding-top: .55rem;
+      margin-top: .35rem;
+      padding: .8rem .75rem;
       border-top: 1px solid rgba(212,175,98,.22);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(212,175,98,.08), rgba(212,175,98,.02));
       display: grid;
       gap: .28rem;
     }
@@ -420,10 +432,10 @@
       width: 54px;
       height: 54px;
       border-radius: 50%;
-      border: 1px solid rgba(212,175,98,.4);
-      color: #101010;
+      border: 1px solid rgba(0,0,0,.35);
+      color: #000;
       font-size: 1.4rem;
-      background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+      background: #f5d88d;
       box-shadow: 0 12px 28px rgba(0,0,0,.45), 0 0 14px rgba(212,175,98,.26);
       display: flex;
       align-items: center;
@@ -437,9 +449,9 @@
       min-width: 22px;
       height: 22px;
       border-radius: 999px;
-      border: 1px solid rgba(212,175,98,.45);
-      background: #111;
-      color: var(--gold-soft);
+      border: 1px solid rgba(0,0,0,.18);
+      background: #ffffff;
+      color: #111;
       font-size: .72rem;
       font-weight: 700;
       display: flex;
@@ -448,8 +460,13 @@
       padding: 0 .25rem;
       line-height: 1;
     }
+    #cartButton svg {
+      width: 24px;
+      height: 24px;
+      fill: #000;
+    }
     #cartButton .cart-count.hidden { display: none; }
-    #orderSummarySection { scroll-margin-top: 88px; }
+    #orderSummarySection { scroll-margin-top: 96px; }
 
     .centered { text-align: center; }
     .image-preview-modal {
@@ -507,14 +524,16 @@
       .menu-item-controls {
         grid-column: 1 / -1;
         justify-content: space-between;
-        margin-top: .2rem;
+        margin-top: .35rem;
+        min-width: 0;
       }
       .item-name { font-size: 1.06rem; }
       .item-desc { font-size: .98rem; overflow-wrap: break-word; word-break: normal; }
       #type-tabs { top: 74px; }
       .menu-item.no-image .menu-item-controls {
-        justify-content: flex-start;
+        justify-content: space-between;
       }
+      .item-price { font-size: 1.05rem; min-width: 86px; }
     }
   </style>
 </head>
@@ -590,7 +609,12 @@
     </section>
   </main>
 
-  <button id="cartButton" type="button" aria-label="Go to order summary">🛒<span class="cart-count hidden" id="cartCount">0</span></button>
+  <button id="cartButton" type="button" aria-label="Go to order summary">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 13h9.9c.75 0 1.41-.41 1.75-1.03L22.7 5H6.21l-.94-2H1v2h3l3.6 7.59-1.35 2.45A2 2 0 0 0 8 18h12v-2H8l1.2-2.17z"/>
+    </svg>
+    <span class="cart-count hidden" id="cartCount">0</span>
+  </button>
   <div id="imagePreviewModal" class="image-preview-modal" aria-hidden="true">
     <div class="image-preview-content">
       <button type="button" class="image-preview-close" id="imagePreviewClose" aria-label="Close image preview">×</button>
@@ -928,7 +952,10 @@
 
       cartButton.addEventListener('click', () => {
         const orderSummary = document.getElementById('orderSummarySection');
-        orderSummary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const stickyHeader = document.querySelector('.site-header');
+        const headerOffset = (stickyHeader?.offsetHeight || 0) + 10;
+        const targetY = orderSummary.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: Math.max(targetY, 0), behavior: 'smooth' });
       });
 
       imagePreviewClose.addEventListener('click', closeImagePreview);
