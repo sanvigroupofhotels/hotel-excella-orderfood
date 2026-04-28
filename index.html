@@ -167,6 +167,8 @@
       max-width: 100%;
       min-width: 0;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      padding-inline: .1rem;
     }
 
     .category-tabs button {
@@ -237,7 +239,7 @@
 
     .menu-item-details { min-width: 0; }
     .item-name { font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
-    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: anywhere; }
+    .item-desc { color: #d0d0d0; font-size: .97rem; margin-top: .3rem; line-height: 1.45; overflow-wrap: break-word; word-break: normal; }
     .item-price {
       color: var(--gold-soft);
       font-size: 1.05rem;
@@ -282,12 +284,13 @@
       font-weight: 700;
       cursor: pointer;
       transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+      min-height: 40px;
     }
 
     .inc-btn,
     .dec-btn {
       color: #101010;
-      min-width: 32px;
+      min-width: 40px;
       padding: .25rem 0;
       border-radius: 10px;
     }
@@ -336,7 +339,7 @@
       display: flex;
       align-items: center;
       gap: .55rem;
-      padding: .45rem 0;
+      padding: .55rem 0;
       border-bottom: 1px dashed rgba(255,255,255,.15);
     }
 
@@ -391,7 +394,8 @@
       width: 100%;
       max-width: 280px;
       margin-top: .35rem;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      min-height: 46px;
     }
 
     #confirmOrder:disabled {
@@ -421,9 +425,31 @@
       font-size: 1.4rem;
       background: linear-gradient(180deg, var(--gold-soft), var(--gold));
       box-shadow: 0 12px 28px rgba(0,0,0,.45), 0 0 14px rgba(212,175,98,.26);
-      display: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
     }
+    #cartButton .cart-count {
+      position: absolute;
+      top: -7px;
+      right: -4px;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,98,.45);
+      background: #111;
+      color: var(--gold-soft);
+      font-size: .72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 .25rem;
+      line-height: 1;
+    }
+    #cartButton .cart-count.hidden { display: none; }
+    #orderSummarySection { scroll-margin-top: 88px; }
 
     .centered { text-align: center; }
     .image-preview-modal {
@@ -484,8 +510,11 @@
         margin-top: .2rem;
       }
       .item-name { font-size: 1.06rem; }
-      .item-desc { font-size: .98rem; }
+      .item-desc { font-size: .98rem; overflow-wrap: break-word; word-break: normal; }
       #type-tabs { top: 74px; }
+      .menu-item.no-image .menu-item-controls {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
@@ -561,7 +590,7 @@
     </section>
   </main>
 
-  <button id="cartButton" type="button" aria-label="Go to order summary">🛒</button>
+  <button id="cartButton" type="button" aria-label="Go to order summary">🛒<span class="cart-count hidden" id="cartCount">0</span></button>
   <div id="imagePreviewModal" class="image-preview-modal" aria-hidden="true">
     <div class="image-preview-content">
       <button type="button" class="image-preview-close" id="imagePreviewClose" aria-label="Close image preview">×</button>
@@ -578,6 +607,7 @@
       const orderList = document.getElementById('orderList');
       const orderTotalEl = document.getElementById('orderTotal');
       const confirmOrderBtn = document.getElementById('confirmOrder');
+      const cartCountBadge = document.getElementById('cartCount');
       const imagePreviewModal = document.getElementById('imagePreviewModal');
       const imagePreviewImg = document.getElementById('imagePreviewImg');
       const imagePreviewClose = document.getElementById('imagePreviewClose');
@@ -891,14 +921,14 @@
 
       const cartButton = document.getElementById('cartButton');
       window.updateCartButton = function () {
-        const total = parseFloat(orderTotalEl.textContent.replace(/[^0-9.]/g, '')) || 0;
-        cartButton.style.display = total > 0 ? 'block' : 'none';
+        const itemCount = Object.values(currentOrder).reduce((sum, item) => sum + item.qty, 0);
+        cartCountBadge.textContent = itemCount;
+        cartCountBadge.classList.toggle('hidden', itemCount === 0);
       };
 
       cartButton.addEventListener('click', () => {
         const orderSummary = document.getElementById('orderSummarySection');
-        const offset = orderSummary.getBoundingClientRect().top + window.scrollY - 72;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
+        orderSummary.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
 
       imagePreviewClose.addEventListener('click', closeImagePreview);
